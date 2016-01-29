@@ -10,6 +10,17 @@ Caroline
 Sophie
 Angus 
 
+<<<<<<< HEAD
+=======
+##Description of the App:
+###What is Bill Palace?
+**Bill Palace** allows users to enter their bills and keep up with their finances.
+
+The time is 12:12pm and I am making a change - _Caroline_
+- Fixing!
+- ...again
+
+>>>>>>> origin/initialsetup
 
 Description of the App: What is bill palace, How does it work?
 
