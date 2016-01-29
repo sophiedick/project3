@@ -1,4 +1,4 @@
 module.exports = {
-  'secret': 'shhthisisasecret'
-  'database': 'http://localhost:3000/forum'
+  'secret': 'shhthisisasecret',
+  'database': 'mongodb://localhost:3000/forum'
 };

@@ -11,6 +11,10 @@ var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
 var app            = express();
 
+var config         = require('./config/config');
+var User           = require('./models/user');
+var secret         = require('./config/config').secret;
+
 mongoose.connect(config.database);
 
 // Will need to fill in /config/passport - Caroline
