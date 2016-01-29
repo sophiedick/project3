@@ -1,7 +1,6 @@
 # Project3
 General Assembly Project Three
-
-# Contributors:
+# Contributors
+Caroline
 Sophie
-
 
