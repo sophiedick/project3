@@ -11,7 +11,10 @@ Sophie
 Angus 
 
 ##Description of the App:
-###What is Bill Palace
+###What is Bill Palace?
+**Bill Palace** allows users to enter their bills and keep up with their finances.
+
+
 ###How does it work?
 
 ##User Stories:
