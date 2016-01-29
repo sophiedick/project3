@@ -1,19 +1,20 @@
 # Project3
 General Assembly Project Three
 
-# Contributors
+## Contributors
 Caroline
 Sophie
 Angus 
 
+##Description of the App:
+###What is Bill Palace
+###How does it work?
 
-Description of the App: What is bill palace, How does it work?
+##User Stories:
 
-User Stories
+##Wireframes:
 
-Wireframes:
-
-How it works:
+##How it works:
 
 GITHUB NOTES:
 GITHUB Merging Flow:
@@ -36,5 +37,5 @@ git pull
 git branch
 git checkout steve
 
-ALWAYS GIT BRANCH to check youre not on git master
+ALWAYS GIT BRANCH to check you're not on git master
 
