@@ -11,6 +11,7 @@ Angus
 **Bill Palace** allows users to enter their bills and keep up with their finances.
 
 The time is 12:12pm and I am making a change - _Caroline_
+- Fixing!
 
 
 ###How does it work?
