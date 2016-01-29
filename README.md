@@ -4,7 +4,7 @@ General Assembly Project Three
 
 
 SOPHIE IS A LEGEND!
-=======
+
 # Contributors
 Caroline
 Sophie
