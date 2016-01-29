@@ -9,6 +9,11 @@ Angus
 
 Description of the app
 - the concept - what is 
+=======
+# Contributors
+Caroline
+Sophie
+Angus 
 
 How it Works
 
@@ -20,8 +25,11 @@ Technology Used
 
 Description of the App: What is bill palace, How does it work?
 
+<<<<<<< HEAD
 
 #GITHUB Merging Flow:
+=======
+GITHUB NOTES:
 To make sure up to date
 git pull
 
@@ -41,5 +49,6 @@ git pull
 git branch
 git checkout steve
 
-ALWAYS GIT BRANCH to check you're not on git master
+ALWAYS GIT BRANCH to check youre not on git master
+
 
