@@ -3,6 +3,37 @@ $(document).ready(function(){
 console.log("This is the console logging");
 getThreads();
 
+
+  /* *************************************** */
+  /* *********** INDEX PAGE - ************** */
+  /* ******** SHOW MOST RECENT TOPIC ******* */
+
+  $(".index-topics").hover(function(event){
+    event.preventDefault();
+    //return
+    ajaxRequest("get", "http://localhost:3000/api/category", null, mostRecentThread);
+    
+  });
+
+  /* ************************************** */
+  /* *********** INDEX PAGE - ************* */
+  /* ******** GET MOST RECENT TOPIC ******* */
+
+  function mostRecentTopic(data){
+    var topicsArray = ["tech", "business", "showbiz", "culture", "lifestyle", "world"];
+
+    return $.each(data.threads, function(index, thread){
+      console.log(thread);
+      $('#tech').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
+    })
+
+
+
+  }
+
+
+
+
   /* **************************************** */
   /* *********** CREATE ALL THREADS ********* */
   /* **************************************** */
@@ -29,7 +60,6 @@ getThreads();
   });   // End of $('#submit-new-thread').click()
 
 
-
   /* **************************************** */
   /* ********** DISPLAY ALL THREADS ********* */
   /* **************************************** */
@@ -44,13 +74,14 @@ getThreads();
     console.log("This is display threads");
     console.log(data);
     return $.each(data.threads, function(index, thread){
-      console.log(thread.title);
+      console.log(thread);
       $('#threads').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
     });
   }
 
+
   /* **************************************** */
-  /* ************* AJAX RESQUEST ************ */
+  /* ************* AJAX REQUEST ************ */
   /* **************************************** */
 
   function ajaxRequest(method, url, data, callback) {
