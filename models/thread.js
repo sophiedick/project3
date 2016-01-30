@@ -7,8 +7,8 @@ var ThreadSchema = mongoose.Schema({
   topic: String,
   title: String,
   body: String,
-  comment: [Comment.Schema],
-  user: [User.Schema]
+//  comment: [Comment.Schema],
+//  user: [User.Schema]
 
 });
 

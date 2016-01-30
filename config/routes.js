@@ -10,4 +10,29 @@ var threadsController = require('../controllers/threadsController');
 router.route('/')
   .get(threadsController.home);
 
-module.exports = router
+router.route('/category')
+  .get(threadsController.category)
+
+router.route('/api/category')
+  .get(threadsController.threadIndex)
+  .post(threadsController.createThread)
+
+
+//router.route('/signup')
+//  .get(unAuthenticatedUser, usersController.getSignup)
+//  .post(usersController.postSignup)
+//
+//// We can call a function before calling the controller to make sure the user is not logged in by passing in two functions
+//router.route('/login')
+//  .get(unAuthenticatedUser, usersController.getLogin)
+//  .post(usersController.postLogin)
+//
+//router.route("/logout")
+//  .get(usersController.getLogout)
+//
+//
+//// We can call a function before calling the controller to see if the user is logged in by passing in two functions
+//router.route("/secret")
+//  .get(authenticatedUser, usersController.getSecret)
+//
+module.exports = router//
