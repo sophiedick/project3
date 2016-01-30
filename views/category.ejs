@@ -1,0 +1,24 @@
+<hr>
+<h2>Form - Sophie and Caroline's test</h2>
+
+  <form id="new-thread" action="/api/category" method="post">
+    <label>Topic</label>
+    <select name="thread[topic]" id="thread-topic">
+      <option value="lifestyle">Lifestyle</option>
+      <option value="tech">Tech</option>
+      <option value="culture">Culture</option>
+      <option value="world">World</option>
+      <option value="business">Business</option>
+      <option value="showbiz">Showbiz</option>
+    </select>
+    <br>
+    <label>Thread title:</label>
+    <input type="text" id="thread-title" name="thread[title]" value="" placeholder="Title">
+    <br>
+    <label>Body:</label>
+    <textarea name="thread[body]" id="thread-body" value="" placeholder="What do you want to say?"></textarea>
+    <br>
+    <input type="submit" value="Submit" id="submit-new-thread">
+  </form>
+
+  <ul id="threads"></ul>

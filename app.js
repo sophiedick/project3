@@ -1,4 +1,4 @@
-var flash          = require('connect-flash');
+// var flash          = require('connect-flash');
 var express        = require('express');
 var cors           = require('cors');
 var path           = require('path');
@@ -10,6 +10,7 @@ var cookieParser   = require("cookie-parser");
 var methodOverride = require("method-override");
 var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
+var layouts        = require('express-ejs-layouts');
 var app            = express();
 
 var config         = require('./config/config');
@@ -18,11 +19,21 @@ var secret         = require('./config/config').secret;
 
 mongoose.connect(config.database);
 
+app.set('layout', 'layout');
+// Use the middleware ejs layouts
+app.use(layouts);
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
 // Will need to fill in /config/passport - Caroline
 // require('./config/passport')(passport);
 
 
-app.use(flash());
+// NOTE: Add in the use layouts
+
+// app.use(flash());
 
 
 app.use(methodOverride(function(req, res){

@@ -10,6 +10,12 @@ var threadsController = require('../controllers/threadsController');
 router.route('/')
   .get(threadsController.home);
 
+router.route('/category')
+  .get(threadsController.category)
+
+router.route('/api/category')
+  .post(threadsController.createThread)
+
 
 //router.route('/signup')
 //  .get(unAuthenticatedUser, usersController.getSignup)
