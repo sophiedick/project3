@@ -77,12 +77,7 @@ app.use(passport.initialize());
 //   }
 //   next();
 // });
-<<<<<<< HEAD
-=======
 
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, 'public')));
->>>>>>> origin/Caroline
 
 
 var routes = require('./config/routes');

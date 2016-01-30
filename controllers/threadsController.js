@@ -1,4 +1,4 @@
-// SD: Requiring Thread Model:
+ // SD: Requiring Thread Model:
 var Thread = require("../models/thread");
 
 // GET 

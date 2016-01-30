@@ -41,7 +41,8 @@ getThreads();
   }
 
   function displayThreads(data) {
-    console.log("This is display threads")
+    console.log("This is display threads");
+    console.log(data);
     return $.each(data.threads, function(index, thread){
       console.log(thread.title);
       $('#threads').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
