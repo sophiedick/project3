@@ -19,12 +19,23 @@ var secret         = require('./config/config').secret;
 
 mongoose.connect(config.database);
 
-app.set('layout', 'layout');
-// Use the middleware ejs layouts
-app.use(layouts);
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+
+
+//app.set('layout', 'layout');
+
+
 app.set('view engine', 'ejs');
+app.use(layouts);
+app.set('views', './views');
+
+app.set('views', path.join(__dirname, 'views'));
+
+
+
+
+//app.use(express.static(__dirname + '/public'));
+
+
 
 
 // Will need to fill in /config/passport - Caroline
@@ -67,8 +78,13 @@ app.use(passport.initialize());
 //   next();
 // });
 
+// app.use(express.static('public'));
+// app.use(express.static(path.join(__dirname, 'public')));
+
 
 var routes = require('./config/routes');
 app.use("/", routes);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000);

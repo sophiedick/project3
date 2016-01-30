@@ -18,10 +18,29 @@ function createThread(req, res) {
   });
 }
 
+function threadIndex(req, res){
+  Thread.find(function(err, threads){
+    if (err) return res,status(404).json({message: 'Something went wrong'});
+    res.status(200).json({ threads: threads });
+    res.render('category.ejs');
+  })
+}
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+//HAVE YOU EXPORTED?????
+
+
 
 
 module.exports = {
   home:         home,
   category:     category,
   createThread: createThread,
+  threadIndex:  threadIndex
 }

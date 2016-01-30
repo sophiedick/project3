@@ -14,6 +14,7 @@ router.route('/category')
   .get(threadsController.category)
 
 router.route('/api/category')
+  .get(threadsController.threadIndex)
   .post(threadsController.createThread)
 
 
