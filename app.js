@@ -1,3 +1,4 @@
+var flash          = require('connect-flash');
 var express        = require('express');
 var cors           = require('cors');
 var path           = require('path');
@@ -20,6 +21,10 @@ mongoose.connect(config.database);
 // Will need to fill in /config/passport - Caroline
 // require('./config/passport')(passport);
 
+
+app.use(flash());
+
+
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     var method = req.body._method
@@ -36,20 +41,20 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(passport.initialize());
 
-app.use('/', expressJWT({ secret: secret })
-  .unless({
-    path: [
-      { url: '/login', methods: ['POST'] },
-      { url: '/register', methods: ['POST'] }
-    ]
-  }));
+// app.use('/', expressJWT({ secret: secret })
+//   .unless({
+//     path: [
+//       { url: '/login', methods: ['POST'] },
+//       { url: '/register', methods: ['POST'] }
+//     ]
+//   }));
 
-app.use(function (err, req, res, next) {
-  if (err.name === 'UnauthorizedError') {
-    return res.status(401).json({message: 'Unauthorized request.'});
-  }
-  next();
-});
+// app.use(function (err, req, res, next) {
+//   if (err.name === 'UnauthorizedError') {
+//     return res.status(401).json({message: 'Unauthorized request.'});
+//   }
+//   next();
+// });
 
 
 var routes = require('./config/routes');
