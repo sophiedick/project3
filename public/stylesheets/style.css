@@ -3,3 +3,30 @@
 body {
   background: #efefef;
 }
+
+.index-topics {
+  background-color: #1A8;
+  text-align: center;
+  text-transform: uppercase;
+  margin:10px;
+  height: 160px;
+
+}
+
+.index-topics:hover{
+  background-color: #bada55;
+}
+
+.index-topics h2 {
+  position: relative;
+  top:50%;
+  transform: translateY(-50%);
+  margin-top: 10px;
+  color: white;
+
+}
+
+@media (min-width: 992px) {
+  .col-md-4.index-topics {
+    width: 30.333333%;
+}

@@ -7,7 +7,7 @@ var CommentSchema = mongoose.Schema({
   body: String,
   thread_id: String,
   user: [User.schema],
-  thread: [Thread.schema]
+  //thread: [Thread.schema]
 });
 
 
