@@ -21,7 +21,7 @@ getThreads();
     }).done(function(thread){
       console.log(thread);
       var li = $('<li></li>');
-      li.html("This has worked")
+      li.html("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br>Body: " + thread.body + "<br><br>");
       $('ul#threads').prepend(li);
     }); 
 
@@ -42,7 +42,7 @@ getThreads();
 
   function displayThreads(data) {
     return $.each(data, function(index, thread){
-      $('ul#threads').prepend('Hello')
+      $('ul#threads').prepend()
     });
   }
 
