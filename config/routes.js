@@ -20,10 +20,10 @@ router.route('/api/category')
 
 router.route('/category/:id')
   .get(threadsController.showThread)
-  .put(threadsController.updateThread);
+  .put(threadsController.updateThread)
+  .delete(threadsController.deleteThread);
 
-router.route('/category/:id/edit')
-  .get(threadsController.editThread)
+
 
 //router.route('/signup')
 //  .get(unAuthenticatedUser, usersController.getSignup)

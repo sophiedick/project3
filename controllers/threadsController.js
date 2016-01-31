@@ -41,7 +41,7 @@ function showThread(req, res){
   });
 };
 
-/* But where's the editThread function? */
+/* But wait - where's the editThread function? */
 // Edit thread form will be implemented with jQuery and Ajax in place - CB
 
 
@@ -54,7 +54,7 @@ function updateThread(req, res){
     if (req.body.topic) thread.topic = req.body.topic;
     if (req.body.title) thread.title = req.body.title;
     if (req.body.body)  thread.body  = req.body.body;
-    thread.modifiedAt = Date.now;   // This updates the modifiedAt column to current time
+    thread.modifiedAt = Date.now;   // This updates the moifiedAt column to current time
 
     thread.save(function(err){
       if (err) res.status(400).json({ message: 'Could not update thread because: ' + err });
@@ -62,6 +62,19 @@ function updateThread(req, res){
     });
   });
 };
+
+/* DELETE THREAD */
+function deleteThread(req, res){
+  var id = req.params.id;
+
+  Thread.remove({_id: id}, function(err, thread){
+    if (err) res.json({ message: 'Could not delete thread because: ' + err});
+    res.json({ message: 'Thread successfully deleted'})
+  });
+};
+
+
+
 
 
 //HAVE YOU EXPORTED????? //HAVE YOU EXPORTED????? 
@@ -81,6 +94,7 @@ module.exports = {
   createThread: createThread,
   threadIndex:  threadIndex,
   updateThread: updateThread,
-  showThread:   showThread
+  showThread:   showThread,
+  deleteThread: deleteThread,
 }
 
