@@ -1,0 +1,18 @@
+<h1> here be a form for signing up </h1>
+
+<!-- form action to /users as we are adding to user directory - this page will need to have a redirect-->
+<!-- action POST as we are inputting to database-->
+<form action="/index" method='POST'>
+  Username:<br>
+  <!-- name="user[username]" corresponds to user model data field of username -->
+  <input type="text" name="user[username]">
+  <br>
+  Email:<br>
+  <input type="email" name="user[email]" >
+  <br>
+   Password:<br>
+  <input type="password" name="user[password]" >
+  <br>
+  <!-- will need to prevent default if we wish to use ajax-->
+  <input type="submit" value="Submit">
+</form> 

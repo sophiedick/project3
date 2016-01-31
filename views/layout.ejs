@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title> Forum </title>
-</head>
-<body>
-<% include ./partials/header %>
-<!-- This is where the body goes -->
-  <%- body %>
-
-</body>
+  <head>
+    <title>Forum</title>
+    <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  </head>
+  <body>
+  <!-- Include the nav bar -->
+  <% include ./partials/header %>
+  <!-- This is where the body goes -->
+    <%- body %>
+  </body>
 </html>
