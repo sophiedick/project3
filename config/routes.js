@@ -10,20 +10,23 @@ var usersController   = require('../controllers/usersController');
 // // .get(threadsController.home);
 // 	.post(usersController.usersCreate);
 
-router.route('/signup')
-// make route to show form 
-// make route to add new user
- 	.get(usersController.userSignUp)
- 	.post(usersController.usersCreate)
+ 
+router.route('/users')
+	.get(usersController.getAll)
+	.post(usersController.createUser)
 
-router.route('/index')
-   .get(usersController.indexPage)
-   
-//
-//router.route('/users/:id') 
-//   .get(usersController.usersShow)
-////   .patch(usersController.usersUpdate)
-////   .delete(usersController.usersDelete)
+router.route('/users/new')
+ 	.get(usersController.userSignUp);
+ 	//.get(usersController.indexPage)
+
+
+router.route('/users/:id/edit')
+	.get(usersController.editUser)
+
+router.route('/users/:id') 
+	 .get(usersController.userShow)
+	// .put(usersController.userUpdate)
+//	 .delete(usersController.userDelete)
 //
 //router.route('/category')
 //  .get(threadsController.category)

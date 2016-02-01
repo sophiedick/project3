@@ -46,64 +46,69 @@ var User = require('../models/user');
 //var User = require("../models/user");
 
 
-//function usersIndex(req, res){
-//  User.find({}, function(err, users) {
-//    if (err) return res.status(404).send(err);
-//
-//    res.status(200).send(users);
-//  });
-//}
+function getAll(request, response){
+  User.find({}, function(err, users) {
+    if (err) return response.status(404).send(err);
 
-// render userSignUp page
-function userSignUp(request, response){
-	response.render('signup.ejs', {message: 'signup here'})
-};
-
-// AI function to create user
-function usersCreate(request, response){
-  // create user with new instance of User model. Schema is populated by request on body.user
-  console.log(request.body)
-  var newUser = new User({
-  	username: request.body.user.username,
-  	email: request.body.user.email,
-  	password: request.body.user.password
+    response.render('index', {users: users})
   });
-//  //save user - return error message if failure to save
-//  newUser.save(function(err, user) {
-//    //if (err) console.log(err)
-//
-//    //response.status(201).send(user)
-//    response.send('success')
-//  })
-	newUser.save(function(error) {
-	  if(error) console.log(error)
-	
-	  res.redirect('/index')
-	});
 }
 
-function indexPage(request,reponse){
-	response.render('index.ejs')
+//////////////////////////////////////////
+// render userSignUp page
+function userSignUp(req, res){
+	res.render('signup')
 };
+///////////////////////////////////////////
+// AI function to create user
+function createUser(request, response){
+  // create user with new instance of User model. Schema is populated by request on body.user
+  // this will count as one request.body not 3
+	var newUser = new User({
+		username: request.body.user.username,
+		email: request.body.user.email,
+		password: request.body.user.password
+	});
+
+	console.log(newUser); //object is coming out
+	newUser.save(function(error) {
+	  if(error) console.log('user not saved' + error)
+	});
+	// must be outside error function
+	response.redirect('/users');
+}
+//////////////////////////////////////////////////////////
+function editUser(request, response){
+	  var id = request.params.id;
+
+	  User.findById(id, function(error, user) {
+	    if(error) console.log(error)
+
+	    response.render('editUser', {"user": user});
+	  });
+	}
+
+//////////////////////////////////////////////////////////
 //// AI function to show User profile
-//function usersShow(req, res){
+function userShow(req, res){
 //  // select user particular to input URL
-//  var id = req.params.id;
+  var id = req.params.id;
 //
-//  // find by ID 
+  // find by ID 
 //  //populate users comments (corresponding to comments in users model)
 //  // error check and send user data on success
-//  User.findById({ _id: id }).populate("comments").exec(function(err, user) {
+  User.findById({ _id: id }).exec(function(err, user) {
 //    //include error messages
-//    if (err) return res.status(500).send(err);
-//    if (!user) return res.status(404).send(err);
+    if (err) return res.status(500).send(err);
+    if (!user) return res.status(404).send(err);
 //
-//    // if all ok then send user data
-//    res.status(200).send(user);
-//  })
-//}
+//    // if all ok then send user data in json
+    //res.status(200).send(user);
+    res.render('showUser', {"user": user})
+  })
+}
 //// AI edit profile
-//function usersUpdate(req, res) {
+//function userUpdate(req, res){
 //  var id = req.params.id;
 //  //mongoose command
 //  //Model.findByIdAndUpdate(id, [update], [options], [callback])
@@ -113,10 +118,10 @@ function indexPage(request,reponse){
 //    if (!user) return res.status(404).send(err);
 //    res.status(200).send(user);
 //  })
-//}
+//};
 //
 //// AI delete their profile
-//function usersDelete(req, res){
+//function userDelete(req, res){
 //  var id = req.params.id;
 //  //find by id and remove 
 //  User.remove({ _id: id }, function(err) {
@@ -126,12 +131,15 @@ function indexPage(request,reponse){
 //}
 
 //// AI: make all actions available in scope
-module.exports = {
+module.exports = {	
+	getAll : getAll,
 	userSignUp : userSignUp,
-//usersIndex: usersIndex,
-	usersCreate: usersCreate,
-	indexPage: indexPage
-//usersShow:   usersShow,
-//usersUpdate: usersUpdate,
+	//usersIndex: usersIndex,
+
+	createUser: createUser,
+	//indexPage: indexPage
+	userShow:   userShow,
+	editUser: editUser,
+	//userUpdate: userUpdate,
 ////  usersDelete: usersDelete,
 };
