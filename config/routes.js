@@ -18,6 +18,13 @@ router.route('/api/category')
   .post(threadsController.createThread)
 
 
+router.route('/category/:id')
+  .get(threadsController.showThread)
+  .put(threadsController.updateThread)
+  .delete(threadsController.deleteThread);
+
+
+
 //router.route('/signup')
 //  .get(unAuthenticatedUser, usersController.getSignup)
 //  .post(usersController.postSignup)
