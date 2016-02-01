@@ -1,6 +1,7 @@
 // SD: Requiring Thread Model:
 var Thread = require("../models/thread");
 var methodOverride = require('method-override');
+var topicsArray = ["tech", "business", "showbiz", "culture", "lifestyle", "world"];
 
 // GET 
 
@@ -8,8 +9,15 @@ function home(req, res) {
   res.render('index.ejs'); // { message: req.flash('errorMessage') });
 };
 
-function category(req, res) {
-  res.render('category.ejs');
+function topicIndex(req, res) {
+  var topic = req.params.category;
+  console.log(topic);
+  Thread.find({topic: topic}, function(err, data){
+    console.log(data);
+    res.render('category.ejs', {threads: data, category: topic});
+
+  });
+
 };
 
 /* POST NEW THREAD */
@@ -74,7 +82,8 @@ function deleteThread(req, res){
 
   Thread.remove({_id: id}, function(err, thread){
     if (err) res.json({ message: 'Could not delete thread because: ' + err});
-    res.json({ message: 'Thread successfully deleted'})
+    res.json({ message: 'Thread successfully deleted'});
+    res.redirect('/');
   });
 };
 
@@ -95,7 +104,7 @@ function deleteThread(req, res){
 
 module.exports = {
   home:         home,
-  category:     category,
+  topicIndex:     topicIndex,
   createThread: createThread,
   threadIndex:  threadIndex,
   updateThread: updateThread,

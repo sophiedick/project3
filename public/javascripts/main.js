@@ -1,14 +1,8 @@
 $(document).ready(function(){
 
-getThreads();
+//getThreads();
 $('.editable').hide();
 $('.thread-id').hide();
-
-
-// This is just so I don't keep accidentally deleting my thread! - CB
-$("button.delete").click(function(event){
-  event.preventDefault();
-});
 
 
   /* *************************************** */
@@ -125,7 +119,7 @@ $("button.delete").click(function(event){
 
 
   /* **************************************** */
-  /* *********** CREATE ALL THREADS ********* */
+  /* *********** CREATE NEW THREADS ********* */
   /* **************************************** */
 
   $('#submit-new-thread').click(function(event){
@@ -140,9 +134,9 @@ $("button.delete").click(function(event){
       url:  'http://localhost:3000/api/category',
       data:  formData
     }).done(function(thread){
-      // console.log(thread);
+      console.log(thread);
       var li = $('<li></li>');
-      li.html("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br>Body: " + thread.body + "<br><br>");
+      li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
       $('ul#threads').prepend(li);
     }); 
   });   // End of $('#submit-new-thread').click()
@@ -161,7 +155,7 @@ $("button.delete").click(function(event){
     // console.log(data);
     return $.each(data.threads, function(index, thread){
       // console.log(thread);
-      $('#threads').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
+      $('#threads').prepend("Topic: " + thread.topic + "<br>Title: <a href='/category/" + thread._id + "'>" + thread.title + "</a> <br><br>");
     });
   }
 

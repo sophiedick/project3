@@ -3,14 +3,7 @@
 
   <form id="new-thread" action="/api/category" method="post">
     <label>Topic</label>
-    <select name="thread[topic]" id="thread-topic">
-      <option value="lifestyle">Lifestyle</option>
-      <option value="tech">Tech</option>
-      <option value="culture">Culture</option>
-      <option value="world">World</option>
-      <option value="business">Business</option>
-      <option value="showbiz">Showbiz</option>
-    </select>
+    <input type='text' id="thread-topic" name="thread[topic]" value="<%= category %>" readonly>
     <br>
     <label>Thread title:</label>
     <input type="text" id="thread-title" name="thread[title]" value="" placeholder="Title">
@@ -25,5 +18,13 @@
   <hr>
   <h4>Threads:</h4>
   <ul id="threads">
+    <% for(i=0; i < threads.length; i++) {%>
+
+        <%= threads[i].topic %>
+        <a href='/<%= threads[i].topic%>/<%= threads[i]._id %>'><%= threads[i].title %></a>
+        <%= threads[i].body %>
+        <br><br>
+
+    <% } %>
     
   </ul>

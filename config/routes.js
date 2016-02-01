@@ -10,8 +10,8 @@ var threadsController = require('../controllers/threadsController');
 router.route('/')
   .get(threadsController.home);
 
-router.route('/category')
-  .get(threadsController.category)
+router.route('/:category')
+  .get(threadsController.topicIndex);
 
 router.route('/api/category')
   .get(threadsController.threadIndex)
