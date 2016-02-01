@@ -3,18 +3,18 @@ $(document).ready(function(){
 //getThreads();
 $('.editable').hide();
 $('.thread-id').hide();
-
+});
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
   /* ******** SHOW MOST RECENT TOPIC ******* */
 
-  $(".index-topics").hover(function(event){
-    event.preventDefault();
-    //return
-    ajaxRequest("get", "http://localhost:3000/api/category", null, mostRecentThread);
+  // $(".index-topics").hover(function(event){
+  //   event.preventDefault();
+  //   //return
+  //   ajaxRequest("get", "http://localhost:3000/api/category", null, );
     
-  });
+  // });
 
   /* ************************************** */
   /* *********** INDEX PAGE - ************* */
@@ -159,6 +159,27 @@ $('.thread-id').hide();
     });
   }
 
+  //************************************ COMMENTS ****************************************************
+
+// Create new comment:
+
+$('#submit-new-comment').click(function(event){
+  event.preventDefault();
+
+  // .serialize collects all the data from the form:
+  var formData = $('#new-comment').serialize();
+  console.log(formData);
+
+  $.ajax({
+    type: 'POST',
+    url:  'http://localhost:3000/api/category/' + thread._id + '/newcomment',
+    data:  formData
+  }).done(function(data){
+    console.log(data) 
+});
+});
+
+
 
   /* **************************************** */
   /* ************* AJAX REQUEST ************* */
@@ -178,5 +199,4 @@ $('.thread-id').hide();
    });
   }   // End of function ajaxRequest();
 
-
-});
+//});

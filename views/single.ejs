@@ -4,10 +4,10 @@
 
   <div class="row">
     <div class="col-md-12">
-      <a href="" class="edit-thread" data-id="<%= thread.id %>">Edit Thread</a>
+      <a href="" class="edit-thread" data-id="<%= thread._id %>">Edit Thread</a>
       <hr>
-      <form action="/api/category/<%= thread.id %>?_method=DELETE" method="post">
-      <button type="submit" data-id="<%= thread.id %>" class="delete">Delete</button>
+      <form action="/api/category/<%= thread._id %>?_method=DELETE" method="post">
+      <button type="submit" data-id="<%= thread._id %>" class="delete">Delete</button>
       </form>
       <!-- ORIGINAL THREAD -->
 
@@ -25,7 +25,7 @@
       <!-- EDITABLE THREAD -->
       <!-- Any element with the class of editable is hidden until the 'edit' button is clicked
       -->
-      <form action="/api/category/<%= thread.id %>?_method=PUT" class="edit-thread-form editable">
+      <form action="/api/category/<%= thread._id %>?_method=PUT" class="edit-thread-form editable">
       <!-- Thread Topic -->
       <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
         <select name="threadTopic" id="thread-topic" class="editable thread-topic">
@@ -48,7 +48,7 @@
         <p class="thread-body"><%= thread.body %></p>
         <textarea class="editable thread-body" value="" name="threadBody"></textarea>
         <hr>
-        <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
+        <input type="hidden" class="thread-id" name="threadId" value="<%= thread._id %>">
         <input type="submit" value="Submit" class="editable save">
         <input type="submit" value="Cancel" class="editable cancel">
       </form>
@@ -56,6 +56,16 @@
   </div>      <!-- End of row -->
 </div>        <!-- End of container -->
 
+
+
+<div> 
+  <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
+    <label>Comment</label>
+    <input type='text' id="comment-body" name="comment[body]" value='' placeholder="Enter a comment...">
+    <br>
+    <input type="submit" value="Submit" id="submit-new-comment">
+  </form>
+</div>
 
 <!-- 
   Note to CB:
