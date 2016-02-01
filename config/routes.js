@@ -17,16 +17,14 @@ router.route('/users')
 
 router.route('/users/new')
  	.get(usersController.userSignUp);
- 	//.get(usersController.indexPage)
-
 
 router.route('/users/:id/edit')
 	.get(usersController.editUser)
 
 router.route('/users/:id') 
 	 .get(usersController.userShow)
-	// .put(usersController.userUpdate)
-//	 .delete(usersController.userDelete)
+	 .put(usersController.userUpdate)
+	 .delete(usersController.userDelete)
 //
 //router.route('/category')
 //  .get(threadsController.category)
