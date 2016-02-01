@@ -4,9 +4,55 @@
 
   <div class="row">
     <div class="col-md-12">
-      <p><b>Posted in:</b> <%= thread.topic %></p>
-      <h3>Title: <%= thread.title %></h3>
-      <p><b>Body:</b> <%= thread.body %></p>
-    </div>
-  </div>
-</div>
+      <a href="" class="edit-thread">Edit Thread</a>
+      <hr>
+      <!-- ORIGINAL THREAD -->
+      <div class="original-thread">
+        <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
+        <hr>
+        <h3>Title:</h3><h3 class="thread-title"><%= thread.title %></h3>
+        <hr>
+        <b>Body:</b> 
+        <p class="thread-body"><%= thread.body %></p>
+      </div>
+
+      
+      <!-- EDITABLE THREAD -->
+      <form name="edit-thread" class="editable">
+      <!-- Thread Topic -->
+      <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
+        <select name="threadTopic" id="thread-topic" class="editable thread-topic">
+          <option value="lifestyle">Lifestyle</option>
+          <option value="tech">Tech</option>
+          <option value="culture">Culture</option>
+          <option value="world">World</option>
+          <option value="business">Business</option>
+          <option value="showbiz">Showbiz</option>
+        </select>
+
+        <hr>
+        <h3>Title:</h3><h3 class="thread-title"><%= thread.title %></h3>
+        <!-- Thread title -->
+        <input class="editable thread-title" value="" name="threadTitle">
+
+        <hr>
+        <!-- Thread body -->
+        <b>Body:</b> 
+        <p class="thread-body"><%= thread.body %></p>
+        <textarea class="editable thread-body" value="" name="threadBody"></textarea>
+        <hr>
+
+        <input type="submit" value="Submit" class="editable">
+      </form>
+    </div>    <!-- End of col-md-12 -->
+  </div>      <!-- End of row -->
+</div>        <!-- End of container -->
+
+
+<!-- 
+  Note to CB:
+√  Click 'Edit' button, store current values in variable(?)
+√  Input text boxes/text areas appear with current values
+   Upon clicking submit, replace the html with the new values
+   Else the inner html remains the same
+-->
