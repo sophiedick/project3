@@ -1,5 +1,6 @@
 // SD: Requiring Thread Model:
 var Thread = require("../models/thread");
+var methodOverride = require('method-override');
 
 // GET 
 

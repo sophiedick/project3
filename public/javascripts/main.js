@@ -35,19 +35,20 @@ getThreads();
 
   // NOTE: Tidy this function up when it's working properly - CB.
 
+  // NOTE: Any element with the class of editable is hidden until the 'edit' button is clicked
+
   // Edit thread in place:
   $('.edit-thread').click(function(event){
     event.preventDefault();
-
     // Storing the original inputs
     var originalTopic =  $('p.thread-topic').html();
     var originalTitle =  $('h3.thread-title').html();
     var originalBody  =  $('p.thread-body').html();
-    console.log("************")
-    console.log(originalTopic)
-    console.log(originalTitle)
-    console.log(originalBody)
-    console.log("************")
+    // console.log("************")
+    // console.log(originalTopic)
+    // console.log(originalTitle)
+    // console.log(originalBody)
+    // console.log("************")
 
     // Hiding the original inputs:
     $('.original-thread').hide();
@@ -63,9 +64,42 @@ getThreads();
     $('input[type="submit"].editable').show();
 
 
-  });
+    var id = this.id;
+
+    var formData = $('.edit-thread-form').serialize();
+
+    console.log("This is the form data:")
+    console.log(formData);
 
 
+    //return  
+    console.log("***")
+    //console.log(thread[0]._id)
+    console.log("***")
+
+    $(".save").click(function(event){
+      event.preventDefault();
+
+         return $.ajax({
+           method: "put",
+           url: 'http://localhost:3000/api/category',
+           data: formData,
+      //     beforeSend: setRequestHeader,
+         }).done(function(data){
+           if (callback) return callback(data);
+         }).fail(function(data) {
+          console.log('Fail')
+         //  displayErrors(data.responseJSON.message);
+         });
+        }); 
+      //DOES THE FORM NEED A PUT!!??
+      // console.log("trying to update!")
+
+      // ajaxRequest("PUT", "http://localhost:3000/api/category/" + _id, null, displayThreads);
+      // console.log("trying to update!")
+    
+    }); // End of edit-thread function
+   
 
 
   /* **************************************** */
@@ -106,7 +140,7 @@ getThreads();
 
   function displayThreads(data) {
     console.log("This is display threads")
-    console.log(data);
+    // console.log(data);
     return $.each(data.threads, function(index, thread){
       // console.log(thread);
       $('#threads').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
