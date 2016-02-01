@@ -1,9 +1,15 @@
 $(document).ready(function(){
 
-console.log("This is the console logging");
 getThreads();
+$('.editable').hide();
+$('.thread-id').hide();
 
-  $('.editable').hide();
+
+// This is just so I don't keep accidentally deleting my thread! - CB
+$("button.delete").click(function(event){
+  event.preventDefault();
+});
+
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
@@ -41,16 +47,18 @@ getThreads();
   $('.edit-thread').click(function(event){
     event.preventDefault();
     // Storing the original inputs
-    var originalTopic =  $('p.thread-topic').html();
-    var originalTitle =  $('h3.thread-title').html();
-    var originalBody  =  $('p.thread-body').html();
-    // console.log("************")
-    // console.log(originalTopic)
-    // console.log(originalTitle)
-    // console.log(originalBody)
-    // console.log("************")
+    var id = $(this).data("id");
 
-    // Hiding the original inputs:
+    console.log("This is the new id that works:")
+    console.log(id);
+    console.log("****")
+
+    // Store the original inputs in variables:
+    var originalTopic = $('p.thread-topic').html();
+    var originalTitle = $('h3.thread-title').html();
+    var originalBody  = $('p.thread-body').html();
+
+    // Hiding the original inputs from the view:
     $('.original-thread').hide();
     $('p.thread-topic').hide();
     $('h3.thread-title').hide();
@@ -64,41 +72,55 @@ getThreads();
     $('input[type="submit"].editable').show();
 
 
-    var id = this.id;
+      $(".save").click(function(event){
+        event.preventDefault();
+        var formData = $('.edit-thread-form').serialize();
 
-    var formData = $('.edit-thread-form').serialize();
+        // Don't return this because I want to do things afterwards
+        return ajaxRequest("put", 'http://localhost:3000/api/category/' + id, formData, showUpdatedThread)
 
-    console.log("This is the form data:")
-    console.log(formData);
+        function showUpdatedThread(data){
+          console.log(data)
+          $('p.thread-topic').html(data.topic);
+          $('h3.thread-title').html(data.title);
+          $('p.thread-body').html(data.body); 
+
+          $('.editable').hide();
+          $('div.original-thread').show();
+          $('p.thread-topic').show().html();
+          $('h3.thread-title').show();
+          $('p.thread-body').show();
+        }
 
 
-    //return  
-    console.log("***")
-    //console.log(thread[0]._id)
-    console.log("***")
+        // This prints out: threadTopic=world&threadTitle=Goodbye+Niall&threadBody=ewefe&threadId=56acbd365b39b94d6362e4a9
+        console.log(formData);
 
-    $(".save").click(function(event){
-      event.preventDefault();
+        
+      //  $('p.thread-topic').html("");
+      //  $('h3.thread-title').html("");
+      //  $('p.thread-body').html(""); 
 
-         return $.ajax({
-           method: "put",
-           url: 'http://localhost:3000/api/category',
-           data: formData,
-      //     beforeSend: setRequestHeader,
-         }).done(function(data){
-           if (callback) return callback(data);
-         }).fail(function(data) {
-          console.log('Fail')
-         //  displayErrors(data.responseJSON.message);
-         });
-        }); 
-      //DOES THE FORM NEED A PUT!!??
-      // console.log("trying to update!")
 
-      // ajaxRequest("PUT", "http://localhost:3000/api/category/" + _id, null, displayThreads);
-      // console.log("trying to update!")
+        // Hide the editable elements again
+
+
+      }); 
+
+      // This works - CB.
+      $(".cancel").click(function(event){
+        event.preventDefault();
+
+        $('.original-thread').show();
+        $('p.thread-topic').show();
+        $('h3.thread-title').show();
+        $('p.thread-body').show();
+
+        // Hide the editable elements again
+        $('.editable').hide();
+      });   // End of $('.cancel').click
     
-    }); // End of edit-thread function
+  }); // End of edit-thread function
    
 
 
@@ -118,13 +140,11 @@ getThreads();
       url:  'http://localhost:3000/api/category',
       data:  formData
     }).done(function(thread){
-      console.log(thread);
+      // console.log(thread);
       var li = $('<li></li>');
       li.html("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br>Body: " + thread.body + "<br><br>");
       $('ul#threads').prepend(li);
     }); 
-
-
   });   // End of $('#submit-new-thread').click()
 
 
@@ -133,13 +153,11 @@ getThreads();
   /* **************************************** */
 
   function getThreads() {
-    console.log("Hellooooo");
     return ajaxRequest("get", "http://localhost:3000/api/category", null, displayThreads);
 
   }
 
   function displayThreads(data) {
-    console.log("This is display threads")
     // console.log(data);
     return $.each(data.threads, function(index, thread){
       // console.log(thread);
@@ -156,7 +174,7 @@ getThreads();
    return $.ajax({
      method: method,
      url: url,
-     data: data,
+     data: data
 //     beforeSend: setRequestHeader,
    }).done(function(data){
      if (callback) return callback(data);

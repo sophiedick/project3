@@ -49,18 +49,22 @@ function showThread(req, res){
 /* UPDATE THREAD */
 function updateThread(req, res){
   var id = req.params.id;
+  console.log(id); // Checking it works 
 
-  Thread.findById({_id: id}, function(err, thread){
-    if (err) return res.status(404).json({ message: 'Something went wrong trying to update thread.'});
-    if (req.body.topic) thread.topic = req.body.topic;
-    if (req.body.title) thread.title = req.body.title;
-    if (req.body.body)  thread.body  = req.body.body;
-    thread.modifiedAt = Date.now;   // This updates the moifiedAt column to current time
+  Thread.findByIdAndUpdate({_id: id}, { topic: req.body.threadTopic, title: req.body.threadTitle, body: req.body.threadBody }, {new: true}, function(err, thread){
 
-    thread.save(function(err){
-      if (err) res.status(400).json({ message: 'Could not update thread because: ' + err });
-      res.json({ message: 'Thread successfully updated.' });
-    });
+  //  console.log("***** After Saving: *****")
+  //  console.log(req.body.threadTopic)
+  //  console.log(req.body.threadTitle)
+  //  console.log(req.body.threadBody)
+  //  console.log("This is the id: " + id)
+ 
+    if (err) {
+      return res.status(404).json({ message: 'Something went wrong trying to update thread.'})
+    } else {
+      res.status(200).send(thread);
+    }
+    
   });
 };
 

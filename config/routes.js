@@ -17,10 +17,9 @@ router.route('/api/category')
   .get(threadsController.threadIndex)
   .post(threadsController.createThread)
 
-router.route('/api/category/')
+router.route('/api/category/:id')
   .put(threadsController.updateThread)
   .delete(threadsController.deleteThread);
-
 
 router.route('/category/:id')
   .get(threadsController.showThread)
