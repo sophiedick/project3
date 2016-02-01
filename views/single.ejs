@@ -7,6 +7,8 @@
       <a href="" class="edit-thread">Edit Thread</a>
       <hr>
       <!-- ORIGINAL THREAD -->
+
+      <!-- The div.original-thread is hidden when the 'edit' button is clicked and replaced with the 'edit-thread-form' below -->
       <div class="original-thread">
         <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
         <hr>
@@ -16,9 +18,11 @@
         <p class="thread-body"><%= thread.body %></p>
       </div>
 
-      
+
       <!-- EDITABLE THREAD -->
-      <form name="edit-thread" class="editable">
+      <!-- Any element with the class of editable is hidden until the 'edit' button is clicked
+      -->
+      <form action="/api/category?_method=PUT" method="post" class="edit-thread-form editable">
       <!-- Thread Topic -->
       <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
         <select name="threadTopic" id="thread-topic" class="editable thread-topic">
@@ -42,7 +46,8 @@
         <textarea class="editable thread-body" value="" name="threadBody"></textarea>
         <hr>
 
-        <input type="submit" value="Submit" class="editable">
+        <input type="submit" value="Submit" class="editable save">
+        <input type="submit" value="Cancel" class="editable cancel">
       </form>
     </div>    <!-- End of col-md-12 -->
   </div>      <!-- End of row -->

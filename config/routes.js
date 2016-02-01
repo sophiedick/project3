@@ -17,11 +17,14 @@ router.route('/api/category')
   .get(threadsController.threadIndex)
   .post(threadsController.createThread)
 
+router.route('/api/category/')
+  .put(threadsController.updateThread)
+  .delete(threadsController.deleteThread);
+
 
 router.route('/category/:id')
   .get(threadsController.showThread)
-  .put(threadsController.updateThread)
-  .delete(threadsController.deleteThread);
+  
 
 
 
