@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
 getThreads();
+$('.editable').hide();
+$('.thread-id').hide();
 
 
 // This is just so I don't keep accidentally deleting my thread! - CB
@@ -8,11 +10,6 @@ $("button.delete").click(function(event){
   event.preventDefault();
 });
 
-
-
-
-  $('.editable').hide();
-  $('.thread-id').hide();
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
@@ -80,19 +77,33 @@ $("button.delete").click(function(event){
         var formData = $('.edit-thread-form').serialize();
 
         // Don't return this because I want to do things afterwards
-        ajaxRequest("put", 'http://localhost:3000/api/category/' + id, formData);
-        console.log(formData)
-      //  $('p.thread-topic').html(threadTopic);
+        return ajaxRequest("put", 'http://localhost:3000/api/category/' + id, formData, showUpdatedThread)
+
+        function showUpdatedThread(data){
+          console.log(data)
+          $('p.thread-topic').html(data.topic);
+          $('h3.thread-title').html(data.title);
+          $('p.thread-body').html(data.body); 
+
+          $('.editable').hide();
+          $('div.original-thread').show();
+          $('p.thread-topic').show().html();
+          $('h3.thread-title').show();
+          $('p.thread-body').show();
+        }
+
+
+        // This prints out: threadTopic=world&threadTitle=Goodbye+Niall&threadBody=ewefe&threadId=56acbd365b39b94d6362e4a9
+        console.log(formData);
+
+        
+      //  $('p.thread-topic').html("");
       //  $('h3.thread-title').html("");
-      //  $('p.thread-body').html("");        
-//
-      //  // Hide the editable elements again
-      //  $('.editable').hide();
-//
-      //  $('div.original-thread').show();
-      //  $('p.thread-topic').show().html();
-      //  $('h3.thread-title').show();
-      //  $('p.thread-body').show();
+      //  $('p.thread-body').html(""); 
+
+
+        // Hide the editable elements again
+
 
       }); 
 
@@ -163,7 +174,7 @@ $("button.delete").click(function(event){
    return $.ajax({
      method: method,
      url: url,
-     data: data,
+     data: data
 //     beforeSend: setRequestHeader,
    }).done(function(data){
      if (callback) return callback(data);

@@ -51,7 +51,7 @@ function updateThread(req, res){
   var id = req.params.id;
   console.log(id); // Checking it works 
 
-  Thread.findByIdAndUpdate({_id: id}, { topic: req.body.threadTopic, title: req.body.threadTitle, body: req.body.threadBody }, function(err, thread){
+  Thread.findByIdAndUpdate({_id: id}, { topic: req.body.threadTopic, title: req.body.threadTitle, body: req.body.threadBody }, {new: true}, function(err, thread){
 
   //  console.log("***** After Saving: *****")
   //  console.log(req.body.threadTopic)
@@ -59,9 +59,13 @@ function updateThread(req, res){
   //  console.log(req.body.threadBody)
   //  console.log("This is the id: " + id)
  
-    if (err) return res.status(404).json({ message: 'Something went wrong trying to update thread.'});
-
-    });
+    if (err) {
+      return res.status(404).json({ message: 'Something went wrong trying to update thread.'})
+    } else {
+      res.status(200).send(thread);
+    }
+    
+  });
 };
 
 /* DELETE THREAD */
