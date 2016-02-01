@@ -49,19 +49,40 @@ function showThread(req, res){
 /* UPDATE THREAD */
 function updateThread(req, res){
   var id = req.params.id;
+  console.log(id)
+  console.log("** Before Saving: **")
+  console.log(req.body.threadTopic)
+  console.log(req.body.threadTitle)
+  console.log(req.body.threadBody)
 
-  Thread.findById({_id: id}, function(err, thread){
+//  Thread.findByIdAndUpdate({ _id: id }, req.body.thread, function(err, thread){
+//    if (err) return res.status(500).send(err);
+//    if (!thread) return res.status(404).send(err);
+//    res.status(200).send(thread);
+//  });
+
+  Thread.findByIdAndUpdate({_id: id}, { topic: req.body.threadTopic, title: req.body.threadTitle, body: req.body.threadBody }, function(err, thread){
+
+    console.log("***** After Saving: *****")
+    console.log(req.body.threadTopic)
+    console.log(req.body.threadTitle)
+    console.log(req.body.threadBody)
+    console.log("This is the id: " + id)
+ 
     if (err) return res.status(404).json({ message: 'Something went wrong trying to update thread.'});
-    if (req.body.topic) thread.topic = req.body.topic;
-    if (req.body.title) thread.title = req.body.title;
-    if (req.body.body)  thread.body  = req.body.body;
-    thread.modifiedAt = Date.now;   // This updates the moifiedAt column to current time
-
-    thread.save(function(err){
-      if (err) res.status(400).json({ message: 'Could not update thread because: ' + err });
-      res.json({ message: 'Thread successfully updated.' });
+  //  if (req.body.topic) thread.topic = req.body.topic;
+  //  if (req.body.title) thread.title = req.body.title;
+  //  if (req.body.body)  thread.body  = req.body.body;
+  //  thread.modifiedAt = Date.now;   // This updates the moifiedAt column to current time
+  //  
+//
+  //  thread.save(function(err){
+  //    console.log("Is this here?")
+  //    if (err) res.status(400).json({ message: 'Could not update thread because: ' + err });
+  //    res.send("Success");
+  //    // res.json({ message: 'Thread successfully updated.' });
+  //  });
     });
-  });
 };
 
 /* DELETE THREAD */

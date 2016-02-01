@@ -3,7 +3,17 @@ $(document).ready(function(){
 console.log("This is the console logging");
 getThreads();
 
+
+// This is just so I don't keep accidentally deleting my thread! - CB
+$("button.delete").click(function(event){
+  event.preventDefault();
+});
+
+
+
+
   $('.editable').hide();
+  $('.thread-id').hide();
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
@@ -41,6 +51,12 @@ getThreads();
   $('.edit-thread').click(function(event){
     event.preventDefault();
     // Storing the original inputs
+    var id = $(this).data("id");
+
+    console.log("This is the new id that works:")
+    console.log(id);
+    console.log("****")
+
     var originalTopic =  $('p.thread-topic').html();
     var originalTitle =  $('h3.thread-title').html();
     var originalBody  =  $('p.thread-body').html();
@@ -51,6 +67,7 @@ getThreads();
     // console.log("************")
 
     // Hiding the original inputs:
+
     $('.original-thread').hide();
     $('p.thread-topic').hide();
     $('h3.thread-title').hide();
@@ -64,41 +81,44 @@ getThreads();
     $('input[type="submit"].editable').show();
 
 
-    var id = this.id;
+      $(".save").click(function(event){
+        event.preventDefault();
+        var formData = $('.edit-thread-form').serialize();
+        
+        console.log("This is formData in the save function:")
+        console.log(id)
 
-    var formData = $('.edit-thread-form').serialize();
-
-    console.log("This is the form data:")
-    console.log(formData);
-
-
-    //return  
-    console.log("***")
-    //console.log(thread[0]._id)
-    console.log("***")
-
-    $(".save").click(function(event){
-      event.preventDefault();
-
-         return $.ajax({
-           method: "put",
-           url: 'http://localhost:3000/api/category',
-           data: formData,
-      //     beforeSend: setRequestHeader,
-         }).done(function(data){
-           if (callback) return callback(data);
-         }).fail(function(data) {
-          console.log('Fail')
+        return $.ajax({
+          method: "put",
+          url: 'http://localhost:3000/api/category/' + id,
+          data: formData,
+          // beforeSend: setRequestHeader,
+        }).done(function(data){
+          if (callback) return callback(data);
+        }).fail(function(data) {
+         console.log('Fail')
          //  displayErrors(data.responseJSON.message);
          });
-        }); 
-      //DOES THE FORM NEED A PUT!!??
-      // console.log("trying to update!")
+      }); 
 
-      // ajaxRequest("PUT", "http://localhost:3000/api/category/" + _id, null, displayThreads);
-      // console.log("trying to update!")
+
+      // This works - CB.
+      $(".cancel").click(function(event){
+        event.preventDefault();
+
+        $('.original-thread').show();
+        $('p.thread-topic').show();
+        $('h3.thread-title').show();
+        $('p.thread-body').show();
+
+        $('.editable').hide();
+
+      });
+
+
+
     
-    }); // End of edit-thread function
+  }); // End of edit-thread function
    
 
 
