@@ -25,7 +25,6 @@
       <!-- EDITABLE THREAD -->
       <!-- Any element with the class of editable is hidden until the 'edit' button is clicked
       -->
-      <h3>This is the id: <%= thread.id %></h3>
       <form action="/api/category/<%= thread.id %>?_method=PUT" class="edit-thread-form editable">
       <!-- Thread Topic -->
       <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
