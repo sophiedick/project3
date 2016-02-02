@@ -32,7 +32,6 @@ function newComment(req, res) {
  function editComment(req, res) { 
    var commentId = req.params._id;
    console.log(commentId);
-   console.log("helloCARO!!!");
 
    Comment.findByIdAndUpdate({_id: commentId}, { body: req.body.comment.body }, {new: true}, function(err, comment) {
      if (err) {

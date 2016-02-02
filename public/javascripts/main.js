@@ -63,8 +63,15 @@ $(document).ready(function(){
         type: 'put',
         url:  'http://localhost:3000/api/category/' + threadId + '/comment/' + commentId,
         data: formData
-      }).done(function(comment){
-        console.log(comment);
+      }).done(function(data){
+        console.log(data);
+
+        $("#" + commentId + "edit").show();
+        $('p.thread-comment').show().val(data.body);
+
+
+        // $('p.thread-comment').show().html(data.body);
+        $('.editable').hide();
       });
     });
   })
