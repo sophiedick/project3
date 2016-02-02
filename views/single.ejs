@@ -19,18 +19,38 @@
         <hr>
         <b>Body:</b> 
         <p class="thread-body"><%= thread.body %></p>
+      </div>
 
+
+      <!-- ********** COMMENTS SECTION: ************ -->
          
-          <% for(i=0; i< thread.comments.length; i++){  %>
+        <% for(i=0; i< thread.comments.length; i++){  %>
+
+          <div class="comments">
+            <p><b>Comment:</b></p>
+            <p class="thread-comment"><%= thread.comments[i].body %> &nbsp; 
+            <a class="edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i].id %>" href="">EDIT</a></p>
+            <br>  
+          </div>
+
+            <!-- ********** EDIT COMMENTS SECTION: ************ -->
+          <div class="edit-comment">
+
+            <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=PUT" id="<%= thread.comments[i].id%>edit" class="edit-comment-form editable">
 
             <p><b>Comment:</b></p>
-            <p class="thread-comments"><%= thread.comments[i].body %> &nbsp; 
-            <a href="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>">EDIT</a></p>
-            <br>
+            <input id="edit-body" class="thread-comment" value="<%= thread.comments[i].body %>" name="comment[body]">
+            <input type="submit" id="edit-confirm" value="submit">
 
-          <% } %>
-         
-      </div>
+            </form>
+          </div>
+          <br>
+          
+
+        <% } %>
+
+
+            
 
 
       <!-- EDITABLE THREAD -->
@@ -71,6 +91,8 @@
 <section id="comments">
 
 </section>
+
+
 
 
 

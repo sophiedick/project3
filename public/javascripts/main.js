@@ -4,6 +4,7 @@ $(document).ready(function(){
   $('.editable').hide();
   $('.thread-id').hide();
   $('#submit-new-comment').click(newComment);
+//$('div.edit-comment').hide();
 
 
   /* **************************************** */
@@ -31,7 +32,48 @@ $(document).ready(function(){
   });   // End of $('#submit-new-thread').click()
 
 
-  });// DOCUMENT.READY
+//EDIT A COMMENT TEST
+  $("a.edit-comment-button").click(function(event){
+      event.preventDefault();
+      var threadId = $(this).data("id");
+      var commentId = $(this).data("comment");
+     
+
+      // Store the original inputs in variables:
+      var originalComment  = $('p.thread-comment').html();
+
+      // Hiding the original inputs from the view:
+      $('p.thread-comment').hide();
+
+      // Show the input fields
+      $("#" + commentId + "edit").show();
+      $('p.thread-comment').show().val(originalComment);
+
+      // Show the input fields
+
+
+    $("input#edit-confirm").click(function(event){
+      event.preventDefault();
+      var formData = $("#" + commentId + "edit").serialize();
+      console.log("This is formData:" +formData);
+      //debugger;
+
+      //$("div.edit-comment").slideDown();
+      $.ajax({
+        type: 'put',
+        url:  'http://localhost:3000/api/category/' + threadId + '/comment/' + commentId,
+        data: formData
+      }).done(function(comment){
+        console.log(comment);
+      });
+    });
+  })
+
+
+
+
+
+});// DOCUMENT.READY
 //************************************ COMMENTS ****************************************************
 
   /* **************************************** */
@@ -52,12 +94,12 @@ $(document).ready(function(){
       url:  'http://localhost:3000/api/category/' + threadId + '/newcomment',
       data:  formData
     }).done(function(comment){
-      console.log(comment)
-      console.log("HI"); 
+      console.log(comment.body);
+      // console.log("HI"); 
       var p = $('<div><p></p>/div>');
       p.html("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>Comment:</b><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + comment.body + "&nbsp; &nbsp; <a href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<br><br>");
       $('section#comments').append(p);
-      $('#comment-body').empty();
+      $('#comment-body').val("")
 
    }).fail(function(error){
     console.log(error);
@@ -68,11 +110,6 @@ $(document).ready(function(){
   /* **************************************** */
   /* *********** EDIT A COMMENT ************* */
   /* **************************************** */
-
-
-
-
-
 
 
 

@@ -3,7 +3,7 @@ var Thread = require("../models/thread");
 var methodOverride = require('method-override');
 
 
-
+/* NEW COMMENT */ 
 function newComment(req, res) {  
   var threadId = req.params.id;
   console.log(threadId);
@@ -28,8 +28,45 @@ function newComment(req, res) {
   });
 }
 
+/* EDIT COMMENT */ 
+ function editComment(req, res) { 
+   var commentId = req.params._id;
+   console.log(commentId);
+   console.log("helloCARO!!!");
+
+   Comment.findByIdAndUpdate({_id: commentId}, { body: req.body.comment.body }, {new: true}, function(err, comment) {
+     if (err) {
+       return res.status(404).json({ message: 'Something went wrong trying to update thread.'})
+     } else {
+       res.status(200).send(comment);
+     }
+   });
+ }
+
+function updateComment(req, res) { 
+  var commentId = req.params._id;
+  console.log("hello!!!");
+  console.log(commentId);
+
+  console.log(req.body.body);
+
+
+  Comment.findByIdAndUpdate({_id: commentId}, { body: req.body.body }, {new: true}, function(err, comment) {
+    if (err) {
+      return res.status(404).json({ message: 'Something went wrong trying to update thread.'})
+    } else {
+      res.status(200).send(comment);
+    }
+  });
+}
+
+
+
+
 
 
 module.exports = {
-  newComment: newComment
+  newComment: newComment,
+  editComment: editComment,
+  updateComment: updateComment
   }

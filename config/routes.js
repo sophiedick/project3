@@ -85,6 +85,10 @@ router.route('/newcomment')
 router.route('/api/category/:id/newcomment') 
    .post(commentsController.newComment)
 
+router.route('/api/category/:id/comment/:_id')
+   .put(commentsController.editComment)
+   .put(commentsController.updateComment)
+
 /* ******** ROOT *********** */
  router.route('/')
    .get(threadsController.home);
@@ -92,3 +96,10 @@ router.route('/api/category/:id/newcomment')
 
 // *************** EXPORT *********************
 module.exports = router;
+
+
+
+
+
+
+
