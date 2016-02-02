@@ -1,0 +1,11 @@
+<!-- .populate("comments") -->
+
+<%= user.username %>
+<%= user.email %>
+<%= user.password %>
+
+
+<a href="/users/<%=user._id%>/edit">Edit User</a>
+<form method="POST" action="/users/<%= user._id %>?_method=DELETE">
+  <input type="submit" value="Delete Your Profile">
+</form>

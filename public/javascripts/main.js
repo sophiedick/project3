@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
-//getThreads();
-$('.editable').hide();
-$('.thread-id').hide();
+  //getThreads();
+  $('.editable').hide();
+  $('.thread-id').hide();
 
 
   /* *************************************** */
