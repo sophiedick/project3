@@ -49,6 +49,10 @@
         <p class="thread-body"><%= thread.body %></p>
         <textarea class="editable thread-body" value="" name="threadBody"></textarea>
         <hr>
+        <!-- IF SOPHIE'S BREAKS, IT IS BECAUSE IT SHOULD BE THIS:
+        <input type="hidden" class="thread-id" name="threadId" value="<%= thread._id %>">
+        -->
+
         <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
         <input type="hidden" class="thread-modifiedAt" name="threadModifiedAt" value="<%= Date %>">
         <input type="submit" value="Submit" class="editable save">

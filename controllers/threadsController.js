@@ -15,7 +15,7 @@ function home(req, res) {
 
 function topicIndex(req, res) {
   var topic = req.params.category;
-   // console.log(topic)
+  
    var stuff = Thread.find({topic: topic}, function(err, data){
    var updatedAt = req.body.updatedAt;
    console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
