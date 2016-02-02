@@ -4,7 +4,6 @@ $(document).ready(function(){
 $('.editable').hide();
 $('.thread-id').hide();
 
-
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
   /* ******** SHOW MOST RECENT TOPIC ******* */

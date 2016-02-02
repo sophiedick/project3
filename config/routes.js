@@ -13,6 +13,25 @@ router.route('/')
 router.route('/:category')
   .get(threadsController.topicIndex);
 
+router.route('/tech/:id')
+  .get(threadsController.showThread)
+
+router.route('/business/:id')
+  .get(threadsController.showThread)
+
+router.route('/showbiz/:id')
+  .get(threadsController.showThread)
+
+router.route('/culture/:id')
+  .get(threadsController.showThread)
+
+router.route('/lifestyle/:id')
+  .get(threadsController.showThread)
+
+router.route('/world/:id')
+  .get(threadsController.showThread)
+
+
 router.route('/api/category')
   .get(threadsController.threadIndex)
   .post(threadsController.createThread)
@@ -21,8 +40,6 @@ router.route('/api/category/:id')
   .put(threadsController.updateThread)
   .delete(threadsController.deleteThread);
 
-router.route('/category/:id')
-  .get(threadsController.showThread)
   
 
 

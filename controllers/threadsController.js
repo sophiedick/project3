@@ -1,22 +1,30 @@
 // SD: Requiring Thread Model:
 var Thread = require("../models/thread");
 var methodOverride = require('method-override');
+var moment = require('moment');
 var topicsArray = ["tech", "business", "showbiz", "culture", "lifestyle", "world"];
 
-// GET 
 
+// GET 
 function home(req, res) {  
   res.render('index.ejs'); // { message: req.flash('errorMessage') });
 };
 
+
+/*  TOPIC INDEX url: localhost:3000/:category  */
+
 function topicIndex(req, res) {
   var topic = req.params.category;
-  console.log(topic);
-  Thread.find({topic: topic}, function(err, data){
-    console.log(data);
-    res.render('category.ejs', {threads: data, category: topic});
+   var lastModified = req.body.updatedAt
+   console.log(topic)
 
+   var stuff = Thread.find({topic: topic}, function(err, data){
+    // console.log(data);
+    var updatedAt = req.body.updatedAt;
+
+    res.render('category.ejs', {threads: data, category: topic, time: updatedAt});
   });
+   stuff.sort({'updatedAt': -1})
 
 };
 
@@ -31,17 +39,19 @@ function createThread(req, res) {
 };
 
 /* GET THREAD INDEX */
+// What is thread index???
 function threadIndex(req, res){
   Thread.find(function(err, threads){
     if (err) return res.status(404).json({ message: 'Something went wrong'});
     res.status(200).json({ threads: threads });
     res.render('category.ejs');
-  });
+  })
 };
 
 
 /* SHOW SINGLE THREAD */
 function showThread(req, res){
+
   var id = req.params.id;
   Thread.findById({_id: id}, function(err, thread){
     if(err) res.json({message: 'Could not find thread because:' + err});
@@ -59,7 +69,10 @@ function updateThread(req, res){
   var id = req.params.id;
   console.log(id); // Checking it works 
 
-  Thread.findByIdAndUpdate({_id: id}, { topic: req.body.threadTopic, title: req.body.threadTitle, body: req.body.threadBody }, {new: true}, function(err, thread){
+  Thread.findByIdAndUpdate({_id: id}, { topic: req.body.threadTopic, title: req.body.threadTitle, body: req.body.threadBody, modifiedAt: req.body.threadModifiedAt }, {new: true}, function(err, thread){
+
+    console.log("****")
+    console.log(req.body.threadModifiedAt)
 
   //  console.log("***** After Saving: *****")
   //  console.log(req.body.threadTopic)
@@ -86,9 +99,6 @@ function deleteThread(req, res){
     res.redirect('/');
   });
 };
-
-
-
 
 
 //HAVE YOU EXPORTED????? //HAVE YOU EXPORTED????? 

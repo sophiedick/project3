@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
 var User = require("./user");
 var Comment = require("./comment");
@@ -7,13 +8,13 @@ var ThreadSchema = mongoose.Schema({
   topic: String,
   title: String,
   body: String,
-  //Using to create time created and time when modified:
-  createdAt: { type: Date, default: Date.now },
-  modifiedAt: { type: Date, default: Date.now }
-//  comment: [Comment.Schema],
-//  user: [User.Schema]
+  // _comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
+  //  comment: [Comment.Schema],
+  //  user: [User.Schema]
 
 });
+
+ ThreadSchema.plugin(timestamps);
 
 
 module.exports = mongoose.model('Thread', ThreadSchema);
