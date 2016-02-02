@@ -1,20 +1,27 @@
 $(document).ready(function(){
+<<<<<<< HEAD
 
   //getThreads();
   $('.editable').hide();
   $('.thread-id').hide();
 
+=======
+//getThreads();
+$('.editable').hide();
+$('.thread-id').hide();
+});
+>>>>>>> origin/comments
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
   /* ******** SHOW MOST RECENT TOPIC ******* */
 
-  $(".index-topics").hover(function(event){
-    event.preventDefault();
-    //return
-    ajaxRequest("get", "http://localhost:3000/api/category", null, mostRecentThread);
+  // $(".index-topics").hover(function(event){
+  //   event.preventDefault();
+  //   //return
+  //   ajaxRequest("get", "http://localhost:3000/api/category", null, );
     
-  });
+  // });
 
   /* ************************************** */
   /* *********** INDEX PAGE - ************* */
@@ -159,6 +166,27 @@ $(document).ready(function(){
     });
   }
 
+  //************************************ COMMENTS ****************************************************
+
+// Create new comment:
+
+$('#submit-new-comment').click(function(event){
+  event.preventDefault();
+
+  // .serialize collects all the data from the form:
+  var formData = $('#new-comment').serialize();
+  console.log(formData);
+
+  $.ajax({
+    type: 'POST',
+    url:  'http://localhost:3000/api/category/' + thread._id + '/newcomment',
+    data:  formData
+  }).done(function(data){
+    console.log(data) 
+});
+});
+
+
 
   /* **************************************** */
   /* ************* AJAX REQUEST ************* */
@@ -179,4 +207,3 @@ $(document).ready(function(){
   }   // End of function ajaxRequest();
 
 
-});

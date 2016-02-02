@@ -1,10 +1,12 @@
 var express           = require('express');
 var router            = express.Router();
 var passport          = require("passport");
+
 var usersController   = require('../controllers/usersController');
 var threadsController = require('../controllers/threadsController');
 var commentsController = require('../controllers/commentsController')
 var authenticationsController = require('../controllers/authenticationsController');
+
 
 //// make root route
 //router.route('/')
@@ -12,16 +14,56 @@ var authenticationsController = require('../controllers/authenticationsControlle
 // 	.post(usersController.usersCreate);
 
 //******************* THREAD CONTROLLER (SOPHIE AND CAROLINE) ********************
- 
+
 router.route('/:category')
   .get(threadsController.topicIndex);
+
+router.route('/users')
+	.get(usersController.getAll)
+//	.post(usersController.createUser) //is now being handled by authenticationController register
+
+// router.route('/:category/:id')
+//   .get(threadsController.showThread)
+
+router.route('/:category')
+  .get(threadsController.topicIndex);
+
+
+router.route('/tech/:id')
+  .get(threadsController.showThread)
+
+router.route('/business/:id')
+  .get(threadsController.showThread)
+
+router.route('/showbiz/:id')
+  .get(threadsController.showThread)
+
+router.route('/culture/:id')
+  .get(threadsController.showThread)
+
+router.route('/lifestyle/:id')
+  .get(threadsController.showThread)
+
+router.route('/world/:id')
+  .get(threadsController.showThread)
 
 router.route('/api/category/:id')
   .put(threadsController.updateThread)
   .delete(threadsController.deleteThread);
 
+
 router.route('/category/:id')
   .get(threadsController.showThread)
+
+  
+ //********* COMMENT ROUTES (SOPHIE)*********
+
+router.route('/newcomment')
+   .get(commentsController.newComment)
+
+router.route('/api/category/:id/newcomment') 
+   .post(commentsController.newComment)
+
 
 
 //************** USER ROUTES (ANGUS) ***********************
@@ -31,7 +73,6 @@ router.post('/register', authenticationsController.register);
  
 router.route('/users')
   .get(usersController.getAll)
-//  .post(usersController.createUser) //is now being handled by authenticationController register
 
 // will now be handled by register
 router.route('/signup')
@@ -44,7 +85,6 @@ router.route('/users/:id')
 
 router.route('/users/:id/edit')
   .get(usersController.editUser)
-
 
 
 // *************** EXPORT *********************

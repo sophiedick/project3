@@ -25,7 +25,6 @@ app.set('view engine', 'ejs');
 app.use(layouts);
 app.set('views', './views');
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
@@ -43,6 +42,7 @@ app.use('/', expressJWT({ secret: secret })
       { url: '/signup', methods: ['GET']}
     ]
   }));
+
 
 var routes = require(__dirname + '/config/routes');
 app.use(routes); 
