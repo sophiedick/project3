@@ -24,7 +24,8 @@
           <% for(i=0; i< thread.comments.length; i++){  %>
 
             <p><b>Comment:</b></p>
-            <p class="thread-comments"><%= thread.comments[i].body %></p>
+            <p class="thread-comments"><%= thread.comments[i].body %> &nbsp; 
+            <a href="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>">EDIT</a></p>
             <br>
 
           <% } %>

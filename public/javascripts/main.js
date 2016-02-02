@@ -38,8 +38,6 @@ $(document).ready(function(){
   /* *********** CREATE NEW COMMENT ********* */
   /* **************************************** */
 
-  // $('#submit-new-comment').click(newComment){
-  //   event.preventDefault();
 
     function newComment(event) {
     event.preventDefault();
@@ -57,7 +55,7 @@ $(document).ready(function(){
       console.log(comment)
       console.log("HI"); 
       var p = $('<div><p></p>/div>');
-      p.html("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>Comment:</b><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + comment.body + "<br><br>");
+      p.html("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>Comment:</b><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + comment.body + "&nbsp; &nbsp; <a href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<br><br>");
       $('section#comments').append(p);
       $('#comment-body').empty();
 
