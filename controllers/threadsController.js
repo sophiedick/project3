@@ -15,17 +15,13 @@ function home(req, res) {
 
 function topicIndex(req, res) {
   var topic = req.params.category;
-   var lastModified = req.body.updatedAt
-   console.log(topic)
-
+   // console.log(topic)
    var stuff = Thread.find({topic: topic}, function(err, data){
-    // console.log(data);
-    var updatedAt = req.body.updatedAt;
-
-    res.render('category.ejs', {threads: data, category: topic, time: updatedAt});
+   var updatedAt = req.body.updatedAt;
+   console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
+   res.render('category.ejs', {threads: data, category: topic, moment: moment });
   });
    stuff.sort({'updatedAt': -1})
-
 };
 
 /* POST NEW THREAD */
@@ -39,7 +35,6 @@ function createThread(req, res) {
 };
 
 /* GET THREAD INDEX */
-// What is thread index???
 function threadIndex(req, res){
   Thread.find(function(err, threads){
     if (err) return res.status(404).json({ message: 'Something went wrong'});
@@ -114,11 +109,10 @@ function deleteThread(req, res){
 
 module.exports = {
   home:         home,
-  topicIndex:     topicIndex,
+  topicIndex:   topicIndex,
   createThread: createThread,
   threadIndex:  threadIndex,
   updateThread: updateThread,
   showThread:   showThread,
   deleteThread: deleteThread,
 }
-

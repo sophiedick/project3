@@ -6,6 +6,7 @@ var threadsController = require('../controllers/threadsController');
 //var commentsController = require('../controllers/commentsController')
 
 
+
 // make root route
 router.route('/')
   .get(threadsController.home);

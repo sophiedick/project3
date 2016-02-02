@@ -27,9 +27,12 @@
         </a>
 
         <!-- Once users has been integrated it should read as '13 mins ago by Bob Bobsmith' - CB -->
+        <!--
         <p>Created: <%= threads[i].createdAt %> by <b>[username]</b></p>
-        <p>Modified: <%= threads[i].updatedAt %> by <b>[username]</b></p>
-        
+        <p>Modified: <%= threads[i].updatedAt %> by <b>[username]</b></p> 
+        -->   
+        Last Updated: <i><%= moment(threads[i].updatedAt).fromNow() %></i> by <b>User</b>
+        <hr>    
         <!-- Body should only be reserved for the show page (I think? - CB)-->
         <%= /* threads[i].body */ %>
       <% } %>      
