@@ -43,6 +43,12 @@
             <input type="submit" id="edit-confirm" value="submit">
 
             </form>
+
+            <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
+            <button type="submit" data-id="<%= thread.comments[i].id %>" class="delete">Delete</button>
+            </form>
+
+
           </div>
           <br>
           

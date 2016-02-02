@@ -88,6 +88,7 @@ router.route('/api/category/:id/newcomment')
 router.route('/api/category/:id/comment/:_id')
    .put(commentsController.editComment)
    .put(commentsController.updateComment)
+   .delete(commentsController.deleteComment);
 
 /* ******** ROOT *********** */
  router.route('/')

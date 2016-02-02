@@ -59,6 +59,16 @@ function updateComment(req, res) {
   });
 }
 
+/* DELETE COMMENT */
+function deleteComment(req, res){
+  var commentId = req.params._id;
+
+  Comment.remove({_id: commentId}, function(err, comment){
+    if (err) res.json({ message: 'Could not delete thread because: ' + err});
+    res.json({ message: 'Comment successfully deleted'});
+    res.redirect('/');
+  });
+};
 
 
 
@@ -67,5 +77,6 @@ function updateComment(req, res) {
 module.exports = {
   newComment: newComment,
   editComment: editComment,
-  updateComment: updateComment
+  updateComment: updateComment,
+  deleteComment: deleteComment
   }
