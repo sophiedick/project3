@@ -15,7 +15,6 @@ function topicIndex(req, res) {
   Thread.find({topic: topic}, function(err, data){
     console.log(data);
     res.render('category.ejs', {threads: data, category: topic});
-
   });
 
 };
@@ -30,14 +29,14 @@ function createThread(req, res) {
   });
 };
 
-/* GET THREAD INDEX */
-function threadIndex(req, res){
-  Thread.find(function(err, threads){
-    if (err) return res.status(404).json({ message: 'Something went wrong'});
-    res.status(200).json({ threads: threads });
-    res.render('category.ejs');
-  });
-};
+// /* GET THREAD INDEX */
+// function threadIndex(req, res){
+//   Thread.find(function(err, threads){
+//     if (err) return res.status(404).json({ message: 'Something went wrong'});
+//     res.status(200).json({ threads: threads });
+//     res.render('category.ejs');
+//   });
+// };
 
 
 /* SHOW SINGLE THREAD */
@@ -111,7 +110,7 @@ module.exports = {
   home:         home,
   topicIndex:     topicIndex,
   createThread: createThread,
-  threadIndex:  threadIndex,
+  //threadIndex:  threadIndex,
   updateThread: updateThread,
   showThread:   showThread,
   deleteThread: deleteThread,

@@ -3,6 +3,7 @@ $(document).ready(function(){
   //getThreads();
   $('.editable').hide();
   $('.thread-id').hide();
+  $('#submit-new-comment').click(newComment);
 
 
   /* **************************************** */
@@ -30,14 +31,18 @@ $(document).ready(function(){
   });   // End of $('#submit-new-thread').click()
 
 
+  });// DOCUMENT.READY
+//************************************ COMMENTS ****************************************************
 
-    //************************************ COMMENTS ****************************************************
+  /* **************************************** */
+  /* *********** CREATE NEW COMMENT ********* */
+  /* **************************************** */
 
-  // Create new comment:
+  // $('#submit-new-comment').click(newComment){
+  //   event.preventDefault();
 
-  $('#submit-new-comment').click(function(event){
+    function newComment(event) {
     event.preventDefault();
-
     // .serialize collects all the data from the form:
     var formData = $('#new-comment').serialize();
     console.log(formData);
@@ -51,31 +56,27 @@ $(document).ready(function(){
     }).done(function(comment){
       console.log(comment)
       console.log("HI"); 
-      var p = $('<div><p></p></div>');
-      p.html(comment.body);
-      $('section#comments').prepend(p);
+      var p = $('<div><p></p>/div>');
+      p.html("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>Comment:</b><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + comment.body + "<br><br>");
+      $('section#comments').append(p);
       $('#comment-body').empty();
-      //p.html("");
 
    }).fail(function(error){
     console.log(error);
   })
-  });
+  };
 
 
-
-  //   return $.each(data.threads, function(index, thread){
-  //     console.log(thread);
-  //     $('#tech').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
-  //   })
-  // }
+  /* **************************************** */
+  /* *********** EDIT A COMMENT ************* */
+  /* **************************************** */
 
 
 
 
 
 
-});// DOCUMENT.READY
+
 
 
   /* *************************************** */
@@ -115,10 +116,6 @@ $(document).ready(function(){
     event.preventDefault();
     // Storing the original inputs
     var id = $(this).data("id");
-
-    console.log("This is the new id that works:")
-    console.log(id);
-    console.log("****")
 
     // Store the original inputs in variables:
     var originalTopic = $('p.thread-topic').html();
