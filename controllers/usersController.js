@@ -11,26 +11,29 @@ function getAll(request, response){
 
 //////////////////////////////////////////
 function userSignUp(req, res){
-	res.render('signup')
+	res.render('signup') //{"user" : user})
 };
+
+// is data not sending
 ///////////////////////////////////////////
 // AI function to create user
-function createUser(request, response){
-  // create user with new instance of User model. Schema is populated by request on body.user
-  // this will count as one request.body not 3
-	var newUser = new User({
-		username: request.body.user.username,
-		email: request.body.user.email,
-		password: request.body.user.password
-	});
-
-	console.log(newUser); //object is coming out
-	newUser.save(function(error) {
-	  if(error) console.log('user not saved' + error)
-	});
-	// must be outside error function
-	response.redirect('/users');
-}
+//// user is actually created at point of registration/authentication with passport/JWT
+//function createUser(request, response){
+//  // create user with new instance of User model. Schema is populated by request on body.user
+//  // this will count as one request.body not 3
+//	var newUser = new User({
+//		username: request.body.user.username,
+//		email: request.body.user.email,
+//		password: request.body.user.password
+//	});
+//
+//	console.log(newUser); //object is coming out
+//	newUser.save(function(error) {
+//	  if(error) console.log('user not saved' + error)
+//	});
+//	// must be outside error function
+//	response.redirect('/users');
+//}
 //////////////////////////////////////////////////////////
 function editUser(request, response){
 	  var id = request.params.id;
@@ -101,11 +104,19 @@ function userDelete(req, res) {
 
 //// AI: make all actions available in scope
 module.exports = {	
+	//------------------user CRUD--------------------
 	getAll : getAll,
 	userSignUp : userSignUp,
-	createUser: createUser,
+	//createUser: createUser,
 	userUpdate: userUpdate,
 	userShow:   userShow,
 	editUser: editUser,
 	userDelete: userDelete
+	//--------passport authentication methods -------
+	//getLogin: getLogin,
+	//postLogin: postLogin ,
+	//getSignup: getSignup,
+	//postSignup: postSignup,
+	//getLogout: getLogout,
+	//getSecret: getSecret
 };
