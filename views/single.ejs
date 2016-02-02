@@ -62,6 +62,7 @@
   <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
     <label>Comment</label>
     <input type='text' id="comment-body" name="comment[body]" value='' placeholder="Enter a comment...">
+    <input type='hidden' id="ctid" value="<%= thread._id %>">
     <br>
     <input type="submit" value="Submit" id="submit-new-comment">
   </form>

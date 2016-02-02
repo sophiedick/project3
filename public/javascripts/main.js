@@ -1,8 +1,29 @@
 $(document).ready(function(){
 
-//getThreads();
-$('.editable').hide();
-$('.thread-id').hide();
+  //getThreads();
+  $('.editable').hide();
+  $('.thread-id').hide();
+
+  // submit comment listener - need to tidy this up
+  $('#submit-new-comment').click(function(event){
+    event.preventDefault();
+
+    // .serialize collects all the data from the form:
+    var formData = $('#new-comment').serialize();
+    console.log(formData);
+    //var threadId = $(this)
+    // console.log($("#ctid").val());
+    var threadId = $("#ctid").val();
+
+    $.ajax({
+      type: 'POST',
+      url:  'http://localhost:3000/api/category/' + threadId + '/newcomment',
+      data:  formData
+    }).done(function(data){
+      console.log(data);
+    });
+  });
+
 });
 
   /* *************************************** */
@@ -163,21 +184,7 @@ $('.thread-id').hide();
 
 // Create new comment:
 
-$('#submit-new-comment').click(function(event){
-  event.preventDefault();
 
-  // .serialize collects all the data from the form:
-  var formData = $('#new-comment').serialize();
-  console.log(formData);
-
-  $.ajax({
-    type: 'POST',
-    url:  'http://localhost:3000/api/category/' + thread._id + '/newcomment',
-    data:  formData
-  }).done(function(data){
-    console.log(data) 
-});
-});
 
 
 
