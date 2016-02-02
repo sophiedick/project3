@@ -1,15 +1,30 @@
 var express           = require('express');
 var router            = express.Router();
 var passport          = require("passport");
+<<<<<<< HEAD
 //var usersController   = require('../controllers/usersController');
 var threadsController = require('../controllers/threadsController');
 var commentsController = require('../controllers/commentsController')
+=======
+var usersController   = require('../controllers/usersController');
+//var threadsController = require('../controllers/threadsController');
+//var commentsController = require('../controllers/commentsController')
+var authenticationsController = require('../controllers/authenticationsController');
+>>>>>>> c69e00a987eba829ac384255493f166414858c52
 
+//// make root route
+//router.route('/')
+// // .get(threadsController.home);
+// 	.post(usersController.usersCreate);
 
-// make root route
-router.route('/')
-  .get(threadsController.home);
+router.post('/login', authenticationsController.login);
+router.post('/register', authenticationsController.register);
+ 
+router.route('/users')
+	.get(usersController.getAll)
+//	.post(usersController.createUser) //is now being handled by authenticationController register
 
+<<<<<<< HEAD
 router.route('/:category')
   .get(threadsController.topicIndex);
 
@@ -37,11 +52,16 @@ router.route('/lifestyle/:id')
 
 router.route('/world/:id')
   .get(threadsController.showThread)
+=======
+// will now be handled by register
+router.route('/signup')
+ 	.get(usersController.userSignUp);
+>>>>>>> c69e00a987eba829ac384255493f166414858c52
 
-router.route('/api/category')
-  .get(threadsController.threadIndex)
-  .post(threadsController.createThread)
+router.route('/users/:id/edit')
+	.get(usersController.editUser)
 
+<<<<<<< HEAD
 router.route('/api/category/:id')
   .put(threadsController.updateThread)
   .delete(threadsController.deleteThread);
@@ -58,6 +78,20 @@ router.route('/api/category/:id/newcomment')
 
 
 
+=======
+router.route('/users/:id') 
+	 .get(usersController.userShow)
+	 .put(usersController.userUpdate)
+	 .delete(usersController.userDelete)
+//
+//router.route('/category')
+//  .get(threadsController.category)
+//
+//router.route('/api/category')
+//  .get(threadsController.threadIndex)
+//  .post(threadsController.createThread)
+//
+>>>>>>> c69e00a987eba829ac384255493f166414858c52
 
 //router.route('/signup')
 //  .get(unAuthenticatedUser, usersController.getSignup)
@@ -76,4 +110,4 @@ router.route('/api/category/:id/newcomment')
 //router.route("/secret")
 //  .get(authenticatedUser, usersController.getSecret)
 //
-module.exports = router//
+module.exports = router;
