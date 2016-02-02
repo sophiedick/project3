@@ -26,7 +26,7 @@ function createThread(req, res) {
   thread.save(function(err, thread){
     if (err) res.status(500).send(err);
     res.status(201).send(thread);
-    res.render('category.ejs')
+    // res.render('category.ejs')
   });
 };
 
@@ -35,10 +35,9 @@ function threadIndex(req, res){
   Thread.find(function(err, threads){
     if (err) return res.status(404).json({ message: 'Something went wrong'});
     res.status(200).json({ threads: threads });
-    res.render('category.ejs');
-  });
+    //res.render('category.ejs');
+  })
 };
-
 
 /* SHOW SINGLE THREAD */
 function showThread(req, res){
@@ -52,7 +51,6 @@ function showThread(req, res){
 
 /* But wait - where's the editThread function? */
 // Edit thread form will be implemented with jQuery and Ajax in place - CB
-
 
 /* UPDATE THREAD */
 function updateThread(req, res){
@@ -86,9 +84,6 @@ function deleteThread(req, res){
     res.redirect('/');
   });
 };
-
-
-
 
 
 //HAVE YOU EXPORTED????? //HAVE YOU EXPORTED????? 

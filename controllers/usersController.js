@@ -2,9 +2,9 @@
 var User = require('../models/user');
 
 function getAll(request, response){
+	//console.log(request.headers);
   User.find({}, function(err, users) {
     if (err) return response.status(404).send(err);
-
     response.render('index', {users: users})
   });
 }

@@ -34,14 +34,24 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(passport.initialize());
 
-app.use('/', expressJWT({ secret: secret })
-  .unless({
-    path: [
-      { url: '/login', methods: ['POST'] },
-      { url: '/register', methods: ['POST'] },
-      { url: '/signup', methods: ['GET']}
-    ]
-  }));
+//app.use(session({ secret: config.secret}))
+//app.use(passport.initialize());
+//app.use(passport.session());
+
+// app.use('/', expressJWT({ secret: secret })
+//   .unless({
+//     path: [
+//       { url: '/login', methods: ['POST'] },
+//       { url: '/register', methods: ['POST'] },
+//       { url: '/signup', methods: ['GET']}
+//     ]
+//   }));
+
+app.post('/api/category', expressJWT({ secret: secret }));
+// app.put('/api/someotherurl', expressJWT({ secret: secret }));
+  
+
+
 
 
 var routes = require(__dirname + '/config/routes');

@@ -6,36 +6,34 @@ var jwt      = require('jsonwebtoken');
 function register(req, res, next) {
 
   var localStrategy = passport.authenticate('local-signup', function(err, user, info) {
-    if (err) return res.status(500).json({ message: 'Something went wrong with localStrategy in authentications controller!' });
-    console.log(err + "this is the error") // is printing null
-    console.log(user + "this be the user") //is printing false hence the next line
-    console.log(info)
+    //error messages//////////
+    if (err) return res.status(500).json({ message: 'Something went wrong with localStrategy in authentications controller!' })
     if (info) return res.status(401).json({ message: info.message });
     if (!user) return res.status(401).json({ message: 'User already exists!' });
-    console.log("authenticated")
+    //////////////////////////
     // User has authenticated so issue token 
     var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
     
     // Send back the token to the front-end to store
-    // return res.status(200).json({ 
-    //   success: true,
-    //   message: "Thank you for authenticating",
-    //   token: token,
-    //   user: user
-    // });
-
-    return res.render('index', { token: token, user: user });
+    return res.status(200).json({ 
+      success: true,
+      message: "Thank you for authenticating",
+      token: token,
+      user: user
+    });
+    //console.log(user, token)
+    //return res.render('index', { token: token, user: user });
 
   });
 
-  console.log(req.body)
+  //console.log(req.body)
 
   return localStrategy(req, res, next);
 };
 
 
-
 function login(req, res, next) {
+  console.log("hitting login route")
   //console.log(User)
   User.findOne({
     "email": req.body.email
@@ -51,6 +49,9 @@ function login(req, res, next) {
       message: 'Welcome!',
       token: token
     });
+      // console.log(token)
+      // return res.render('index', {token: token, user: user})
+   
   });
 };
 

@@ -1,16 +1,9 @@
 $(document).ready(function(){
-<<<<<<< HEAD
-
-  //getThreads();
+  getThreads();
   $('.editable').hide();
   $('.thread-id').hide();
 
-=======
-//getThreads();
-$('.editable').hide();
-$('.thread-id').hide();
-});
->>>>>>> origin/comments
+
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
@@ -136,15 +129,22 @@ $('.thread-id').hide();
     var formData = $('#new-thread').serialize();
     console.log(formData);
 
+    function setRequestHeader(xhr) {
+      var token = window.localStorage.token;  
+      if (token) return xhr.setRequestHeader('Authorization','Bearer ' + token);
+    }
+
     $.ajax({
       type: 'POST',
       url:  'http://localhost:3000/api/category',
-      data:  formData
+      data:  formData,
+      beforeSend: setRequestHeader,
     }).done(function(thread){
-      console.log(thread);
+       console.log(thread);
       var li = $('<li></li>');
       li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
       $('ul#threads').prepend(li);
+      //location.href = "/"
     }); 
   });   // End of $('#submit-new-thread').click()
 
@@ -206,4 +206,4 @@ $('#submit-new-comment').click(function(event){
    });
   }   // End of function ajaxRequest();
 
-
+});
