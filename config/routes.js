@@ -33,20 +33,16 @@ router.route('/users/:id')
 router.route('/users/:id/edit')
   .get(usersController.editUser)
 
+router.route('/users')
+  .get(usersController.getAll)
+//  .post(usersController.createUser) //is now being handled by authenticationController register
+
 
 //******************* THREAD CONTROLLER (SOPHIE AND CAROLINE) ********************
 
 
-router.route('/users')
-	.get(usersController.getAll)
-//	.post(usersController.createUser) //is now being handled by authenticationController register
-
-// router.route('/:category/:id')
-//   .get(threadsController.showThread)
-
 router.route('/:category')
   .get(threadsController.topicIndex);
-
 
 router.route('/tech/:id')
   .get(threadsController.showThread)
@@ -66,18 +62,18 @@ router.route('/lifestyle/:id')
 router.route('/world/:id')
   .get(threadsController.showThread)
 
+
+router.route('/api/category')
+  .get(threadsController.threadIndex)
+  .post(threadsController.createThread)
+
 router.route('/api/category/:id')
   .put(threadsController.updateThread)
   .delete(threadsController.deleteThread);
 
-router.route('/api/category')
-  .post(threadsController.createThread)
 
-router.route('/category/:id')
-  .get(threadsController.showThread)
+ //******************* COMMENT CONTROLLER (SOPHIE AND CAROLINE) ********************
 
-  
- //********* COMMENT ROUTES (SOPHIE)*********
 
 router.route('/newcomment')
    .get(commentsController.newComment)

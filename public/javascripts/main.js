@@ -6,7 +6,6 @@ $(document).ready(function(){
   $('#submit-new-comment').click(newComment);
 //$('div.edit-comment').hide();
 
-
   /* **************************************** */
   /* *********** CREATE NEW THREADS ********* */
   /* **************************************** */
@@ -114,6 +113,7 @@ $('.edit-thread').click(function(event){
   $('input[type="submit"].editable').show();
 
 
+
     $(".save").click(function(event){
       event.preventDefault();
       var formData = $('.edit-thread-form').serialize();
@@ -134,18 +134,7 @@ $('.edit-thread').click(function(event){
         $('p.thread-body').show();
       }
 
-
-      // This prints out: threadTopic=world&threadTitle=Goodbye+Niall&threadBody=ewefe&threadId=56acbd365b39b94d6362e4a9
       console.log(formData);
-
-      
-    //  $('p.thread-topic').html("");
-    //  $('h3.thread-title').html("");
-    //  $('p.thread-body').html(""); 
-
-
-      // Hide the editable elements again
-
 
     }); 
 
