@@ -84,20 +84,7 @@ $('.thread-id').hide();
           $('h3.thread-title').show();
           $('p.thread-body').show();
         }
-
-
-        // This prints out: threadTopic=world&threadTitle=Goodbye+Niall&threadBody=ewefe&threadId=56acbd365b39b94d6362e4a9
         console.log(formData);
-
-        
-      //  $('p.thread-topic').html("");
-      //  $('h3.thread-title').html("");
-      //  $('p.thread-body').html(""); 
-
-
-        // Hide the editable elements again
-
-
       }); 
 
       // This works - CB.
