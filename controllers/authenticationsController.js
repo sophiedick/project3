@@ -17,12 +17,15 @@ function register(req, res, next) {
     var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
     
     // Send back the token to the front-end to store
-    return res.status(200).json({ 
-      success: true,
-      message: "Thank you for authenticating",
-      token: token,
-      user: user
-    });
+    // return res.status(200).json({ 
+    //   success: true,
+    //   message: "Thank you for authenticating",
+    //   token: token,
+    //   user: user
+    // });
+
+    return res.render('index', { token: token, user: user });
+
   });
 
   console.log(req.body)
@@ -33,6 +36,7 @@ function register(req, res, next) {
 
 
 function login(req, res, next) {
+  //console.log(User)
   User.findOne({
     "email": req.body.email
   }, function(err, user) {
