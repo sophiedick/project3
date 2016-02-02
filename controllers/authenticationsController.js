@@ -7,9 +7,6 @@ function register(req, res, next) {
 
   var localStrategy = passport.authenticate('local-signup', function(err, user, info) {
     if (err) return res.status(500).json({ message: 'Something went wrong with localStrategy in authentications controller!' });
-    console.log(err + "this is the error") // is printing null
-    console.log(user + "this be the user") //is printing false hence the next line
-    console.log(info)
     if (info) return res.status(401).json({ message: info.message });
     if (!user) return res.status(401).json({ message: 'User already exists!' });
     console.log("authenticated")
@@ -32,7 +29,6 @@ function register(req, res, next) {
 
   return localStrategy(req, res, next);
 };
-
 
 
 function login(req, res, next) {

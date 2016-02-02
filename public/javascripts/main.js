@@ -1,16 +1,82 @@
 $(document).ready(function(){
-<<<<<<< HEAD
 
   //getThreads();
   $('.editable').hide();
   $('.thread-id').hide();
 
-=======
-//getThreads();
-$('.editable').hide();
-$('.thread-id').hide();
-});
->>>>>>> origin/comments
+
+  /* **************************************** */
+  /* *********** CREATE NEW THREADS ********* */
+  /* **************************************** */
+
+  $('#submit-new-thread').click(function(event){
+    event.preventDefault();
+    console.log("CLick!")
+
+    // .serialize collects all the data from the form:
+    var formData = $('#new-thread').serialize();
+    console.log(formData);
+
+    $.ajax({
+      type: 'POST',
+      url:  'http://localhost:3000/api/category',
+      data:  formData
+    }).done(function(thread){
+      console.log(thread);
+      var li = $('<li></li>');
+      li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
+      $('ul#threads').prepend(li);
+    }); 
+  });   // End of $('#submit-new-thread').click()
+
+
+
+    //************************************ COMMENTS ****************************************************
+
+  // Create new comment:
+
+  $('#submit-new-comment').click(function(event){
+    event.preventDefault();
+
+    // .serialize collects all the data from the form:
+    var formData = $('#new-comment').serialize();
+    console.log(formData);
+    var threadId = $("#ctid").val();
+    console.log(threadId);
+
+    $.ajax({
+      type: 'POST',
+      url:  'http://localhost:3000/api/category/' + threadId + '/newcomment',
+      data:  formData
+    }).done(function(comment){
+      console.log(comment)
+      console.log("HI"); 
+      var p = $('<div><p></p></div>');
+      p.html(comment.body);
+      $('section#comments').prepend(p);
+      $('#comment-body').empty();
+      //p.html("");
+
+   }).fail(function(error){
+    console.log(error);
+  })
+  });
+
+
+
+  //   return $.each(data.threads, function(index, thread){
+  //     console.log(thread);
+  //     $('#tech').prepend("Topic: " + thread.topic + "<br>Title: " + thread.title + "<br><br>");
+  //   })
+  // }
+
+
+
+
+
+
+});// DOCUMENT.READY
+
 
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
@@ -125,28 +191,6 @@ $('.thread-id').hide();
    
 
 
-  /* **************************************** */
-  /* *********** CREATE NEW THREADS ********* */
-  /* **************************************** */
-
-  $('#submit-new-thread').click(function(event){
-    event.preventDefault();
-
-    // .serialize collects all the data from the form:
-    var formData = $('#new-thread').serialize();
-    console.log(formData);
-
-    $.ajax({
-      type: 'POST',
-      url:  'http://localhost:3000/api/category',
-      data:  formData
-    }).done(function(thread){
-      console.log(thread);
-      var li = $('<li></li>');
-      li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
-      $('ul#threads').prepend(li);
-    }); 
-  });   // End of $('#submit-new-thread').click()
 
 
   /* **************************************** */
@@ -162,29 +206,10 @@ $('.thread-id').hide();
     // console.log(data);
     return $.each(data.threads, function(index, thread){
       // console.log(thread);
-      $('#threads').prepend("Topic: " + thread.topic + "<br>Title: <a href='/category/" + thread._id + "'>" + thread.title + "</a> <br><br>");
+      $('#threads').prepend("Topic: " + thread.topic + "<br>Title: <a href='/category/" + thread._id + "'>" + thread.title + "</a><br><br>");
     });
   }
 
-  //************************************ COMMENTS ****************************************************
-
-// Create new comment:
-
-$('#submit-new-comment').click(function(event){
-  event.preventDefault();
-
-  // .serialize collects all the data from the form:
-  var formData = $('#new-comment').serialize();
-  console.log(formData);
-
-  $.ajax({
-    type: 'POST',
-    url:  'http://localhost:3000/api/category/' + thread._id + '/newcomment',
-    data:  formData
-  }).done(function(data){
-    console.log(data) 
-});
-});
 
 
 

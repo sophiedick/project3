@@ -34,14 +34,15 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(passport.initialize());
 
-app.use('/', expressJWT({ secret: secret })
-  .unless({
-    path: [
-      { url: '/login', methods: ['POST'] },
-      { url: '/register', methods: ['POST'] },
-      { url: '/signup', methods: ['GET']}
-    ]
-  }));
+// app.use('/', expressJWT({ secret: secret })
+//   .unless({
+//     path: [
+//       { url: '/login', methods: ['POST'] },
+//       { url: '/register', methods: ['POST'] },
+//       { url: '/signup', methods: ['GET']}
+//     ]
+//   }));
+
 
 
 var routes = require(__dirname + '/config/routes');

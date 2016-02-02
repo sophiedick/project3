@@ -1,4 +1,4 @@
-<!-- // This is a single thread page to test that the data is being put on the screen - CB -->
+ // This is a single thread page to test that the data is being put on the screen - CB -->
 
 <div class="container">
 
@@ -19,6 +19,16 @@
         <hr>
         <b>Body:</b> 
         <p class="thread-body"><%= thread.body %></p>
+
+         
+          <% for(i=0; i< thread.comments.length; i++){  %>
+
+            <p><b>Comment:</b></p>
+            <p class="thread-comments"><%= thread.comments[i].body %></p>
+            <br>
+
+          <% } %>
+         
       </div>
 
 
@@ -57,15 +67,26 @@
 </div>        <!-- End of container -->
 
 
+<section id="comments">
+
+</section>
+
+
 
 <div> 
   <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
     <label>Comment</label>
-    <input type='text' id="comment-body" name="comment[body]" value='' placeholder="Enter a comment...">
+    <input type='text' id="comment-body" name="comments[body]" value='' placeholder="Enter a comment...">
+    <br>
+
+    <input type='hidden' id="ctid" value="<%= thread._id %>">
     <br>
     <input type="submit" value="Submit" id="submit-new-comment">
   </form>
 </div>
+
+
+
 
 <!-- 
   Note to CB:
@@ -73,4 +94,3 @@
 √  Input text boxes/text areas appear with current values
    Upon clicking submit, replace the html with the new values
    Else the inner html remains the same
--->

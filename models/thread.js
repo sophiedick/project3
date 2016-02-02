@@ -11,11 +11,8 @@ var ThreadSchema = mongoose.Schema({
   //Using to create time created and time when modified:
   createdAt: { type: Date, default: Date.now },
   modifiedAt: { type: Date, default: Date.now },
-  //comment: [Comment.Schema],
-  _comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],  
   //_user: { type: Schema.Types.ObjectId, ref: 'User' }
-
-//  user: [User.Schema]
 
 });
 

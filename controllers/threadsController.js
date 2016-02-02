@@ -25,7 +25,7 @@ function createThread(req, res) {
   var thread = new Thread(req.body.thread);
   thread.save(function(err, thread){
     if (err) res.status(500).send(err);
-    res.status(201).send(thread);
+    res.status(200).send(thread);
     res.render('category.ejs')
   });
 };
@@ -45,9 +45,14 @@ function showThread(req, res){
   var id = req.params.id;
   Thread.findById({_id: id}, function(err, thread){
     if(err) res.json({message: 'Could not find thread because:' + err});
-    var thread2 = thread
-    res.render('single',{ thread: thread})
-  });
+    
+
+  }).populate("comments")
+  .exec(function(err, thread){
+    if(err) console.log(err);
+    console.log(thread);
+    res.render('single',{ thread: thread[0]});
+  })
 };
 
 /* But wait - where's the editThread function? */

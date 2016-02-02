@@ -9,14 +9,33 @@ var authenticationsController = require('../controllers/authenticationsControlle
 
 
 //// make root route
-//router.route('/')
-// // .get(threadsController.home);
-// 	.post(usersController.usersCreate);
+// router.route('/')
+//   .get(threadsController.home);
+	//.post(usersController.usersCreate);
+
+//************** USER ROUTES (ANGUS) ***********************
+
+router.post('/login', authenticationsController.login);
+router.post('/register', authenticationsController.register);
+ 
+router.route('/users')
+  .get(usersController.getAll)
+
+// will now be handled by register
+router.route('/signup')
+  .get(usersController.userSignUp);
+
+router.route('/users/:id') 
+ .get(usersController.userShow)
+ .put(usersController.userUpdate)
+ .delete(usersController.userDelete)
+
+router.route('/users/:id/edit')
+  .get(usersController.editUser)
+
 
 //******************* THREAD CONTROLLER (SOPHIE AND CAROLINE) ********************
 
-router.route('/:category')
-  .get(threadsController.topicIndex);
 
 router.route('/users')
 	.get(usersController.getAll)
@@ -51,6 +70,8 @@ router.route('/api/category/:id')
   .put(threadsController.updateThread)
   .delete(threadsController.deleteThread);
 
+router.route('/api/category')
+  .post(threadsController.createThread)
 
 router.route('/category/:id')
   .get(threadsController.showThread)
@@ -64,27 +85,9 @@ router.route('/newcomment')
 router.route('/api/category/:id/newcomment') 
    .post(commentsController.newComment)
 
-
-
-//************** USER ROUTES (ANGUS) ***********************
-
-router.post('/login', authenticationsController.login);
-router.post('/register', authenticationsController.register);
- 
-router.route('/users')
-  .get(usersController.getAll)
-
-// will now be handled by register
-router.route('/signup')
-  .get(usersController.userSignUp);
-
-router.route('/users/:id') 
- .get(usersController.userShow)
- .put(usersController.userUpdate)
- .delete(usersController.userDelete)
-
-router.route('/users/:id/edit')
-  .get(usersController.editUser)
+/* ******** ROOT *********** */
+ router.route('/')
+   .get(threadsController.home);
 
 
 // *************** EXPORT *********************
