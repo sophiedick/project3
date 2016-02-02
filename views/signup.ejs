@@ -1,0 +1,33 @@
+
+<h1> here be a form for signing up </h1>
+<!-- form action to /users as we are adding to user directory - this page will need to have a redirect-->
+<!-- action POST as we are inputting to database-->
+<div class="form-group">
+  <form action="/register" method='POST'> 
+    Email:<br>
+    <input type="email" name="email" >
+    <br>
+     Password:<br>
+    <input type="password" name="password" >
+    <br>
+    <!-- will need to prevent default if we wish to use ajax-->
+    <input type="submit" value="Submit">
+  </form> 
+</div>
+
+
+
+<section id="login">
+  <h2>Login</h2>
+  <form class="login" method="post" action="/login">
+    <div class="form-group">
+      <label for="login-email">Email address</label>
+      <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</section>

@@ -10,13 +10,11 @@ function home(req, res) {
   res.render('index.ejs'); // { message: req.flash('errorMessage') });
 };
 
-
 /*  TOPIC INDEX url: localhost:3000/:category  */
 
 function topicIndex(req, res) {
   var topic = req.params.category;
-  
-   var stuff = Thread.find({topic: topic}, function(err, data){
+  var stuff = Thread.find({topic: topic}, function(err, data){
    var updatedAt = req.body.updatedAt;
    console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
    res.render('category.ejs', {threads: data, category: topic, moment: moment });
@@ -29,10 +27,11 @@ function createThread(req, res) {
   var thread = new Thread(req.body.thread);
   thread.save(function(err, thread){
     if (err) res.status(500).send(err);
-    res.status(201).send(thread);
+    res.status(200).send(thread);
     res.render('category.ejs')
   });
 };
+
 
 /* GET THREAD INDEX */
 function threadIndex(req, res){
@@ -50,9 +49,14 @@ function showThread(req, res){
   var id = req.params.id;
   Thread.findById({_id: id}, function(err, thread){
     if(err) res.json({message: 'Could not find thread because:' + err});
-    var thread2 = thread
-    res.render('single',{ thread: thread})
-  });
+    
+
+  }).populate("comments")
+  .exec(function(err, thread){
+    if(err) console.log(err);
+    console.log(thread);
+    res.render('single',{ thread: thread[0]});
+  })
 };
 
 /* But wait - where's the editThread function? */
