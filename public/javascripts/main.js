@@ -106,7 +106,7 @@ $('.edit-thread').click(function(event){
   $('p.thread-body').hide();
 
   // Show the input fields
-  $('form.editable').show();
+  $('form.edit-thread-form.editable').show();
   $('.editable.thread-topic').show().val(originalTopic);
   $('.editable.thread-title').show().val(originalTitle);
   $('.editable.thread-body').show().val(originalBody);
@@ -189,7 +189,7 @@ $('.edit-thread').click(function(event){
    }).fail(function(error){
     console.log(error);
   })
-  };
+};
 
 
   /* *************************************** */
