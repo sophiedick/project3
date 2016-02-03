@@ -39,6 +39,7 @@ $(document).ready(function(){
       event.preventDefault();
       var threadId = $(this).data("id");
       var commentId = $(this).data("comment");
+      //console.log("HELOO")
      
 
       // Store the original inputs in variables:
@@ -49,7 +50,7 @@ $(document).ready(function(){
 
       // Show the input fields
       $("#" + commentId + "edit").show();
-      $('p.thread-comment').show().val(originalComment);
+      //$('p.thread-comment').show().val(originalComment);
 
       // Show the input fields
 
@@ -69,8 +70,9 @@ $(document).ready(function(){
         console.log(data);
 
         $("#" + commentId + "edit").show();
-        $('p.thread-comment').show().val(data.body);
+        $('p.thread-comment').show().html(data.body);
 
+        
 
         // $('p.thread-comment').show().html(data.body);
         $('.editable').hide();
@@ -181,10 +183,16 @@ $('.edit-thread').click(function(event){
     }).done(function(comment){
       console.log(comment.body);
       // console.log("HI"); 
-      var p = $('<div><p></p>/div>');
-      p.html("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>Comment:</b><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + comment.body + "&nbsp; &nbsp; <a href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<br><br>");
+      var p = $('<div class="comment-block row col-md-12"></div>');
+      p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a class='button' href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>Delete</button></form>");
+
+
       $('section#comments').append(p);
       $('#comment-body').val("")
+
+      // var del = $('<div></div>')
+      // del.html("<form action='/api/category/" + thread._id + "/comment/" + thread.comments.id +"?_method=DELETE' method='post'><button type='submit' data-id='" + thread.comments.id + "' class='delete'>Delete</button></form>")
+      // $(p).append(del);
 
    }).fail(function(error){
     console.log(error);

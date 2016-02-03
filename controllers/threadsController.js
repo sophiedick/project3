@@ -94,8 +94,9 @@ function deleteThread(req, res){
 
   Thread.remove({_id: id}, function(err, thread){
     if (err) res.json({ message: 'Could not delete thread because: ' + err});
-    res.json({ message: 'Thread successfully deleted'});
     res.redirect('/');
+    res.json({ message: 'Thread successfully deleted'});
+    
   });
 };
 
