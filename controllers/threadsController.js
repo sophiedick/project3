@@ -15,9 +15,9 @@ function home(req, res) {
 function topicIndex(req, res) {
   var topic = req.params.category;
   var stuff = Thread.find({topic: topic}, function(err, data){
-  var updatedAt = req.body.updatedAt;
-  console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
-  res.render('category.ejs', {threads: data, category: topic, moment: moment });
+   var updatedAt = req.body.updatedAt;
+   console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
+   res.render('category.ejs', {threads: data, category: topic, moment: moment });
   });
    stuff.sort({'updatedAt': -1})
 };
@@ -27,8 +27,8 @@ function createThread(req, res) {
   var thread = new Thread(req.body.thread);
   thread.save(function(err, thread){
     if (err) res.status(500).send(err);
-    res.status(200).send(thread);
-    res.render('category.ejs')
+    res.status(201).send(thread);
+    //res.render('category.ejs')
   });
 };
 
