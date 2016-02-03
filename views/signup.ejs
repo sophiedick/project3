@@ -19,17 +19,18 @@
 <!-- form action to /users as we are adding to user directory - this page will need to have a redirect-->
 <!-- action POST as we are inputting to database-->
 <form id="signup-form" action="/register" method='POST'>
-  <!--Username:<br>-->
-  <!-- name="user[username]" corresponds to user model data field of username -->
-  <!--<input type="text" name="user[username]">
-  <br>-->
+  Username:
+  <br>
+  <!--name="user[username]" corresponds to user model data field of username -->
+  <input type="text" name="name">
+  <br>
   Email:<br>
   <input type="email" name="email" >
   <br>
    Password:<br>
   <input type="password" name="password" >
   <br>
-  <!-- will need to prevent default if we wish to use ajax-->
+  <!--will need to prevent default if we wish to use ajax -->
   <input type="submit" value="Submit">
 </form> 
 

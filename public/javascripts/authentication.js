@@ -89,6 +89,10 @@ function displayErrors(data){
 
 function loggedInState(){
   console.log("logged in")
+  var current_user_email = jwt_decode(getToken())._doc.email
+  var current_user_id    = jwt_decode(getToken())._doc._id
+  $("#current_user_email").html(current_user_email);
+  $("a#current_user_email").attr("href","/users/" + current_user_id);
   $(" .logged-out").hide();
   $("#users, .logged-in").show();
   //return getUsers();

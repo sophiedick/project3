@@ -13,15 +13,14 @@ module.exports = function(passport) {
 
     // Find a user with this email
     User.findOne({ email : email }, function(err, user) {
-      //console.log("loking for a user........." + user)
       if (err) return done(err, false, { message: "Something went wrong with passport strategy in passport.js." });
 
-      // No error but already a user registered
+      // if no error but already a user registered
       if (user) return done(null, false, { message: "Please choose another email." });
       var newUser            = new User();
+      newUser.name     = req.body;
       newUser.email    = email;
       newUser.password = User.encrypt(password);
-      //console.log(newUser.password) // is making password and encrypting it
 
       newUser.save(function(err, newUser) {
       

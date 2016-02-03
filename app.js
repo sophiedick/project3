@@ -43,14 +43,15 @@ app.use(passport.initialize());
 //     ]
 //   }));
 
-// protect route
+/////////////// protect route////////////////////////////
+// unless logged in(ie unless you have a token) then you cannot make a post
 app.post('/api/category', expressJWT({ secret: secret }));
 // app.put('/api/someotherurl', expressJWT({ secret: secret }));
 
 // route error handler
 
-app.use(function(err,req,res){
-	console.log("bob");
+app.use(function(err,req,res, next){
+	//console.log("bob");
 	if(err.name === 'UnauthorizedError'){
 		var message = "Please Login or Create an Account";
 
