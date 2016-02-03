@@ -38,7 +38,6 @@
 
             <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=PUT" id="<%= thread.comments[i].id%>edit" class="edit-comment-form editable">
 
-            <p><b>Comment:</b></p>
             <input id="edit-body" class="thread-comment" value="<%= thread.comments[i].body %>" name="comment[body]">
             <input type="submit" id="edit-confirm" value="submit">
 

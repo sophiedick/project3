@@ -39,6 +39,7 @@ $(document).ready(function(){
       event.preventDefault();
       var threadId = $(this).data("id");
       var commentId = $(this).data("comment");
+      //console.log("HELOO")
      
 
       // Store the original inputs in variables:
@@ -49,7 +50,7 @@ $(document).ready(function(){
 
       // Show the input fields
       $("#" + commentId + "edit").show();
-      $('p.thread-comment').show().val(originalComment);
+      //$('p.thread-comment').show().val(originalComment);
 
       // Show the input fields
 
@@ -69,7 +70,7 @@ $(document).ready(function(){
         console.log(data);
 
         $("#" + commentId + "edit").show();
-        $('p.thread-comment').show().val(data.body);
+        $('p.thread-comment').show().html(data.body);
 
 
         // $('p.thread-comment').show().html(data.body);
