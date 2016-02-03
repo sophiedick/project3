@@ -35,31 +35,39 @@ $(document).ready(function(){
   /* *********** EDIT A COMMENT ************* */
   /* **************************************** */
 
+  // Note: '$(this)' is the <a href=''>EDIT</a> link :(
+
   $("a.edit-comment-button").click(function(event){
       event.preventDefault();
       var threadId = $(this).data("id");
       var commentId = $(this).data("comment");
-      //console.log("HELOO")
-     
+      console.log(commentId)
+      console.log("this parent:")
+
+      console.log($(this).parent().children(".thread-comment").html())
 
       // Store the original inputs in variables:
       var originalComment  = $('p.thread-comment').html();
+      console.log("originalComment:"); // This logs the first comment on the page
+      console.log(originalComment); // This logs the first comment on the page
 
       // Hiding the original inputs from the view:
+      $('.edit-and-delete-comment').hide();
       $('p.thread-comment').hide();
 
       // Show the input fields
       $("#" + commentId + "edit").show();
-      //$('p.thread-comment').show().val(originalComment);
+      $("input.cancel").show();
+      $('p.thread-comment').show().val(originalComment);
 
-      // Show the input fields
 
-
+    /* *//* Confirm Edit *//* */
     $("input#edit-confirm").click(function(event){
       event.preventDefault();
+      console.log("this is 'this':" + this)
+      // debugger;
       var formData = $("#" + commentId + "edit").serialize();
-      console.log("This is formData:" +formData);
-      //debugger;
+      console.log("This is 'formData': " + formData);
 
       //$("div.edit-comment").slideDown();
       $.ajax({
@@ -67,20 +75,35 @@ $(document).ready(function(){
         url:  'http://localhost:3000/api/category/' + threadId + '/comment/' + commentId,
         data: formData
       }).done(function(data){
-        console.log(data);
+        console.log("This is data");
+        console.log(data.body);
+
 
         $("#" + commentId + "edit").show();
-        $('p.thread-comment').show().html(data.body);
-
         
+        // Lovely long-winded way of getting the data.body <3
+        //$(this).parentsUntil(("#comments")[2]).children('.comments').children('p.thread-comment').html(data.body);
 
-        // $('p.thread-comment').show().html(data.body);
+        $("#" + commentId).children().children('.thread-comment').html(data.body)
+
+        $('.edit-and-delete-comment').show();
+        // Hide editable forms
         $('.editable').hide();
       });
     });
+
+    // This works - CB.
+      $(".cancel").click(function(event){
+        event.preventDefault();
+
+        $('p.thread-comment').show();
+        $('.edit-and-delete-comment').show();
+
+        // Hide the editable elements again
+        $('.editable').hide();
+
+      });   // End of $('.cancel').click
   })
-
-
 
 /* **************************************** */
 /* ********** EDIT CURRENT THREAD ********* */
@@ -113,8 +136,6 @@ $('.edit-thread').click(function(event){
   $('.editable.thread-title').show().val(originalTitle);
   $('.editable.thread-body').show().val(originalBody);
   $('input[type="submit"].editable').show();
-
-
 
     $(".save").click(function(event){
       event.preventDefault();
@@ -183,9 +204,15 @@ $('.edit-thread').click(function(event){
     }).done(function(comment){
       console.log(comment.body);
       // console.log("HI"); 
+      
+      /* ORIGINAL (SLIGHTLY BROKEN):
       var p = $('<div class="comment-block row col-md-12"></div>');
       p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a class='button' href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>Delete</button></form>");
+      var p = $('<div class="comment-block row col-md-12"></div>');
+      */
 
+      var p = $('<div id="'+ comment.id +'" class="comment-block row col-md-12"></div>');
+      p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a href='' class='button'>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>Delete</button></form>");
 
       $('section#comments').append(p);
       $('#comment-body').val("")

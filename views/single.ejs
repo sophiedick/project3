@@ -69,32 +69,38 @@
         <% for(i=0; i< thread.comments.length; i++){  %>
 
 
-        <div class="comment-block row col-md-12">
+        <div id="<%= thread.comments[i].id %>" class="comment-block row col-md-12">
           <div class="comments">
             <p><b>Comment:</b></p>
+            
             <p class="thread-comment"><%= thread.comments[i].body %></p>
-            <a class="button edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i].id %>" href="">EDIT</a>
+            
+            <div class="edit-and-delete-comment">
+              <!-- Edit Comment Button -->
+              <a class="button edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i].id %>" href="">EDIT</a>
 
-            <form class="delete-comment-form" action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
-            <button type="submit" data-id="<%= thread.comments[i].id %>" class="delete">DELETE</button>
-            </form>
+              <!-- Delete Comment Form -->
+              <form class="delete-comment-form" action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
+                <button type="submit" data-id="<%= thread.comments[i].id %>" class="delete">DELETE</button>
+              </form>
+            </div>
 
           </div>
 
             <!-- ********** EDIT COMMENTS SECTION: ************ -->
           <div class="edit-comment">
-
+            <!-- Edit Comment Form-->
             <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=PUT" id="<%= thread.comments[i].id%>edit" class="edit-comment-form editable">
 
             <input id="edit-body" class="thread-comment" value="<%= thread.comments[i].body %>" name="comment[body]">
             <input type="submit" id="edit-confirm" value="submit">
+            <input type="submit" value="Cancel" class="editable cancel">
 
             </form>
 
           </div>
         </div>   <!-- End of row.col-md-12 for comments -->
-          <br>
-          <hr>
+
 
         <% } %>
     </section>
@@ -117,6 +123,7 @@
   </div>
 </section>
 
+<hr>
 
 
 <!-- 
