@@ -48,7 +48,11 @@ a.button {
   padding: 1px 4px;
   border: 1px solid #bbb;
 
+}
 
+
+.edit-and-delete-comment > * {  
+  display: inline-block;
 }
 
 

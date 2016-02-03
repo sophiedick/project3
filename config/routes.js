@@ -18,12 +18,12 @@ var authenticationsController = require('../controllers/authenticationsControlle
 router.post('/login', authenticationsController.login);
 router.post('/register', authenticationsController.register);
  
-router.route('/users')
-  .get(usersController.getAll)
-
 // will now be handled by register
 router.route('/signup')
   .get(usersController.userSignUp);
+ 
+router.route('/loginform')
+  .get(usersController.userLogin);
 
 router.route('/users/:id') 
  .get(usersController.userShow)
@@ -33,9 +33,8 @@ router.route('/users/:id')
 router.route('/users/:id/edit')
   .get(usersController.editUser)
 
-router.route('/users')
-  .get(usersController.getAll)
-//  .post(usersController.createUser) //is now being handled by authenticationController register
+// router.route('/users')
+//   .get(usersController.getAll)
 
 
 //******************* THREAD CONTROLLER (SOPHIE AND CAROLINE) ********************

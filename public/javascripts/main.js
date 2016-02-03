@@ -34,6 +34,10 @@ $(document).ready(function(){
       var li = $('<li></li>');
       li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
       $('ul#threads').prepend(li);
+    }).fail(function(message){
+      var message = message.responseText
+      console.log(message);
+      $("#error-message").html(message)
     }); 
   });   
 
@@ -219,8 +223,8 @@ $('.edit-thread').click(function(event){
       console.log(comment.body);
       // console.log("HI"); 
 
-      var p = $('<div id="' + comment._id + '" class="comment-block row col-md-12"></div>');
-      p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a class='button' href=''>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='deleteComment'>Delete</button></form>");
+      var p = $('<div id="'+ comment.id +'" class="comment-block row col-md-12"></div>');
+      p.html("<p><b>Comment:</b></p><p class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a href='' class='button'>EDIT</a>&nbsp;"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>DELETE</button></form></div>");
 
       $('section#comments').append(p);
       $('#comment-body').val("")
