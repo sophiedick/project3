@@ -62,11 +62,17 @@ function updateComment(req, res) {
 /* DELETE COMMENT */
 function deleteComment(req, res){
   var commentId = req.params._id;
+  var threadId = req.params.id;
+  //var topic = req.body;
+  console.log(commentId);
+  console.log(threadId);
+  //console.log(topic);
 
   Comment.remove({_id: commentId}, function(err, comment){
     if (err) res.json({ message: 'Could not delete thread because: ' + err});
+    res.redirect("/");
     res.json({ message: 'Comment successfully deleted'});
-    res.redirect('/');
+    
   });
 };
 

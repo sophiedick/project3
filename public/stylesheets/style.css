@@ -30,3 +30,10 @@ body {
   .col-md-4.index-topics {
     width: 30.333333%;
 }
+
+.comment-block {
+  border: 1px solid #fa3aab;
+  margin-bottom: 1em;
+  padding: 1em 0;
+  background-color: pink;
+}

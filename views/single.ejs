@@ -20,17 +20,27 @@
         <p class="thread-body"><%= thread.body %></p>
 
       </div>
-
+    </div>
+  </div>      <!-- End of the Thread body -->
+</div>        <!-- End of div.container -->
 
       <!-- ********** COMMENTS SECTION: ************ -->
-         
+       
+<div class="container">  
+      <section id="comments">
         <% for(i=0; i< thread.comments.length; i++){  %>
 
+
+        <div class="comment-block row col-md-12">
           <div class="comments">
             <p><b>Comment:</b></p>
             <p class="thread-comment"><%= thread.comments[i].body %> &nbsp; 
             <a class="edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i].id %>" href="">EDIT</a></p>
-            <br>  
+
+            <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
+            <button type="submit" data-id="<%= thread.comments[i].id %>" class="delete">Delete</button>
+            </form>
+
           </div>
 
             <!-- ********** EDIT COMMENTS SECTION: ************ -->
@@ -43,18 +53,14 @@
 
             </form>
 
-            <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
-            <button type="submit" data-id="<%= thread.comments[i].id %>" class="delete">Delete</button>
-            </form>
-
-
           </div>
+        </div>   <!-- End of row.col-md-12 for comments -->
           <br>
-          
+          <hr>
 
         <% } %>
-
-
+    </section>
+</div> <!-- End of div.container -->
             
 
 
@@ -97,25 +103,23 @@
 
 
 
-<section id="comments">
 
+
+<hr>
+
+<section class="container">
+  <div class="row col-md-12"> 
+    <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
+      <label>Comment</label>
+      <input type='text' id="comment-body" name="comments[body]" value='' placeholder="Enter a comment...">
+      <br>
+
+      <input type='hidden' id="ctid" value="<%= thread._id %>">
+      <br>
+      <input type="submit" value="Submit" id="submit-new-comment">
+    </form>
+  </div>
 </section>
-
-
-
-
-
-<div> 
-  <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
-    <label>Comment</label>
-    <input type='text' id="comment-body" name="comments[body]" value='' placeholder="Enter a comment...">
-    <br>
-
-    <input type='hidden' id="ctid" value="<%= thread._id %>">
-    <br>
-    <input type="submit" value="Submit" id="submit-new-comment">
-  </form>
-</div>
 
 
 
