@@ -60,31 +60,35 @@ function updateComment(req, res) {
 }
 
 /* DELETE COMMENT */
-function deleteComment(req, res){
-  var commentId = req.params._id;
-  var threadId = req.params.id;
-  var topic = req.body;
-  // console.log(commentId);
-  // console.log(threadId);
-  // console.log(topic);
-  // var topic2 = topic.value;
-  // console.log(topic2);
+// function deleteComment(req, res){
+//   var commentId = req.params._id;
+//   var threadId = req.params.id;
+//   var topic = req.body;
+//   // console.log(commentId);
+//   // console.log(threadId);
+//   // console.log(topic);
+//   // var topic2 = topic.value;
+//   // console.log(topic2);
 
-  Thread.findById(threadId, function(err, thread){
-    var topic = thread.topic;
-    console.log(thread);
-    Comment.findById(commentId, function(err, comment){
-      console.log(comment);
-      comment.remove();
-      res.redirect("/" + topic + "/" + threadId);
-    })
+//   Thread.findById(threadId, function(err, thread){
+//     var topic = thread.topic;
+//     console.log(thread);
+//     Comment.findById(commentId, function(err, comment){
+//       console.log(comment);
+//       comment.remove();
+//       res.redirect("/" + topic + "/" + threadId);
+//     })
     
+//     })
+  function deleteComment(req, res){
+    var id = req.params._id;
+
+    Comment.remove({ _id: id }, function(err) {
+      if (err) return res.status(500).send(err);
+      res.status(200).send()
     })
-    // if (err) res.json({ message: 'Could not delete thread because: ' + err});
-    // res.redirect("/topic/threadId");
-    // res.json({ message: 'Comment successfully deleted'});
+  }
     
-};
 
 
 

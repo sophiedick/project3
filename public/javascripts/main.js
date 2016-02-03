@@ -3,7 +3,13 @@ $(document).ready(function(){
   //getThreads();
   $('.editable').hide();
   $('.thread-id').hide();
-  $('#submit-new-comment').click(newComment);
+  $('body').on('click', '#submit-new-comment', newComment);
+  $('body').on('click', '.deleteComment', removeComment);
+  $('body').on('click', 'edit-comment-button', editComment);
+  
+
+  
+
 //$('div.edit-comment').hide();
 
   /* **************************************** */
@@ -31,56 +37,7 @@ $(document).ready(function(){
   });   // End of $('#submit-new-thread').click()
 
 
-  /* **************************************** */
-  /* *********** EDIT A COMMENT ************* */
-  /* **************************************** */
-
-  $("a.edit-comment-button").click(function(event){
-      event.preventDefault();
-      var threadId = $(this).data("id");
-      var commentId = $(this).data("comment");
-      //console.log("HELOO")
-     
-
-      // Store the original inputs in variables:
-      var originalComment  = $('p.thread-comment').html();
-
-      // Hiding the original inputs from the view:
-      $('p.thread-comment').hide();
-
-      // Show the input fields
-      $("#" + commentId + "edit").show();
-      //$('p.thread-comment').show().val(originalComment);
-
-      // Show the input fields
-
-
-    $("input#edit-confirm").click(function(event){
-      event.preventDefault();
-      var formData = $("#" + commentId + "edit").serialize();
-      console.log("This is formData:" +formData);
-      //debugger;
-
-      //$("div.edit-comment").slideDown();
-      $.ajax({
-        type: 'put',
-        url:  'http://localhost:3000/api/category/' + threadId + '/comment/' + commentId,
-        data: formData
-      }).done(function(data){
-        console.log(data);
-
-        $("#" + commentId + "edit").show();
-        $('p.thread-comment').show().html(data.body);
-
-        
-
-        // $('p.thread-comment').show().html(data.body);
-        $('.editable').hide();
-      });
-    });
-  })
-
-
+  
 
 /* **************************************** */
 /* ********** EDIT CURRENT THREAD ********* */
@@ -184,11 +141,11 @@ $('.edit-thread').click(function(event){
     }).done(function(comment){
       console.log(comment.body);
       // console.log("HI"); 
-      var p = $('<div class="comment-block row col-md-12"></div>');
-      p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a class='button' href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>Delete</button></form>");
+      var p = $('<div id="' + comment._id + '" class="comment-block row col-md-12"></div>');
+      p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a class='button' href='http://localhost:3000/api/category/" + threadId + "/comment/" + comment._id + "'>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='deleteComment'>Delete</button></form>");
 
 
-      $('section#comments').append(p);
+      $('div.comments-container').append(p);
       $('#comment-body').val("")
 
       // var del = $('<div></div>')
@@ -199,6 +156,86 @@ $('.edit-thread').click(function(event){
     console.log(error);
   })
   };
+
+
+  /* **************************************** */
+  /* *********** EDIT A COMMENT ************* */
+  /* **************************************** */
+
+  function editComment(event) {
+    
+      event.preventDefault();
+      var threadId = $(this).data("id");
+      var commentId = $(this).data("comment");
+      //console.log("HELOO")
+     
+
+      // Store the original inputs in variables:
+      var originalComment  = $('p.thread-comment').html();
+
+      // Hiding the original inputs from the view:
+      $('p.thread-comment').hide();
+
+      // Show the input fields
+      $("#" + commentId + "edit").show();
+      //$('p.thread-comment').show().val(originalComment);
+
+      // Show the input fields
+
+
+    $("input#edit-confirm").click(function(event){
+      event.preventDefault();
+      var formData = $("#" + commentId + "edit").serialize();
+      console.log("This is formData:" +formData);
+      //debugger;
+
+      //$("div.edit-comment").slideDown();
+      $.ajax({
+        type: 'put',
+        url:  'http://localhost:3000/api/category/' + threadId + '/comment/' + commentId,
+        data: formData
+      }).done(function(data){
+        console.log(data);
+
+        $("#" + commentId + "edit").show();
+        $('p.thread-comment').show().html(data.body);
+
+        
+
+        // $('p.thread-comment').show().html(data.body);
+        $('.editable').hide();
+      });
+    });
+  };
+
+
+
+
+
+  /* **************************************** */
+  /* *********** DELETE NEW COMMENT ********* */
+  /* **************************************** */
+function removeComment(event) {
+  event.preventDefault();
+  
+  var threadId = $("#ctid").val();
+  var commentId = $(this).data("id");
+  var itemToRemove = $('#' + commentId);
+  console.log(itemToRemove);
+  
+  console.log(commentId);
+  console.log('http://localhost:3000/api/category/' + threadId + "/comment/" + commentId);
+
+  $.ajax({
+      url:'http://localhost:3000/api/category/' + threadId + "/comment/" + commentId,
+      type:'delete'
+    }).done(function() {
+      itemToRemove.remove();
+    });
+    
+  }
+
+
 
 
   /* *************************************** */
