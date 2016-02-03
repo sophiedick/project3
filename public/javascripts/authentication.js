@@ -1,17 +1,20 @@
 $(init);
 
+//"submit-login-info" and "submit-new-user"
+
 function init(){
   //alert("hello")
-  $("#signup-form", "#login-form").on("submit", submitForm);
+  $("#signup-form").on("submit", submitAuthForm);
+  $("#login-form").on("submit", submitAuthForm);
   $(".logout-link").on("click", logout);
-  $(".users-link").on("click", users);
+  //$(".users-link").on("click", users);
   $(".login-link, .register-link, .users-link").on("click", showPage);
   hideErrors();
   checkLoginState();  
 }
 
 function checkLoginState(){
-  if (getToken()) {
+  if (getToken()) { // expecting either truthy or falsey -undefined returns FALSE
     return loggedInState();
   } else {
     return loggedOutState();
@@ -19,16 +22,17 @@ function checkLoginState(){
 }
 
 function showPage() {
-  event.preventDefault();
-  var linkClass = $(this).attr("class").split("-")[0]
-  $("section").hide();
+  //event.preventDefault();
+  var linkClass = $(this).attr("class").split("-")[0] // changes a class named logged-in to loggedin
+  // register-link and logged-out
+  $("section").hide();          // this is hiding all topics on homepage when register clicked
   hideErrors();
-  return $("#" + linkClass).show();
+  return $("#" + linkClass).show(); // gives id prefix to linkClass eg #loggedin and calls .show on this
 }
 
-function submitForm(){
+function submitAuthForm(){
   event.preventDefault();
-
+  console.log("submitform function called")
   var method = $(this).attr("method");
   var url    = "http://localhost:3000" + $(this).attr("action");
   // going to /register
@@ -38,10 +42,10 @@ function submitForm(){
   return ajaxRequest(method, url, data, authenticationSuccessful);
 }
 
-function users(){
-  event.preventDefault();
-  return getUsers();
-}
+//function users(){
+//  event.preventDefault();
+//  return getUsers();
+//}
 
 function logout(){
   event.preventDefault();
@@ -49,27 +53,27 @@ function logout(){
   return loggedOutState();
 }
 
-function getUsers(){
-  return ajaxRequest("get", "http://localhost:3000/users", null, displayUsers)
-}
+//function getUsers(){
+//  return ajaxRequest("get", "http://localhost:3000/users", null, displayUsers)
+//}
 
-function displayUsers(data){
-  hideErrors();
-  hideUsers();
-  return $.each(data.users, function(index, user) {
-    $(".users").prepend('<div class="media">' +
-                          '<div class="media-left">' +
-                            '<a href="#">' +
-                              '<img class="media-object" src="' + user.local.image +'">' +
-                            '</a>' +
-                          '</div>' +
-                          '<div class="media-body">' +
-                            '<h4 class="media-heading">@' + user.local.username + '</h4>' +
-                            '<p>' + user.local.fullname + '</p>'+
-                          '</div>' +
-                        '</div>');
-  });
-}
+//function displayUsers(data){
+//  hideErrors();
+//  hideUsers();
+//  return $.each(data.users, function(index, user) {
+//    $(".users").prepend('<div class="media">' +
+//                          '<div class="media-left">' +
+//                            '<a href="#">' +
+//                              '<img class="media-object" src="' + user.local.image +'">' +
+//                            '</a>' +
+//                          '</div>' +
+//                          '<div class="media-body">' +
+//                            '<h4 class="media-heading">@' + user.local.username + '</h4>' +
+//                            '<p>' + user.local.fullname + '</p>'+
+//                          '</div>' +
+//                        '</div>');
+//  });
+//}
 
 function hideUsers(){
   return $(".users").empty();
@@ -85,8 +89,8 @@ function displayErrors(data){
 
 function loggedInState(){
   console.log("logged in")
-  $(".logged-out").hide();
-  //$("#users, .logged-in").show();
+  $(" .logged-out").hide();
+  $("#users, .logged-in").show();
   //return getUsers();
 }
 
@@ -94,19 +98,21 @@ function loggedOutState(){
   console.log("logged out")
   $(".logged-in").hide();
   $("#register, .logged-out").show();
-  return hideUsers();
+  // return hideUsers(); 
 }
 
 function authenticationSuccessful(data) {
   if (data.token) setToken(data.token);
-  return checkLoginState();
+  checkLoginState();
+  // on client side redirect when authenticated ie logged in!
+  window.location.href = "/"
 }
 
 function setToken(token) {
   return localStorage.setItem("token", token)
 }
 
-function getToken() {     // expecting either truthy or falsey -undefined returns FALSE
+function getToken() {     
   return localStorage.getItem("token"); //search in local storage to see if there is a token
 }
 
@@ -129,6 +135,8 @@ function ajaxRequest(method, url, data, callback) {
     console.log(data)
     if (callback) return callback(data);
   }).fail(function(data) {
-    displayErrors(data.responseJSON.message);
+    console.log(data)
+    console.log("error");
+    //displayErrors(data.responseJSON.message);
   });
 }

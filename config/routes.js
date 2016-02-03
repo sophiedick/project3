@@ -1,7 +1,6 @@
 var express           = require('express');
 var router            = express.Router();
 var passport          = require("passport");
-
 var usersController   = require('../controllers/usersController');
 var threadsController = require('../controllers/threadsController');
 var commentsController = require('../controllers/commentsController')
@@ -27,6 +26,9 @@ router.post('/register', authenticationsController.register);
 router.route('/signup')
   .get(usersController.userSignUp);
 
+router.route('/loginform')
+  .get(usersController.userLogin);
+
 router.route('/users/:id') 
  .get(usersController.userShow)
  .put(usersController.userUpdate)
@@ -35,10 +37,7 @@ router.route('/users/:id')
 router.route('/users/:id/edit')
   .get(usersController.editUser)
 
-
-
 //******************* THREAD CONTROLLER (SOPHIE AND CAROLINE) ********************
-
 
 router.route('/users')
 	.get(usersController.getAll)

@@ -14,7 +14,10 @@ function userSignUp(req, res){
 	res.render('signup') //{"user" : user})
 };
 
-// is data not sending
+function userLogin(req, res){
+	res.render('login')
+};
+
 ///////////////////////////////////////////
 // AI function to create user
 //// user is actually created at point of registration/authentication with passport/JWT
@@ -107,6 +110,7 @@ module.exports = {
 	//------------------user CRUD--------------------
 	getAll : getAll,
 	userSignUp : userSignUp,
+	userLogin : userLogin,
 	//createUser: createUser,
 	userUpdate: userUpdate,
 	userShow:   userShow,

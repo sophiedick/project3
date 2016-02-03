@@ -1,7 +1,7 @@
 // SD: Requiring Thread Model:
-var Thread = require("../models/thread");
+var Thread         = require("../models/thread");
 var methodOverride = require('method-override');
-var topicsArray = ["tech", "business", "showbiz", "culture", "lifestyle", "world"];
+var topicsArray    = ["tech", "business", "showbiz", "culture", "lifestyle", "world"];
 
 // GET 
 

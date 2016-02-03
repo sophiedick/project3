@@ -21,9 +21,7 @@ function register(req, res, next) {
       token: token,
       user: user
     });
-    //console.log(user, token)
-    //return res.render('index', { token: token, user: user });
-
+    // redirected on success by authenticationSuccessful in authentication.js
   });
 
   //console.log(req.body)
@@ -44,14 +42,12 @@ function login(req, res, next) {
 
     var token = jwt.sign(user, secret, { expiresIn: 10440 });
 
+    console.log(token) // printing
     return res.status(200).json({
       success: true,
       message: 'Welcome!',
       token: token
     });
-      // console.log(token)
-      // return res.render('index', {token: token, user: user})
-   
   });
 };
 

@@ -22,7 +22,7 @@
     "ejs": "~2.3.3",
     "express": "~4.0.0",
     "express-ejs-layouts": "^2.0.0",
-    "express-jwt": "^3.0.1",
+    "express-jwt": "^3.3.0",
     "express-session": "^1.13.0",
     "jsonwebtoken": "^5.0.5",
     "method-override": "^2.3.5",

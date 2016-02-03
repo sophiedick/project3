@@ -8,12 +8,12 @@ var bodyParser     = require('body-parser');
 var methodOverride = require("method-override");
 var mongoose       = require('mongoose');
 var passport       = require('passport');
-var cookieParser   = require("cookie-parser");
-var jwt            = require('jsonwebtoken');
+//var cookieParser   = require("cookie-parser");
+//var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
 var layouts        = require('express-ejs-layouts');
-var ejs 		       = require('ejs');
-var session 	     = require('express-session');
+var ejs 		   = require('ejs');
+//var session 	   = require('express-session');
 var config         = require('./config/config');
 var User           = require('./models/user');
 var secret         = require('./config/config').secret;
@@ -29,14 +29,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 require('./config/passport')(passport);
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(passport.initialize());
-
-//app.use(session({ secret: config.secret}))
-//app.use(passport.initialize());
-//app.use(passport.session());
 
 // app.use('/', expressJWT({ secret: secret })
 //   .unless({
@@ -47,12 +43,21 @@ app.use(passport.initialize());
 //     ]
 //   }));
 
+// protect route
 app.post('/api/category', expressJWT({ secret: secret }));
 // app.put('/api/someotherurl', expressJWT({ secret: secret }));
-  
 
+// route error handler
 
+app.use(function(err,req,res){
+	console.log("bob");
+	if(err.name === 'UnauthorizedError'){
+		var message = "Please Login or Create an Account";
 
+		//console.log("send back a status of 401, please login or sign up")
+		res.status(401).send(message);
+	}
+});
 
 var routes = require(__dirname + '/config/routes');
 app.use(routes); 

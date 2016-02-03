@@ -145,6 +145,10 @@ $(document).ready(function(){
       li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
       $('ul#threads').prepend(li);
       //location.href = "/"
+    }).fail(function(message){
+      var message = message.responseText
+      console.log(message);
+      $("#error-message").html(message)
     }); 
   });   // End of $('#submit-new-thread').click()
 
@@ -196,8 +200,8 @@ $('#submit-new-comment').click(function(event){
    return $.ajax({
      method: method,
      url: url,
-     data: data
-//     beforeSend: setRequestHeader,
+     data: data,
+     beforeSend: setRequestHeader
    }).done(function(data){
      if (callback) return callback(data);
    }).fail(function(data) {
