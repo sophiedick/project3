@@ -75,7 +75,7 @@ function displayErrors(data){
 }
 function loggedInState(){
   console.log("logged in")
-  var current_user_email = jwt_decode(getToken())._doc.email
+  var current_user_email = jwt_decode(getToken())._doc.username
   var current_user_id    = jwt_decode(getToken())._doc._id
   $("#current_user_email").html(current_user_email);
   $("a#current_user_email").attr("href","/users/" + current_user_id);
@@ -96,7 +96,7 @@ function authenticationSuccessful(data) {
   window.location.href = "/"
 }
 function setToken(token) {
-  return localStorage.setItem("token", token)
+  return localStorage.setItem("token", token);
 }
 function getToken() {     
   return localStorage.getItem("token"); //search in local storage to see if there is a token

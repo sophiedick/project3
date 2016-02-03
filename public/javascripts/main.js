@@ -28,7 +28,8 @@ $(document).ready(function(){
     $.ajax({
       type: 'POST',
       url:  'http://localhost:3000/api/category',
-      data:  formData
+      data:  formData,
+      beforeSend: setRequestHeader
     }).done(function(thread){
       console.log(thread);
       var li = $('<li></li>');
@@ -218,7 +219,8 @@ $('.edit-thread').click(function(event){
     $.ajax({
       type: 'POST',
       url:  'http://localhost:3000/api/category/' + threadId + '/newcomment',
-      data:  formData
+      data:  formData,
+      beforeSend: setRequestHeader
     }).done(function(comment){
       console.log(comment.body);
       // console.log("HI"); 

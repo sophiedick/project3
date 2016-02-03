@@ -2,12 +2,19 @@
 <!-- form action to /users as we are adding to user directory - this page will need to have a redirect-->
 <!-- action POST as we are inputting to database-->
 <form id="signup-form" action="/register" method='POST'>
-  Email:<br>
+  <label>Username:</label><br>
+  <input type="text" name="username" >
+  <br>
+  <label>Email:</label><br>
   <input type="email" name="email" >
   <br>
-   Password:<br>
+  <label>Password:</label><br>
   <input type="password" name="password" >
   <br>
+  <label>Avatar:</label><br>
+  <input type="text" name="avatar" >
+  <br>
+
   <!--will need to prevent default if we wish to use ajax -->
   <input type="submit" value="Submit">
 </form> 
