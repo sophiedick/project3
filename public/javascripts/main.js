@@ -3,8 +3,6 @@ $(document).ready(function(){
   $('.editable').hide();
   $('.thread-id').hide();
 
-
-
   /* *************************************** */
   /* *********** INDEX PAGE - ************** */
   /* ******** SHOW MOST RECENT TOPIC ******* */
@@ -86,18 +84,14 @@ $(document).ready(function(){
           $('p.thread-body').show();
         }
 
-
         // This prints out: threadTopic=world&threadTitle=Goodbye+Niall&threadBody=ewefe&threadId=56acbd365b39b94d6362e4a9
         console.log(formData);
-
-        
+     
       //  $('p.thread-topic').html("");
       //  $('h3.thread-title').html("");
       //  $('p.thread-body').html(""); 
 
-
         // Hide the editable elements again
-
 
       }); 
 
@@ -116,8 +110,6 @@ $(document).ready(function(){
     
   }); // End of edit-thread function
    
-
-
   /* **************************************** */
   /* *********** CREATE NEW THREADS ********* */
   /* **************************************** */
@@ -151,7 +143,6 @@ $(document).ready(function(){
       $("#error-message").html(message)
     }); 
   });   // End of $('#submit-new-thread').click()
-
 
   /* **************************************** */
   /* ********** DISPLAY ALL THREADS ********* */
@@ -189,8 +180,6 @@ $('#submit-new-comment').click(function(event){
     console.log(data) 
 });
 });
-
-
 
   /* **************************************** */
   /* ************* AJAX REQUEST ************* */

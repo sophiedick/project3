@@ -18,26 +18,6 @@ function userLogin(req, res){
 	res.render('login')
 };
 
-///////////////////////////////////////////
-// AI function to create user
-//// user is actually created at point of registration/authentication with passport/JWT
-//function createUser(request, response){
-//  // create user with new instance of User model. Schema is populated by request on body.user
-//  // this will count as one request.body not 3
-//	var newUser = new User({
-//		username: request.body.user.username,
-//		email: request.body.user.email,
-//		password: request.body.user.password
-//	});
-//
-//	console.log(newUser); //object is coming out
-//	newUser.save(function(error) {
-//	  if(error) console.log('user not saved' + error)
-//	});
-//	// must be outside error function
-//	response.redirect('/users');
-//}
-//////////////////////////////////////////////////////////
 function editUser(request, response){
 	  var id = request.params.id;
 

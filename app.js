@@ -8,12 +8,9 @@ var bodyParser     = require('body-parser');
 var methodOverride = require("method-override");
 var mongoose       = require('mongoose');
 var passport       = require('passport');
-//var cookieParser   = require("cookie-parser");
-//var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
 var layouts        = require('express-ejs-layouts');
 var ejs 		   = require('ejs');
-//var session 	   = require('express-session');
 var config         = require('./config/config');
 var User           = require('./models/user');
 var secret         = require('./config/config').secret;
@@ -29,19 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 require('./config/passport')(passport);
-//app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(passport.initialize());
-
-// app.use('/', expressJWT({ secret: secret })
-//   .unless({
-//     path: [
-//       { url: '/login', methods: ['POST'] },
-//       { url: '/register', methods: ['POST'] },
-//       { url: '/signup', methods: ['GET']}
-//     ]
-//   }));
 
 /////////////// protect route////////////////////////////
 // unless logged in(ie unless you have a token) then you cannot make a post
