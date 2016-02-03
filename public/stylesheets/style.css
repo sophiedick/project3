@@ -37,3 +37,21 @@ body {
   padding: 1em 0;
   background-color: pink;
 }
+
+a.edit-comment-button, form.delete-comment-form {
+  display: inline-block;
+
+}
+
+a.button {
+  background-color: #c0c0c0;
+  padding: 1px 4px;
+  border: 1px solid #bbb;
+
+
+}
+
+
+
+
+
