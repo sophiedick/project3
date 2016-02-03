@@ -1,5 +1,6 @@
-var Comment = require("../models/comment");
-var Thread = require("../models/thread");
+var Comment        = require("../models/comment");
+var Thread         = require("../models/thread");
+var Comment        = require("../models/comment");
 var methodOverride = require('method-override');
 
 
@@ -18,7 +19,7 @@ function newComment(req, res) {
       body: req.body.comments.body,
       thread_id: threadId
       //user: 
-    });
+    }).populate("user");
     comment.save(function(error){ if(error) console.log(error) });
     thread.save()
     thread.comments.push(comment);
@@ -27,6 +28,22 @@ function newComment(req, res) {
 
   });
 }
+
+/* SHOW COMMENT */ 
+function showComment(req, res){
+
+  var id = req.params.id;
+  Comment.findById({_id: id}, function(err, comment){
+    if(err) res.json({message: 'Could not find thread because:' + err});
+    
+
+  }).populate("user")
+  .exec(function(err, user){
+    if(err) console.log(err);
+    console.log(user);
+    res.send(user);
+  })
+};
 
 /* EDIT COMMENT */ 
  function editComment(req, res) { 
@@ -97,5 +114,6 @@ module.exports = {
   newComment: newComment,
   editComment: editComment,
   updateComment: updateComment,
-  deleteComment: deleteComment
+  deleteComment: deleteComment,
+  showComment: showComment
   }

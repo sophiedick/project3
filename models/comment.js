@@ -7,7 +7,7 @@ var Thread = require("./thread");
 var CommentSchema = mongoose.Schema({
   body: String,
   thread_id: String,
-  //user: [User.schema],
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
   thread: { type: Schema.Types.ObjectId, ref: 'Thread' }
 });
 

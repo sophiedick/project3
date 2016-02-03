@@ -210,6 +210,9 @@ $('.edit-thread').click(function(event){
     function newComment(event) {
     event.preventDefault();
     // .serialize collects all the data from the form:
+    var username = jwt_decode(getToken())._doc.username;
+    //username.capitalize!
+    console.log(username);
     var formData = $('#new-comment').serialize();
     console.log(formData);
     var threadId = $("#ctid").val();
@@ -223,10 +226,10 @@ $('.edit-thread').click(function(event){
       beforeSend: setRequestHeader
     }).done(function(comment){
       console.log(comment.body);
-      // console.log("HI"); 
+      console.log(comment); 
 
       var p = $('<div id="'+ comment.id +'" class="comment-block row col-md-12"></div>');
-      p.html("<p><b>Comment:</b></p><p class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a href='' class='button'>EDIT</a>&nbsp;"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>DELETE</button></form></div>");
+      p.html("<p><b>Comment:</b></p><p>Author: " + username + "</p><p class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a href='' class='button'>EDIT</a>&nbsp;"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>DELETE</button></form></div>");
 
       $('section#comments').append(p);
       $('#comment-body').val("")
@@ -286,9 +289,6 @@ $('.edit-thread').click(function(event){
   //     });
   //   });
   // };
-
-
-
 
 
   /* **************************************** */
