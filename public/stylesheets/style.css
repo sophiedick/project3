@@ -33,9 +33,15 @@ body {
 
 .comment-block {
   border: 1px solid #fa3aab;
-  margin-bottom: 1em;
+  border-bottom: none;
+  margin-bottom: 0;
   padding: 1em 0;
   background-color: pink;
+}
+
+.comment-block:last-child {
+  border: 1px solid #fa3aab;
+  margin-bottom: 1em;
 }
 
 a.edit-comment-button, form.delete-comment-form {

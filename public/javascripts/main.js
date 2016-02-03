@@ -220,6 +220,7 @@ $('.edit-thread').click(function(event){
       $('section#comments').append(p);
       $('#comment-body').val("")
 
+
       // var del = $('<div></div>')
       // del.html("<form action='/api/category/" + thread._id + "/comment/" + thread.comments.id +"?_method=DELETE' method='post'><button type='submit' data-id='" + thread.comments.id + "' class='delete'>Delete</button></form>")
       // $(p).append(del);
