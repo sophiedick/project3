@@ -5,7 +5,7 @@ $(document).ready(function(){
   $('.thread-id').hide();
   $('body').on('click', '#submit-new-comment', newComment);
   $('body').on('click', '.deleteComment', removeComment);
-  $('body').on('click', 'edit-comment-button', editComment);
+  $('body').on('click', '.edit-comment-button', editComment);
   
 
   
