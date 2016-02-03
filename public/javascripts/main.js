@@ -31,9 +31,6 @@ $(document).ready(function(){
        var li = $('<div></div>');
        li.html("<a href='/" + thread.topic + "/" + thread._id +"'><h3>" + thread.title + "</h3></a><i class='fa fa-comments'></i><i>" + moment(thread.updatedAt).fromNow() + "</i> by <b>User</b><hr>");
        $('ul#threads').prepend(li);
-
-
-
     }); 
   });   // End of $('#submit-new-thread').click()
 
