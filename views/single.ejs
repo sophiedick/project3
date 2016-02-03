@@ -34,11 +34,11 @@
         <div class="comment-block row col-md-12">
           <div class="comments">
             <p><b>Comment:</b></p>
-            <p class="thread-comment"><%= thread.comments[i].body %></p>
+            <p id="<%= thread.comments[i].id%>" class="thread-comment"><%= thread.comments[i].body %></p>
             <a class="button edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i].id %>" href="">EDIT</a>
 
             <form class="delete-comment-form" action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
-            <button type="submit" data-id="<%= thread.comments[i].id %>" class="delete">DELETE</button>
+            <button type="submit" data-id="<%= thread.comments[i].id %>" name="thread[topic]" class="delete">DELETE</button>
             </form>
 
           </div>

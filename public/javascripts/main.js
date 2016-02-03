@@ -175,6 +175,7 @@ $('.edit-thread').click(function(event){
     console.log(formData);
     var threadId = $("#ctid").val();
     console.log(threadId);
+    //console.log(commentId);
 
     $.ajax({
       type: 'POST',
