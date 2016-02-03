@@ -28,7 +28,7 @@ function createThread(req, res) {
   thread.save(function(err, thread){
     if (err) res.status(500).send(err);
     res.status(200).send(thread);
-    res.render('category.ejs')
+   // res.render('category.ejs', { thread: thread });
   });
 };
 

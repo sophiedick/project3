@@ -24,9 +24,16 @@ $(document).ready(function(){
       data:  formData
     }).done(function(thread){
       console.log(thread);
-      var li = $('<li></li>');
-      li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</a><br>Body: " + thread.body + "<br><br>");
-      $('ul#threads').prepend(li);
+    //  var li = $('<li></li>');
+    //  li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</h3><///a><br>Body: " + thread.body + "<br><br>");
+    //  $('ul#threads').prepend(li);
+
+       var li = $('<div></div>');
+       li.html("<a href='/" + thread.topic + "/" + thread._id +"'><h3>" + thread.title + "</h3></a><i class='fa fa-comments'></i><i>" + moment(thread.updatedAt).fromNow() + "</i> by <b>User</b><hr>");
+       $('ul#threads').prepend(li);
+
+
+
     }); 
   });   // End of $('#submit-new-thread').click()
 
@@ -43,7 +50,6 @@ $(document).ready(function(){
       var commentId = $(this).data("comment");
       console.log(commentId)
       console.log("this parent:")
-
       console.log($(this).parent().children(".thread-comment").html())
 
       // Store the original inputs in variables:
@@ -212,7 +218,7 @@ $('.edit-thread').click(function(event){
       */
 
       var p = $('<div id="'+ comment.id +'" class="comment-block row col-md-12"></div>');
-      p.html("<p><b>Comment:</b></p><p>" + comment.body + "</p><a href='' class='button'>EDIT</a>"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>Delete</button></form>");
+      p.html("<p><b>Comment:</b></p><p class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a href='' class='button'>EDIT</a>&nbsp;"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>DELETE</button></form></div>");
 
       $('section#comments').append(p);
       $('#comment-body').val("")

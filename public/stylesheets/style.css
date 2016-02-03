@@ -45,13 +45,17 @@ a.edit-comment-button, form.delete-comment-form {
 
 a.button {
   background-color: #c0c0c0;
-  padding: 1px 4px;
+   padding: 1px 4px;
   border: 1px solid #bbb;
-
-
 }
 
+.edit-and-delete-comment > * {  
+  display: inline-block;
+}
 
+i.fa.fa-comments {
+  margin-right: 1em;
+}
 
 
 
