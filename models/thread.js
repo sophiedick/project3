@@ -11,7 +11,7 @@ var ThreadSchema = mongoose.Schema({
   title: String,
   body: String,
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],  
-  //_user: { type: Schema.Types.ObjectId, ref: 'User' }
+  _user: { type: Schema.Types.ObjectId, ref: 'User' }
 
 });
 

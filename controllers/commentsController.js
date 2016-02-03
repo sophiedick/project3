@@ -1,5 +1,6 @@
-var Comment = require("../models/comment");
-var Thread = require("../models/thread");
+var Comment        = require("../models/comment");
+var Thread         = require("../models/thread");
+var Comment        = require("../models/comment");
 var methodOverride = require('method-override');
 
 
@@ -18,7 +19,7 @@ function newComment(req, res) {
       body: req.body.comments.body,
       thread_id: threadId
       //user: 
-    });
+    }).populate("user");
     comment.save(function(error){ if(error) console.log(error) });
     thread.save()
     thread.comments.push(comment);
@@ -27,6 +28,22 @@ function newComment(req, res) {
 
   });
 }
+
+/* SHOW COMMENT */ 
+function showComment(req, res){
+
+  var id = req.params.id;
+  Comment.findById({_id: id}, function(err, comment){
+    if(err) res.json({message: 'Could not find thread because:' + err});
+    
+
+  }).populate("user")
+  .exec(function(err, user){
+    if(err) console.log(err);
+    console.log(user);
+    res.send(user);
+  })
+};
 
 /* EDIT COMMENT */ 
  function editComment(req, res) { 
@@ -60,22 +77,35 @@ function updateComment(req, res) {
 }
 
 /* DELETE COMMENT */
-function deleteComment(req, res){
-  var commentId = req.params._id;
-  var threadId = req.params.id;
-  //var topic = req.body;
-  console.log(commentId);
-  console.log(threadId);
-  //console.log(topic);
+// function deleteComment(req, res){
+//   var commentId = req.params._id;
+//   var threadId = req.params.id;
+//   var topic = req.body;
+//   // console.log(commentId);
+//   // console.log(threadId);
+//   // console.log(topic);
+//   // var topic2 = topic.value;
+//   // console.log(topic2);
 
-  Comment.remove({_id: commentId}, function(err, comment){
-    if (err) res.json({ message: 'Could not delete thread because: ' + err});
-    res.redirect("/");
-    res.json({ message: 'Comment successfully deleted'});
+//   Thread.findById(threadId, function(err, thread){
+//     var topic = thread.topic;
+//     console.log(thread);
+//     Comment.findById(commentId, function(err, comment){
+//       console.log(comment);
+//       comment.remove();
+//       res.redirect("/" + topic + "/" + threadId);
+//     })
     
-  });
-};
+//     })
+  function deleteComment(req, res){
+    var id = req.params._id;
 
+    Comment.remove({ _id: id }, function(err) {
+      if (err) return res.status(500).send(err);
+      res.status(200).send()
+    })
+  }
+    
 
 
 
@@ -84,5 +114,6 @@ module.exports = {
   newComment: newComment,
   editComment: editComment,
   updateComment: updateComment,
-  deleteComment: deleteComment
+  deleteComment: deleteComment,
+  showComment: showComment
   }
