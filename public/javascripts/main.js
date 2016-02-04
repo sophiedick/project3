@@ -7,7 +7,7 @@ $(document).ready(function(){
   $('body').on('click', '#submit-new-comment', newComment);
   $('body').on('click', '.deleteComment', removeComment);
   $('body').on('click', '.edit-comment-button', editComment);
-
+  $('.row.col-md-10.centered.social-share-links').hide();
   
 
 
@@ -30,12 +30,27 @@ $(document).ready(function(){
   $('#submit-new-thread').click(function(event){
     event.preventDefault();
     // .serialize collects all the data from the form:
-    var formData = $('#new-thread').serialize();
+    //var formData = $('#new-thread').serialize();
+
+    var username = jwt_decode(getToken())._doc.username;
+    var userID = jwt_decode(getToken())._doc._id;
+    var title = $('#thread-title').val();
+    var topic = $('#thread-topic').val();
+    var body = $('#thread-body').val();
+
+    var dataToBeSent = {
+
+      title: title,
+      topic: topic,
+      body: body,
+      userID: userID
+    }
+    console.log(dataToBeSent);
 
     $.ajax({
       type: 'POST',
       url:  'http://localhost:3000/api/category',
-      data:  formData,
+      data:  dataToBeSent,
       beforeSend: setRequestHeader
     }).done(function(thread){
 
@@ -165,6 +180,17 @@ $(document).ready(function(){
 //     });   // End of $('.cancel').click
   
 // }); // End of edit-thread function
+
+// ************** SOCIAL MEDIA SLIDER ********************
+
+
+$('.thread-header-date i.fa.fa-share-square-o').click(function(event){
+  event.preventDefault();
+  console.log('Clicked the <i>!');
+  $('.row.col-md-10.centered.social-share-links').slideToggle()
+})
+
+
  
 });// DOCUMENT.READY
 

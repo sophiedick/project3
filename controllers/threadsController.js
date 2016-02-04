@@ -24,13 +24,29 @@ function topicIndex(req, res) {
 
 /* POST NEW THREAD */
 function createThread(req, res) {
-  var thread = new Thread(req.body.thread);
-  thread.save(function(err, thread){
-    if (err) res.status(500).send(err);
-    res.status(200).send(thread);
-   // res.render('category.ejs', { thread: thread });
+  console.log(req.body.userID);
+
+  var thread = new Thread ({
+    title: req.body.title,
+    topic: req.body.topic, 
+    body: req.body.body,
+    _user: req.body.userID 
+    });
+
+    thread.save(function(error, thread){
+    if(error) console.log(error);
+
+    Thread.findOne({_id: thread._id })
+    .populate('user')
+    .exec(function(err, popThread){
+      if (err) console.log(err);
+      console.log(popThread);
+      res.send(popThread);
+    })
+    
   });
 };
+
 
 
 /* GET THREAD INDEX */
@@ -47,18 +63,7 @@ function threadIndex(req, res){
 function showThread(req, res){
 
   var id = req.params.id;
-  // Thread.findById({_id: id}, function(err, thread){
-  //   if(err) res.json({message: 'Could not find thread because:' + err});
-    
-
-  // }).populate("comments")
-  // .exec(function(err, thread){
-  //   if(err) console.log(err);
-  //   // console.log(thread);
-
-
-
-    Thread.findOne({_id: id})
+  Thread.findOne({_id: id})
       .lean()
       .populate({ path: 'comments' })
       .exec(function(err, docs) {

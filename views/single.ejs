@@ -3,12 +3,12 @@
   <div class="row">
     <div class="col-md-10 centered thread-header">
       <h3 class="thread-title"><%= thread.title %></h3>
-      <h4 class="thread-author">By { User }</h4>
+      <h4 class="thread-author">By <%= thread._user %></h4>
     </div>
     <div class="col-md-10 centered thread-header-date">
-      <p class="thread-created-date">&nbsp;</p>
-      <p class="thread-created-date"><i class="fa fa-trash"></i>&nbsp;<i class="fa fa-pencil"></i>&nbsp;<i class="fa fa-share-square-o"></i></p>
-    </div>
+          <p class="thread-created-date">&nbsp;</p>
+          <p class="thread-created-date"><form action="/api/category/<%= thread._id %>?_method=DELETE" method="post"><button type="submit" data-id="56b3916e9c692669dd7171bc" class="delete"><i class="fa fa-trash"></i></button></form>&nbsp;<i class="fa fa-pencil"></i>&nbsp;<i class="fa fa-share-square-o"></i></p>
+        </div>
 
   <!-- Social Share Links -->
 
