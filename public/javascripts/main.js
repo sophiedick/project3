@@ -13,6 +13,21 @@ $(document).ready(function(){
 
   //$("a.edit-comment-button").click(function(event){
 
+
+  /* **************************************** */
+  /* ********** GET NEW THREAD FORM ********* */
+  /* **************************************** */
+
+  $('#get-new-thread-button').click(function(event){
+    event.preventDefault();
+    console.log('#get-new-thread-button clicked');
+    $('#get-new-thread-button').hide();
+    $( "#form-for-new-thread-section" ).fadeIn( "slow");
+  //  $('#form-for-new-thread-section').show();
+
+  })
+
+
   /* **************************************** */
   /* *********** CREATE NEW THREADS ********* */
   /* **************************************** */

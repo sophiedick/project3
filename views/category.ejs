@@ -1,25 +1,33 @@
-<div class="section container">
-  <div class="row">
-    <p id="error-message"> </p>
-    <form id="new-thread" action="/api/category" method="post">
-      <label>Topic</label>
-      <input type='text' id="thread-topic" name="thread[topic]" value="<%= category %>" readonly>
-      <br>
-      <label>Thread title:</label>
-      <input type="text" id="thread-title" name="thread[title]" value="" placeholder="Title">
-      <br>
-      <label>Body:</label>
-      <textarea name="thread[body]" id="thread-body" value="" placeholder="What do you want to say?"></textarea>
-      <br>
-      <input type="submit" value="Submit" id="submit-new-thread">
-    </form>
+<div class="row thread-topic-header">
+  <section class="container">
+    <h3><%= category %></h3>
+  </section>
+</div>
+
+<a id="get-new-thread-button" href="">Add New Thread</a>
+
+<div id="form-for-new-thread-section" class="section editable">
+  <div class="container">
+    <div class="row col-md-12">
+      <p id="error-message"> </p>
+      <form id="new-thread" action="/api/category" method="post">
+
+        <input type='hidden' id="thread-topic" name="thread[topic]" value="<%= category %>" readonly>
+        
+        <label for="thread[title]">Title</label>
+        <input type="text" class="one-hundred" id="thread-title" name="thread[title]" value="" placeholder="Title">
+        <label for="textarea">Body:</label>
+        <textarea name="thread[body]" id="thread-body" class="one-hundred" value="" placeholder="What do you want to say?"></textarea>
+        <br>
+        <input type="submit" value="Submit" id="submit-new-thread" class="one-hundred">
+      </form>
+    </div>
   </div>
 </div>
 
 <div class="section container">
   <div class="row">
     <hr>
-    <h4>Threads:</h4>
     <ul id="threads">
     
       <% for(i=0; i < threads.length; i++) {%>
@@ -32,7 +40,7 @@
         <p>Created: <%= threads[i].createdAt %> by <b>[username]</b></p>
         <p>Modified: <%= threads[i].updatedAt %> by <b>[username]</b></p> 
         -->   
-        <i class="fa fa-comments"></i><i><%= moment(threads[i].updatedAt).fromNow() %></i> by <b>User</b>
+        <i class="fa fa-comments">&nbsp;</i><i><%= moment(threads[i].updatedAt).fromNow() %></i> by <b>User</b>
         <hr>    
         <!-- Body should only be reserved for the show page (I think? - CB)-->
         <%= /* threads[i].body */ %>
