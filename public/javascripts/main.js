@@ -128,6 +128,111 @@ $(document).ready(function(){
 /* **************************************** */
 /* ********** EDIT CURRENT THREAD ********* */
 /* **************************************** */
+
+
+//Note: '$(this)' is the <a href=''>EDIT</a> link :(
+
+  /* **************************************** */
+  /* ********** EDIT CURRENT THREAD ********* */
+  /* **************************************** */
+
+  // NOTE: Tidy this function up when it's working properly - CB.
+
+  // NOTE: Any element with the class of editable is hidden until the 'edit' button is clicked
+
+  // Edit thread in place:
+  $('.edit-thread').click(function(event){
+    event.preventDefault();
+    // Storing the original inputs
+    var id = $(this).data("id");
+    $('.original-thread-meta').hide();
+
+    // Store the original inputs in variables:
+    var originalTopic = $('p.thread-topic').html();
+    var originalTitle = $('h3.thread-title').html();
+    var originalBody  = $('.thread-body p').html();
+
+    // Hiding the original inputs from the view:
+    $('.original-thread').hide();
+    $('p.thread-topic').hide();
+    $('h3.thread-title').hide();
+    $('.thread-body p').hide();
+
+    // Show the input fields
+    $('.editable').show();
+    $('.editable.thread-topic').show().val(originalTopic);
+    $('.editable.thread-title').show().val(originalTitle);
+    $('.editable.thread-body').show().val(originalBody);
+    $('input[type="submit"].editable').show();
+    
+
+      $(".save").click(function(event){
+        event.preventDefault();
+
+      
+
+        var formData = $('form.edit-thread-form').serialize();
+
+        console.log("formData:")
+        console.log(formData)
+        // Don't return this because I want to do things afterwards
+        return ajaxRequest("put", 'http://localhost:3000/api/category/' + id, formData, showUpdatedThread)
+
+        function showUpdatedThread(data){
+          console.log(data)
+
+          $('p.thread-topic').html(data.topic);
+          $('h3.thread-title').html(data.title);
+          var test = $('.thread-body p').html(data.body); 
+
+          console.log("test:")
+          console.log(test)
+
+          $('.editable').hide();
+          $('div.original-thread-meta').show();
+          $('p.thread-topic').show().html();
+          $('h3.thread-title').show();
+          $('.thread-body p').show();
+        }
+
+        console.log(formData);
+
+      }); 
+
+      // This works - CB.
+      $(".cancel").click(function(event){
+        event.preventDefault();
+        $('.original-thread-meta').show();
+        $('p.thread-topic').show();
+        $('h3.thread-title').show();
+        $('.thread-body p').show();
+
+        // Hide the editable elements again
+        $('.editable').hide();
+      });   // End of $('.cancel').click
+    
+  }); // End of edit-thread function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NOTE: Tidy this function up when it's working properly - CB.
 // NOTE: Any element with the class of editable is hidden until the 'edit' button is clicked
 // Edit thread in place:
@@ -283,9 +388,8 @@ $('.thread-header-date i.fa.fa-share-square-o').click(function(event){
         // $("#" + commentId).children('p.thread-comment').html(data.body)
 
       });    
-    });
-  
-};
+    });  
+  };
 
 
 

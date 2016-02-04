@@ -119,8 +119,10 @@ function updateThread(req, res){
 function deleteThread(req, res){
   var id = req.params.id;
 
+
   Thread.remove({_id: id}, function(err, thread){
     if (err) res.json({ message: 'Could not delete thread because: ' + err});
+    console.log(thread);
     res.redirect('/');
     res.json({ message: 'Thread successfully deleted'});
     

@@ -230,3 +230,10 @@ p.thread-comment {
   padding: 1em 2em;
 }
 
+
+input.thread-title {
+  background: #555;
+  border: none;
+  border-bottom: 1px dashed #fa3aab;
+  padding: 1em;
+}
