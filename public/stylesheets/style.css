@@ -237,3 +237,50 @@ input.thread-title {
   border-bottom: 1px dashed #fa3aab;
   padding: 1em;
 }
+
+
+ /* ADDED */
+.user-avatar-image {
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+nav .user-avatar-image{
+  width:80px;
+  border:1px solid #bada55;
+  border-radius: 50%;
+}
+
+.show-user{
+  margin: 0 auto;
+  float: none;
+  text-align: center;
+}
+
+.usershowtext{
+  color: #1A8;
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
+
+.row.get-and-cancel-new-thread {
+ background: #B4DED5;
+  padding: 1em 0
+}
+
+

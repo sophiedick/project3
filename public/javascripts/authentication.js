@@ -7,6 +7,7 @@ function init(){
   $(".logout-link").on("click", logout);
   //$(".users-link").on("click", users);
   $(".login-link, .register-link, .users-link").on("click", showPage);
+  $("#delete-user-account").on("click", deleteuser);
   hideErrors();
   checkLoginState();  
 }
@@ -44,6 +45,11 @@ function logout(){
   removeToken();
   return loggedOutState();
 }
+
+function deleteuser(){
+ removeToken();
+ return loggedOutState();
+}
 //function getUsers(){
 //  return ajaxRequest("get", "http://localhost:3000/users", null, displayUsers)
 //}
@@ -75,10 +81,13 @@ function displayErrors(data){
 }
 function loggedInState(){
   console.log("logged in")
-  var current_user_email = jwt_decode(getToken())._doc.username
-  var current_user_id    = jwt_decode(getToken())._doc._id
+  var current_user_email    = jwt_decode(getToken())._doc.username;
+  var current_user_id       = jwt_decode(getToken())._doc._id;
+  var current_user_avatar   = jwt_decode(getToken())._doc.avatar;
+
   $("#current_user_email").html(current_user_email);
   $("a#current_user_email").attr("href","/users/" + current_user_id);
+  $("#current_user_avatar").attr("src", current_user_avatar);
   $(" .logged-out").hide();
   $("#users, .logged-in").show();
   //return getUsers();
@@ -102,7 +111,8 @@ function getToken() {
   return localStorage.getItem("token"); //search in local storage to see if there is a token
 }
 function removeToken() {
-  return localStorage.clear();
+  localStorage.clear();
+  window.location.href ="/"
 }
 function setRequestHeader(xhr, settings) {
   var token = getToken();

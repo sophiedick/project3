@@ -15,13 +15,31 @@ $(document).ready(function(){
   /* **************************************** */
   /* ********** GET NEW THREAD FORM ********* */
   /* **************************************** */
-  $('#get-new-thread-button').click(function(event){
-    event.preventDefault();
-    console.log('#get-new-thread-button clicked');
-    $('#get-new-thread-button').hide();
-    $( "#form-for-new-thread-section" ).fadeIn( "slow");
-  //  $('#form-for-new-thread-section').show();
-  })
+  $('a#fetch-new-thread-form-button').click(function(event){
+      event.preventDefault();
+
+      $('.get-new-thread-button').slideUp();
+      $('.cancel-new-thread-button').fadeIn();
+      $( "#form-for-new-thread-section").fadeIn( "slow");
+
+        $(".cancel").click(function(event){
+          event.preventDefault();
+          $('.cancel-new-thread-button').fadeOut().slideUp();
+
+        //  $('.cancel-new-thread-button').fadeOut().slideUp();    
+          setTimeout(cancelNewThread, 500);
+
+          // Hide the editable elements again
+          $('.editable').hide();
+
+          function cancelNewThread() {
+            $('.get-new-thread-button').fadeIn().slideDown(); 
+          }
+
+        });   // End of $('.cancel').click
+
+
+    });
 
 
   /* **************************************** */

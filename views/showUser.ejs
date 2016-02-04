@@ -1,13 +1,21 @@
 <!-- .populate("comments") -->
-
-<div class="container">
-  <div class="row" style="border: 1px solid orange">
+<br>
+<div class="container show-user">
+  <div class="row show-user">
   <div class="col-md-10 centered">
-    <p><%= user.username %></p>
-    <p><%= user.email %></p>
-    <a href="/users/<%=user._id%>/edit">Edit User</a>
+    <div class="show-user">
+      <img class="user-avatar-image" src="<%= user.avatar %>">
+    </div>
+    <div class="col-md-10 show-user">
+      <h2>Username</h2>
+      <h3 class="usershowtext"><%= user.username %></h3>
+   
+      <h2>Email</h2>
+      <h3 class="usershowtext"><%= user.email %></h3>
+      <br>
+    </div>
     <form method="POST" action="/users/<%= user._id %>?_method=DELETE">
-      <input type="submit" value="Delete Your Profile">
+      <input type="submit" id="delete-user-account" value="Delete Your Profile">
     </form>
   </div>
   </div>
