@@ -2,6 +2,11 @@
 
 body {
   background: #efefef;
+  padding-bottom: 3em;
+}
+
+.one-hundred {
+  width: 100%;
 }
 
 .index-topics {
@@ -33,9 +38,14 @@ body {
 
 .comment-block {
   border: 1px solid #fa3aab;
-  margin-bottom: 1em;
-  padding: 1em 0;
+  border-bottom: none;
+  margin-bottom: 0;
+  padding: 1em;
   background-color: pink;
+}
+
+.comment-block:last-child {
+  border: 1px solid #fa3aab;
 }
 
 a.edit-comment-button, form.delete-comment-form {
@@ -43,19 +53,92 @@ a.edit-comment-button, form.delete-comment-form {
 
 }
 
-a.button {
-  background-color: #c0c0c0;
-  padding: 1px 4px;
-  border: 1px solid #bbb;
-
+input[type="submit"], button.btn {
+  background: #1a8;
+  border: none;
+  color: white;
 }
 
+input[type="submit"]:hover, button.btn:hover {
+  background: #077B62;
+}
+
+a.button {
+  background-color: #c0c0c0;
+   padding: 1px 4px;
+  border: 1px solid #bbb;
+}
 
 .edit-and-delete-comment > * {  
   display: inline-block;
 }
 
+i.fa.fa-comments {
+  margin-right: 1em;
+}
+
+/* */
+.navbar {
+  margin-bottom: 0;
+}
+
+/* ***** Topic page header ***** */
+
+.row.thread-topic-header {
+  background: #1a8;
+}
+
+.row.thread-topic-header h3 {
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  margin: 0;
+  padding: 1em;
+}
+
+/* ***** Create New Thread ***** */
+
+#form-for-new-thread-section {
+  background: #B4DED5;
+  padding: 2em 0;
+}
+#form-for-new-thread-section .row {
+  margin: 0 auto;
+}
+
+#form-for-new-thread-section h3 {
+  color: #1a8;
+  text-align: center;
+}
+
+#form-for-new-thread-section input[type="text"]{
+  padding: 1em;
+}
+
+#form-for-new-thread-section textarea {
+  padding: 1em;
+  height: 200px;
+  margin-bottom: 1em
+}
+
+#form-for-new-thread-section input[type="submit"] {
+  padding: 1em
+}
+
+p#error-message {
+  margin: 0;
+}
+
+/* ***** Adding A New Comment ***** */
 
 
+section#add-new-comment-container .row {
+  background: bisque;
+  border: 1px solid #EFCFAA;
+  padding: 1em;
+}
 
-
+section#add-new-comment-container .row input[type="text"]{
+  height: 5em;
+  padding: 0 1em;
+}

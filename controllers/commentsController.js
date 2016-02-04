@@ -1,35 +1,43 @@
 var Comment        = require("../models/comment");
 var Thread         = require("../models/thread");
-var Comment        = require("../models/comment");
+var User        = require("../models/user");
 var methodOverride = require('method-override');
 
 
 /* NEW COMMENT */ 
 function newComment(req, res) {  
   var threadId = req.params.id;
-  var user = req.body;
-  console.log(user);
-  console.log(threadId);
+
+  // console.log(threadId);
   Thread.findById(threadId, function(error, thread){
 
     if(error){
       console.log(error);
     } 
-
+  
+    // console.log('body:     ' + req.body.userID)
     var comment = new Comment ({
 
-      body: req.body.comments.body,
+      body: req.body.theComment,
       thread_id: threadId,
-      user: req.body 
+      user: req.body.userID 
     });
-    comment.save(function(error){ if(error) console.log(error) });
-    thread.save()
-    thread.comments.push(comment);
-    console.log(comment);
-    res.send(comment);
+    comment.save(function(error){ 
+      if(error) console.log(error) 
 
-  });
-}
+      Comment.findOne({_id: comment._id})
+        .populate('user')
+        .exec(function(err, popComment){
+          if(err) console.log(err);
+          console.log(popComment);
+          res.send(popComment);
+        });
+      })
+      thread.save()
+      thread.comments.push(comment);
+    })
+  };
+
 
 /* SHOW COMMENT */ 
 function showComment(req, res){
@@ -37,15 +45,17 @@ function showComment(req, res){
   var id = req.params.id;
   Comment.findById({_id: id}, function(err, comment){
     if(err) res.json({message: 'Could not find thread because:' + err});
-    
+    console.log(comment);
 
-  }).populate("user")
-  .exec(function(err, user){
-    if(err) console.log(err);
-    console.log(user);
-    res.send(user);
-  })
-};
+    Comment.findOne({_id: comment._id})
+      .populate('user')
+      .exec(function(err, popComment){
+        if(err) console.log(err);
+        console.log(popComment);
+        res.send(popComment);
+      });
+    });
+  };
 
 /* EDIT COMMENT */ 
  function editComment(req, res) { 

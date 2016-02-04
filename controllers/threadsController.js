@@ -27,8 +27,8 @@ function createThread(req, res) {
   var thread = new Thread(req.body.thread);
   thread.save(function(err, thread){
     if (err) res.status(500).send(err);
-    res.status(201).send(thread);
-    //res.render('category.ejs')
+    res.status(200).send(thread);
+   // res.render('category.ejs', { thread: thread });
   });
 };
 
@@ -47,16 +47,38 @@ function threadIndex(req, res){
 function showThread(req, res){
 
   var id = req.params.id;
-  Thread.findById({_id: id}, function(err, thread){
-    if(err) res.json({message: 'Could not find thread because:' + err});
+  // Thread.findById({_id: id}, function(err, thread){
+  //   if(err) res.json({message: 'Could not find thread because:' + err});
     
 
-  }).populate("comments")
-  .exec(function(err, thread){
-    if(err) console.log(err);
-    console.log(thread);
-    res.render('single',{ thread: thread[0]});
-  })
+  // }).populate("comments")
+  // .exec(function(err, thread){
+  //   if(err) console.log(err);
+  //   // console.log(thread);
+
+
+
+    Thread.findOne({_id: id})
+      .lean()
+      .populate({ path: 'comments' })
+      .exec(function(err, docs) {
+
+        var options = {
+          path: 'comments.user',
+          model: 'User'
+        };
+
+        if (err) return res.json(500);
+        Thread.populate(docs, options, function (err, threads) {
+          console.log(threads);
+          res.render('single',{thread: threads});
+          //res.send(threads);
+        });
+      });
+
+
+  //   res.render('single',{ thread: thread[0]});
+  // })
 };
 
 /* But wait - where's the editThread function? */

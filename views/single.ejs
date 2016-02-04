@@ -1,15 +1,20 @@
 
 <div class="container">
+  <div class="row col-md-12">
+    <!-- This Facebook link works, but once it's online the link will need to be updated: -->
+    <div class="fb-share-button" data-href="http://texascamping.com" data-layout="icon_link"></div>
+    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20this%20amusing%20thread%20on%20The%20Forum%20http://localhost:3000/<%= thread.topic %>/<%= thread._id %>" target="_blank" data-size="default"><i class="fa fa-twitter"></i> Share on Twitter</a>
+  </div>
 
+  <!-- THREAD DETAILS (Comments below)-->
   <div class="row">
     <div class="col-md-12">
       <a href="" class="edit-thread" data-id="<%= thread._id %>">Edit Thread</a>
       <hr>
       <form action="/api/category/<%= thread._id %>?_method=DELETE" method="post">
-      <button type="submit" data-id="<%= thread._id %>" class="delete">Delete</button>
+        <button type="submit" data-id="<%= thread._id %>" class="delete">Delete</button>
       </form>
-      <!-- ORIGINAL THREAD -->
-
+      
       <!-- The div.original-thread is hidden when the 'edit' button is clicked and replaced with the 'edit-thread-form' below -->
       <div class="original-thread">
         <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
@@ -18,120 +23,97 @@
         <hr>
         <b>Body:</b> 
         <p class="thread-body"><%= thread.body %></p>
-
       </div>
 
+      <!-- EDITABLE THREAD -->
+      <!-- Any element with the class of editable is hidden until the 'edit' button is clicked -->
+      <form action="/api/category/<%= thread._id %>?_method=PUT" class="edit-thread-form editable">
+      <!-- Thread Topic -->
+        <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
+        <select name="threadTopic" id="thread-topic" class="editable thread-topic">
+          <option value="lifestyle">Lifestyle</option>
+          <option value="tech">Tech</option>
+          <option value="culture">Culture</option>
+          <option value="world">World</option>
+          <option value="business">Business</option>
+          <option value="showbiz">Showbiz</option>
+        </select>
 
-            <!-- EDITABLE THREAD -->
-            <!-- Any element with the class of editable is hidden until the 'edit' button is clicked
-            -->
-            <form action="/api/category/<%= thread._id %>?_method=PUT" class="edit-thread-form editable">
-            <!-- Thread Topic -->
-            <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
-              <select name="threadTopic" id="thread-topic" class="editable thread-topic">
-                <option value="lifestyle">Lifestyle</option>
-                <option value="tech">Tech</option>
-                <option value="culture">Culture</option>
-                <option value="world">World</option>
-                <option value="business">Business</option>
-                <option value="showbiz">Showbiz</option>
-              </select>
+        <hr>
+        <h3>Title:</h3><h3 class="thread-title"><%= thread.title %></h3>
+        <!-- Thread title -->
+        <input class="editable thread-title" value="" name="threadTitle">
 
-              <hr>
-              <h3>Title:</h3><h3 class="thread-title"><%= thread.title %></h3>
-              <!-- Thread title -->
-              <input class="editable thread-title" value="" name="threadTitle">
+        <hr>
+        <!-- Thread body -->
+        <b>Body:</b> 
+        <p class="thread-body"><%= thread.body %></p>
+        <textarea class="editable thread-body" value="" name="threadBody"></textarea>
+        <hr>
+        <!-- IF SOPHIE'S BREAKS, IT IS BECAUSE IT SHOULD BE THIS:
+        <input type="hidden" class="thread-id" name="threadId" value="<%= thread._id %>">
+        -->
+        <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
+        <input type="hidden" class="thread-modifiedAt" name="threadModifiedAt" value="<%= Date %>">
 
-              <hr>
-              <!-- Thread body -->
-              <b>Body:</b> 
-              <p class="thread-body"><%= thread.body %></p>
-              <textarea class="editable thread-body" value="" name="threadBody"></textarea>
-              <hr>
-              <!-- IF SOPHIE'S BREAKS, IT IS BECAUSE IT SHOULD BE THIS:
-              <input type="hidden" class="thread-id" name="threadId" value="<%= thread._id %>">
-              -->
-              <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
-              <input type="hidden" class="thread-modifiedAt" name="threadModifiedAt" value="<%= Date %>">
-
-              <input type="submit" value="Submit" class="editable save">
-              <input type="submit" value="Cancel" class="editable cancel">
-            </form>
+        <input type="submit" value="Submit" class="editable save">
+        <input type="submit" value="Cancel" class="editable cancel">
+      </form>
 
     </div>
-  </div>      <!-- End of the Thread body -->
+  </div>      <!-- End of .row -->
 </div>        <!-- End of div.container -->
 
       <!-- ********** COMMENTS SECTION: ************ -->
        
 <div class="comments-container container">  
-      <section id="comments">
-        <% for(i=0; i< thread.comments.length; i++){  %>
+  <section id="comments">
+    <% for(i=0; i< thread.comments.length; i++){  %>
+    <div id="<%= thread.comments[i]._id %>" class="comment-block row col-md-12">
+      <div class="comments">
+        <p><b>Comment:</b></p>
+        <p>Author: <%= thread.comments[i].user.username %></p>
+        <p   id="<%= thread.comments[i]._id %>comment" class="thread-comment"><%= thread.comments[i].body %></p>
 
+        <div class="edit-and-delete-comment">
+          <!-- Edit Comment Button -->
+          <a class="button edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i]._id %>" href="">EDIT</a>
+          <form class="delete-comment-form" action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i]._id %>?_method=DELETE" method="post">
+            <button type="submit" data-id="<%= thread.comments[i]._id %>" name="thread[topic]" class="delete deleteComment">DELETE</button>
+          </form>
+        </div>
+      </div>
 
-        <div id="<%= thread.comments[i].id%>" class="comment-block row col-md-12">
-          <div class="comments">
-            <p><b>Comment:</b></p>
-            <p>Author: <%= thread.comments[i] %></p>
-            <p  class="thread-comment"><%= thread.comments[i].body %></p>
+        <!-- ********** EDIT COMMENTS SECTION: ************ -->
 
-            <div class="edit-and-delete-comment">
+      <div class="edit-comment">
+        <!-- Edit Comment Form-->
+        <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=PUT" id="<%= thread.comments[i]._id %>edit" class="edit-comment-form editable">
+          <input id="edit-body" class="thread-comment" value="<%= thread.comments[i].body %>" name="comment[body]">
+          <input type="submit" id="edit-confirm" value="submit">
+          <input type="submit" value="cancel" class="editable cancel">
+        </form>
 
-            <a class="button edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i].id %>" href="">EDIT</a>
+      </div> <!-- End of .edit-comment -->
+    </div>   <!-- End of .comment-block.row.col-md-12 for comments -->
 
-            <form class="delete-comment-form" action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
-            <button type="submit" data-id="<%= thread.comments[i].id %>" name="thread[topic]" class="deleteComment">DELETE</button>
-            </form>
-            </div>
-
-          </div>
-
-            <!-- ********** EDIT COMMENTS SECTION: ************ -->
-          <div class="edit-comment">
-
-            <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=PUT" id="<%= thread.comments[i].id%>edit" class="edit-comment-form editable">
-
-            <input id="edit-body" class="thread-comment" value="<%= thread.comments[i].body %>" name="comment[body]">
-            <input type="submit" id="edit-confirm" value="submit">
-            <input type="submit" value="cancel" class="editable cancel">
-
-
-            </form>
-
-          </div>
-        </div>   <!-- End of row.col-md-12 for comments -->
-
-        <% } %>
-    </section>
+    <% } %>
+  </section>
 </div> <!-- End of div.container -->
             
+<!-- ********** VIEW COMMENTS SECTION: ************ -->
 
-
-      <!-- ********** COMMENTS SECTION: ************ -->
-       
-
-<hr>
-
-<section class="container">
+<section class="container" id="add-new-comment-container">
   <div class="row col-md-12"> 
     <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
       <label>Comment</label>
-      <input type='text' id="comment-body" name="comments[body]" value='' placeholder="Enter a comment...">
       <br>
-
+      <!-- This comment box should really be a <textarea></textarea> -->
+      <input type='text' id="comment-body" name="comments[body]" value='' placeholder="Enter a comment..." class="one-hundred">
+      <br>
       <input type='hidden' id="ctid" value="<%= thread._id %>">
       <br>
-      <input type="submit" value="Submit" id="submit-new-comment">
+      <input type="submit" value="Submit" id="submit-new-comment" class="one-hundred">
     </form>
   </div>
 </section>
-
-<hr>
-
-
-<!-- 
-  Note to CB:
-√  Click 'Edit' button, store current values in variable(?)
-√  Input text boxes/text areas appear with current values
-   Upon clicking submit, replace the html with the new values
-   Else the inner html remains the same
