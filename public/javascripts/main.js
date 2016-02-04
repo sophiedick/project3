@@ -8,25 +8,44 @@ $(document).ready(function(){
   $('body').on('click', '#submit-new-comment', newComment);
   $('body').on('click', '.deleteComment', removeComment);
   $('.row.col-md-10.centered.social-share-links').hide();
+
+  $('.cancel-new-thread-button').hide();
+
   //$('body').on('click', '.edit-comment-button', editComment);
   //$('div.edit-comment').hide();
   //$('body').on('click', '.edit-comment-button', editComment);
 
   //$("a.edit-comment-button").click(function(event){
 
-
   /* **************************************** */
   /* ********** GET NEW THREAD FORM ********* */
   /* **************************************** */
 
-  $('#get-new-thread-button').click(function(event){
+  $('a#fetch-new-thread-form-button').click(function(event){
     event.preventDefault();
-    console.log('#get-new-thread-button clicked');
-    $('#get-new-thread-button').hide();
-    $('.row.get-new-thread-button').hide();
-    $( "#form-for-new-thread-section" ).fadeIn( "slow");
 
-  })
+    $('.get-new-thread-button').slideUp();
+    $('.cancel-new-thread-button').fadeIn();
+    $( "#form-for-new-thread-section").fadeIn( "slow");
+
+      $(".cancel").click(function(event){
+        event.preventDefault();
+        $('.cancel-new-thread-button').fadeOut().slideUp();
+
+      //  $('.cancel-new-thread-button').fadeOut().slideUp();    
+        setTimeout(cancelNewThread, 500);
+
+        // Hide the editable elements again
+        $('.editable').hide();
+
+        function cancelNewThread() {
+          $('.get-new-thread-button').fadeIn().slideDown(); 
+        }
+
+      });   // End of $('.cancel').click
+
+
+  });
 
 
   /* **************************************** */
@@ -57,12 +76,26 @@ $(document).ready(function(){
        li.html("<a href='/" + thread.topic + "/" + thread._id +"'><h3>" + thread.title + "</h3></a><i class='fa fa-comments'></i><i>" + moment(thread.updatedAt).fromNow() + "</i> by <b>User</b><hr>");
        $('ul#threads').prepend(li);
 
+       $( "#form-for-new-thread-section" ).slideUp( "slow");
+       $('.row.get-new-thread-button').slideDown();
+       $('#get-new-thread-button').slideDown();
+
       }).fail(function(message){
         var message = message.responseText
         console.log(message);
         $("#error-message").html(message)
 
-    }); 
+    });
+
+
+    //  $('#get-new-thread-button').click(function(event){
+    //    event.preventDefault();
+    //    console.log('#get-new-thread-button clicked');
+    //    $('#get-new-thread-button').hide();
+    //    $('.row.get-new-thread-button').hide();
+    //    $( "#form-for-new-thread-section" ).slideUp( "slow");
+    //  });
+
   });   
 
 
@@ -206,7 +239,7 @@ $('.edit-thread').click(function(event){
       $('.original-thread-meta').show();
       $('p.thread-topic').show();
       $('h3.thread-title').show();
-      $('p.thread-body').show();
+      $('.thread-body p').show();
 
       // Hide the editable elements again
       $('.editable').hide();

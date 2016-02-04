@@ -112,8 +112,8 @@ i.fa.fa-comments {
 
 /* ***** Get New Thread Button ***** */
 
-.row.get-new-thread-button {
-  background: #B4DED5;
+.row.get-and-cancel-new-thread {
+ background: #B4DED5;
   padding: 1em 0
 }
 
@@ -316,7 +316,17 @@ input.thread-title {
 }
 
 
+.background {
+  height: 100%;
+  width: 100%;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cdeb8e+0,e57eb3+100 */
+  background: rgb(205,235,142); /* Old browsers */
+  background: -moz-linear-gradient(left,  rgba(205,235,142,1) 0%, rgba(229,126,179,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  rgba(205,235,142,1) 0%,rgba(229,126,179,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  rgba(205,235,142,1) 0%,rgba(229,126,179,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdeb8e', endColorstr='#e57eb3',GradientType=1 ); /* IE6-9 */
 
+}
 
 
 
