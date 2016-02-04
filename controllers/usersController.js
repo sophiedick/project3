@@ -81,7 +81,7 @@ function userDelete(req, res) {
 
   User.remove({_id: id}, function(error) {
     if(error) console.log(error)
-    res.redirect('/users');
+    res.redirect('/');
   });
 }
 

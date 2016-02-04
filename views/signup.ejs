@@ -1,20 +1,29 @@
-<h1> here is a form for signing up </h1>
+
 <!-- form action to /users as we are adding to user directory - this page will need to have a redirect-->
 <!-- action POST as we are inputting to database-->
-<form id="signup-form" action="/register" method='POST'>
-  <label>Username:</label><br>
-  <input type="text" name="username" >
-  <br>
-  <label>Email:</label><br>
-  <input type="email" name="email" >
-  <br>
-  <label>Password:</label><br>
-  <input type="password" name="password" >
-  <br>
-  <label>Avatar:</label><br>
-  <input type="text" name="avatar" >
-  <br>
+<section id="login" class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <h1 class="centered">4-RUM</h1>
+        <h3>Hello new user, please sign up!</h3>
+        <form id="signup-form" action="/register" method='POST'>
+          <label>Username:</label><br>
+          <input type="text" class="form-control" name="username" >
+          <br>
+          <label>Email:</label><br>
+          <input type="email" class="form-control" name="email" >
+          <br>
+          <label>Password:</label><br>
+          <input type="password" class="form-control" name="password" >
+          <br>
+          <label>Avatar:</label><br>
+          <input type="text" class="form-control" name="avatar" >
+          <br>
+      <!--will need to prevent default if we wish to use ajax -->
+      <input type="submit" class="btn btn-default" value="Submit">
+    </form> 
+  </div>
+  </div>
+</section>
 
-  <!--will need to prevent default if we wish to use ajax -->
-  <input type="submit" value="Submit">
-</form> 

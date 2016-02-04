@@ -1,11 +1,16 @@
 <!-- .populate("comments") -->
 
-<%= user.username %>
-<%= user.email %>
-<%= user.password %>
+<div class="container">
+  <div class="row" style="border: 1px solid orange">
+  <div class="col-md-10 centered">
+    <p><%= user.username %></p>
+    <p><%= user.email %></p>
+    <a href="/users/<%=user._id%>/edit">Edit User</a>
+    <form method="POST" action="/users/<%= user._id %>?_method=DELETE">
+      <input type="submit" value="Delete Your Profile">
+    </form>
+  </div>
+  </div>
+</div>
 
 
-<a href="/users/<%=user._id%>/edit">Edit User</a>
-<form method="POST" action="/users/<%= user._id %>?_method=DELETE">
-  <input type="submit" value="Delete Your Profile">
-</form>
