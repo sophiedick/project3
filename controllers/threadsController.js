@@ -17,7 +17,7 @@ function topicIndex(req, res) {
   var stuff = Thread.find({topic: topic}, function(err, data){
    var updatedAt = req.body.updatedAt;
    console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
-   res.render('category.ejs', {threads: data, category: topic, moment: moment });
+   res.render('category.ejs', {threads: data, category: topic, moment: moment, currentUser: global.currentUser });
   });
    stuff.sort({'updatedAt': -1})
 };
@@ -71,7 +71,7 @@ function showThread(req, res){
         if (err) return res.json(500);
         Thread.populate(docs, options, function (err, threads) {
           console.log(threads);
-          res.render('single',{thread: threads});
+          res.render('single', {thread: threads, currentUser: global.currentUser});
           //res.send(threads);
         });
       });

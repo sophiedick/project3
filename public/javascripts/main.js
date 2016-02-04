@@ -1,14 +1,17 @@
 $(document).ready(function(){
 //EVENT DELEGATION:
   //getThreads();
+
   $('.editable').hide();
   $('.thread-id').hide();
   $('body').on('click', '#submit-new-comment', newComment);
   $('body').on('click', '.deleteComment', removeComment);
   $('body').on('click', '.edit-comment-button', editComment);
-  //$('div.edit-comment').hide();
-  //$('body').on('click', '.edit-comment-button', editComment);
-  //$("a.edit-comment-button").click(function(event){
+
+  
+
+
+
   /* **************************************** */
   /* ********** GET NEW THREAD FORM ********* */
   /* **************************************** */
@@ -19,22 +22,23 @@ $(document).ready(function(){
     $( "#form-for-new-thread-section" ).fadeIn( "slow");
   //  $('#form-for-new-thread-section').show();
   })
+
+
   /* **************************************** */
   /* *********** CREATE NEW THREADS ********* */
   /* **************************************** */
   $('#submit-new-thread').click(function(event){
     event.preventDefault();
-    console.log("CLick!")
     // .serialize collects all the data from the form:
     var formData = $('#new-thread').serialize();
-    console.log(formData);
+
     $.ajax({
       type: 'POST',
       url:  'http://localhost:3000/api/category',
       data:  formData,
       beforeSend: setRequestHeader
     }).done(function(thread){
-      console.log(thread);
+
     //  var li = $('<li></li>');
     //  li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</h3><///a><br>Body: " + thread.body + "<br><br>");
     //  $('ul#threads').prepend(li);
@@ -181,10 +185,8 @@ $(document).ready(function(){
     // .serialize collects all the data from the form:
     var username = jwt_decode(getToken())._doc.username;
     var userID = jwt_decode(getToken())._doc._id;
-    //debugger
+    
 
-    //username.capitalize!
-    // console.log(username);
     var commentBody = $('#comment-body').val();
 
     // console.log(formData);
@@ -206,9 +208,9 @@ $(document).ready(function(){
     }).done(function(comment){
       console.log(comment.body);
       console.log(comment); 
-      var p = $('<div id="'+ comment._id +'" class="comment-block row col-md-12"></div>');
-      p.html("<p><b>Comment:</b></p><p>Author: " + comment.user.username + "</p><p id='" + comment._id +"comment' class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a href='' class='button'>EDIT</a>&nbsp;<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='deleteComment'>DELETE</button></form></div>"
-        );
+      var p = $('<div id="'+ comment._id +'" class="comment-block row"></div>');
+
+      p.html('<div class="comments"><div class="col-md-2"><img class="comment-avatar" src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder-300x300.png"></div><div class="col-md-10"><div class="comment-meta"><p class="comment-author">' + comment.user.username + '</p><form class="delete-comment-form edit-comment-button" action="/api/category/' + threadId + '/comment/' + comment._id + '?method=DELETE" method="post"><button type="submit" data-id="' + comment._id + '" name="thread[topic]" class="delete deleteComment"><i class="fa fa-trash"></i></button></form><a class="button edit-comment-button data-id="' + threadId + '" data-comment="' + comment._id + '" href=""><i class="fa fa-pencil"></i></a></div><p class="thread-comment">' + comment.body + '</p>');
       $('section#comments').append(p);
       $('#comment-body').val("")
    }).fail(function(error){
@@ -219,7 +221,6 @@ $(document).ready(function(){
   /* *********** EDIT A COMMENT ************* */
   /* **************************************** */
   function editComment(event) {
-    
       event.preventDefault();
       var threadId = $(this).data("id");
       var commentId = $(this).data("comment");
@@ -234,7 +235,7 @@ $(document).ready(function(){
       //$('p.thread-comment').show().val(originalComment);
       // Show the input fields
     $("body").on('click', "input#edit-confirm", function(event){
-      event.preventDefault();
+      event.preventDefault(); 
       var formData = $("#" + commentId + "edit").serialize();
       console.log("This is formData:" +formData);
       //debugger;
@@ -255,11 +256,11 @@ $(document).ready(function(){
   
         // $("#" + commentId).children('p.thread-comment').html(data.body)
 
-
-
-      });
+      });    
     });
-  };
+  
+};
+
 
 
   /* **************************************** */
@@ -267,20 +268,23 @@ $(document).ready(function(){
   /* **************************************** */
 function removeComment(event) {
   event.preventDefault();
-  
-  var threadId = $("#ctid").val();
-  var commentId = $(this).data("id");
-  var itemToRemove = $('#' + commentId);
-  console.log(itemToRemove);
-  console.log(commentId);
 
-  console.log('http://localhost:3000/api/category/' + threadId + "/comment/" + commentId);
-  $.ajax({
-      url:'http://localhost:3000/api/category/' + threadId + "/comment/" + commentId,
-      type:'delete'
+  if($(this).parent().parent()[0].id == jwt_decode(getToken())._doc._id){
+    console.log('YOU ARE THE AUTHOR, THEREFORE YOU CAN DELETE YOUR POST. YOU\'RE WELCOME')
+
+    var threadId = $("#ctid").val();
+    var commentId = $(this).data("id");
+    var itemToRemove = $('#' + commentId);
+  
+    $.ajax({
+        url:'http://localhost:3000/api/category/' + threadId + "/comment/" + commentId,
+        type:'delete'
     }).done(function() {
-      itemToRemove.remove();
+        itemToRemove.remove();
     });
+    } else {
+      console.log("NOOOOO")
+    }
     
   }
   /* *************************************** */

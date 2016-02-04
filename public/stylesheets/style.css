@@ -1,93 +1,83 @@
 /* Style for Forum */
-
 body {
   background: #efefef;
   padding-bottom: 3em;
+  word-wrap: break-word;
 }
-
+.centered {
+  display: block;
+  margin: 0 auto;
+  float: none;
+}
 .one-hundred {
   width: 100%;
 }
-
 .index-topics {
   background-color: #1A8;
   text-align: center;
   text-transform: uppercase;
   margin:10px;
   height: 160px;
-
 }
-
 .index-topics:hover{
   background-color: #bada55;
 }
-
 .index-topics h2 {
   position: relative;
   top:50%;
   transform: translateY(-50%);
   margin-top: 10px;
   color: white;
-
 }
-
 @media (min-width: 992px) {
   .col-md-4.index-topics {
     width: 30.333333%;
 }
-
 .comment-block {
-  border: 1px solid #fa3aab;
-  border-bottom: none;
+  border: none;
   margin-bottom: 0;
-  padding: 1em;
-  background-color: pink;
+  padding: 1.2em 2em 2em 2em;
+  background-color: #c0c0c0;
 }
-
-.comment-block:last-child {
-  border: 1px solid #fa3aab;
+p.comment-edit-icons {
+  float: right;
 }
-
-a.edit-comment-button, form.delete-comment-form {
+p.comment-author {
   display: inline-block;
-
 }
-
+p.comment-author:last-child {
+  float: right;
+}
+.edit-comment-button, form.delete-comment-form {
+  display: inline-block;
+}
 input[type="submit"], button.btn {
   background: #1a8;
   border: none;
   color: white;
 }
-
 input[type="submit"]:hover, button.btn:hover {
   background: #077B62;
 }
-
 a.button {
   background-color: #c0c0c0;
    padding: 1px 4px;
   border: 1px solid #bbb;
 }
-
 .edit-and-delete-comment > * {  
   display: inline-block;
 }
-
 i.fa.fa-comments {
   margin-right: 1em;
 }
-
 /* */
 .navbar {
   margin-bottom: 0;
 }
-
 /* ***** Topic page header ***** */
-
 .row.thread-topic-header {
   background: #1a8;
 }
-
 .row.thread-topic-header h3 {
   text-align: center;
   text-transform: uppercase;
@@ -95,9 +85,17 @@ i.fa.fa-comments {
   margin: 0;
   padding: 1em;
 }
-
+/* ***** Get New Thread Button ***** */
+.row.get-new-thread-button {
+  background: #B4DED5;
+  padding: 1em 0
+}
 /* ***** Create New Thread ***** */
-
+a#get-new-thread-button {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
 #form-for-new-thread-section {
   background: #B4DED5;
   padding: 2em 0;
@@ -105,40 +103,130 @@ i.fa.fa-comments {
 #form-for-new-thread-section .row {
   margin: 0 auto;
 }
-
 #form-for-new-thread-section h3 {
   color: #1a8;
   text-align: center;
 }
-
 #form-for-new-thread-section input[type="text"]{
   padding: 1em;
 }
-
 #form-for-new-thread-section textarea {
   padding: 1em;
   height: 200px;
   margin-bottom: 1em
 }
-
 #form-for-new-thread-section input[type="submit"] {
   padding: 1em
 }
-
 p#error-message {
   margin: 0;
 }
-
-/* ***** Adding A New Comment ***** */
-
-
-section#add-new-comment-container .row {
-  background: bisque;
-  border: 1px solid #EFCFAA;
-  padding: 1em;
+/* ***** Styling Thread ***** */
+.thread-header {
+  background: #555;
+  color: white;
+  padding: 1em 2em;
 }
-
-section#add-new-comment-container .row input[type="text"]{
+.thread-header-date {
+  background: #333;
+  color: white;
+  padding: 1em 2em;
+}
+h3.thread-title {
+  margin: 10px 0;
+}
+h4.thread-author {
+  font-size: 12pt;
+  text-transform: uppercase;
+  color: #dedede;
+}
+p.thread-created-date {
+  color: #ddd;
+  text-transform: uppercase;
+  font-size: 8pt;
+  margin: 0;
+  display: inline-block;
+}
+p.thread-created-date:last-child {
+  float: right;
+}
+p.thread-created-date i.fa {
+  color: #efefef;
+  font-size: 2em;
+  padding: 0;
+  float: right;
+  margin: 0 10px;
+}
+p.thread-created-date i.fa.fa-share-square-o {
+  position: relative;
+  top: 2px;
+}
+p.thread-created-date i.fa.fa-share-square-o:hover {
+  color: #468FD2;
+}
+p.thread-created-date i.fa.fa-trash {
+  margin-right: 0;
+}
+p.thread-created-date i.fa.fa-trash:hover {
+  color: #D24646;
+}
+p.thread-created-date i.fa.fa-pencil:hover {
+  color: #46D2B3;
+}
+.thread-body {
+  background: #dedede;
+  padding: 1.2em 2em 2em 2em;
+}
+.thread-body p {
+  font-family: 'Georgia', sans-serif;
+  margin-bottom: 0;
+}
+/* ***** Adding A New Comment ***** */
+#add-new-comment-container .row input[type="text"]{
   height: 5em;
   padding: 0 1em;
 }
+#add-new-comment-container .row .col-md-10.centered {
+  background: #B4DED5;
+  padding: 1.2em 2em 2em 2em;
+}
+#add-new-comment-container input[type="submit"] {
+  padding: 1.2em 
+}
+/* ***** Comments ***** */
+.comments .col-md-2 {
+  padding: 0;
+}
+.comments .col-md-2 img {
+  width: 100%;
+  padding-right: 2em;
+  width: 100%;
+}
+@media (max-width: 992px) {
+  img.comment-avatar {
+    display: none !important; 
+  }
+}
+.comments-container {
+  padding: 0;
+}
+.comment-avatar {
+  width: 100%;
+}
+.edit-comment-button {
+  float: right !important
+}
+.comment-block.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+p.thread-comment {
+  font-family: 'Georgia', sans-serif;
+}
+/* ***** SOCIAL SHARE LINKS ***** */
+.social-share-links {
+  background: #B4DED5;
+  
+  padding: 1em 2em;
+}
+
