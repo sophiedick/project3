@@ -7,6 +7,8 @@ var methodOverride = require('method-override');
 /* NEW COMMENT */ 
 function newComment(req, res) {  
   var threadId = req.params.id;
+  var user = req.body;
+  console.log(user);
   console.log(threadId);
   Thread.findById(threadId, function(error, thread){
 
@@ -17,9 +19,9 @@ function newComment(req, res) {
     var comment = new Comment ({
 
       body: req.body.comments.body,
-      thread_id: threadId
-      //user: 
-    }).populate("user");
+      thread_id: threadId,
+      user: req.body 
+    });
     comment.save(function(error){ if(error) console.log(error) });
     thread.save()
     thread.comments.push(comment);
