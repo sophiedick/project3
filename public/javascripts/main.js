@@ -7,6 +7,7 @@ $(document).ready(function(){
   $('.thread-id').hide();
   $('body').on('click', '#submit-new-comment', newComment);
   $('body').on('click', '.deleteComment', removeComment);
+  $('.row.col-md-10.centered.social-share-links').hide();
   //$('body').on('click', '.edit-comment-button', editComment);
   //$('div.edit-comment').hide();
   //$('body').on('click', '.edit-comment-button', editComment);
@@ -22,8 +23,8 @@ $(document).ready(function(){
     event.preventDefault();
     console.log('#get-new-thread-button clicked');
     $('#get-new-thread-button').hide();
+    $('.row.get-new-thread-button').hide();
     $( "#form-for-new-thread-section" ).fadeIn( "slow");
-  //  $('#form-for-new-thread-section').show();
 
   })
 
@@ -152,20 +153,21 @@ $('.edit-thread').click(function(event){
   event.preventDefault();
   // Storing the original inputs
   var id = $(this).data("id");
+  $('.original-thread-meta').hide();
 
   // Store the original inputs in variables:
   var originalTopic = $('p.thread-topic').html();
   var originalTitle = $('h3.thread-title').html();
-  var originalBody  = $('p.thread-body').html();
+  var originalBody  = $('.thread-body p').html();
 
   // Hiding the original inputs from the view:
   $('.original-thread').hide();
   $('p.thread-topic').hide();
   $('h3.thread-title').hide();
-  $('p.thread-body').hide();
+  $('.thread-body p').hide();
 
   // Show the input fields
-  $('form.edit-thread-form.editable').show();
+  $('.editable').show();
   $('.editable.thread-topic').show().val(originalTopic);
   $('.editable.thread-title').show().val(originalTitle);
   $('.editable.thread-body').show().val(originalBody);
@@ -173,8 +175,11 @@ $('.edit-thread').click(function(event){
 
     $(".save").click(function(event){
       event.preventDefault();
-      var formData = $('.edit-thread-form').serialize();
 
+      var formData = $('form.edit-thread-form').serialize();
+
+      console.log("formData:")
+      console.log(formData)
       // Don't return this because I want to do things afterwards
       return ajaxRequest("put", 'http://localhost:3000/api/category/' + id, formData, showUpdatedThread)
 
@@ -182,13 +187,13 @@ $('.edit-thread').click(function(event){
         console.log(data)
         $('p.thread-topic').html(data.topic);
         $('h3.thread-title').html(data.title);
-        $('p.thread-body').html(data.body); 
+        $('.thread-body p').html(data.body); 
 
         $('.editable').hide();
-        $('div.original-thread').show();
+        $('div.original-thread-meta').show();
         $('p.thread-topic').show().html();
         $('h3.thread-title').show();
-        $('p.thread-body').show();
+        $('.thread-body p').show();
       }
 
       console.log(formData);
@@ -198,8 +203,7 @@ $('.edit-thread').click(function(event){
     // This works - CB.
     $(".cancel").click(function(event){
       event.preventDefault();
-
-      $('.original-thread').show();
+      $('.original-thread-meta').show();
       $('p.thread-topic').show();
       $('h3.thread-title').show();
       $('p.thread-body').show();
@@ -211,19 +215,23 @@ $('.edit-thread').click(function(event){
 }); // End of edit-thread function
  
 
+/* **************************************** */
+/* ********** SHARE CURRENT THREAD ******** */
+/* **************************************** */
+
+
+
+$('.thread-header-date i.fa.fa-share-square-o').click(function(event){
+  event.preventDefault();
+  console.log('Clicked the <i>!');
+  $('.row.col-md-10.centered.social-share-links').slideToggle()
+})
 
 
 });// DOCUMENT.READY
 
 
-/* **************************************** */
-/* *********** EDIT A COMMENT ************* */
-/* **************************************** */
-
-//Note: '$(this)' is the <a href=''>EDIT</a> link :(
-
-
-//************************************ COMMENTS ****************************************************
+//************************************ COMMENTS ************************************//
 
   /* **************************************** */
   /* *********** CREATE NEW COMMENT ********* */
@@ -251,9 +259,15 @@ $('.edit-thread').click(function(event){
       console.log(comment.body);
       console.log(comment); 
 
-      var p = $('<div id="'+ comment.id +'" class="comment-block row col-md-12"></div>');
+    // ORIGINAL WORKING VERSION (CB) BEFORE STYLE.CSS UPDATE:
+    // var p = $('<div id="'+ comment._id +'" class="comment-block row col-md-10 centered"></div>');
 
-      p.html("<p><b>Comment:</b></p><p>Author: " + username + "</p><p class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a href='' class='button'>EDIT</a>&nbsp;"+ "<form action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete'>DELETE</button></form></div>");
+    //  p.html("<p><b>Comment:</b></p><p>Author: " + username + "</p><p class='thread-comment'>" + comment.body + "</p><div class='edit-and-delete-comment'><a class='button edit-comment-button' data-id='" + threadId +" data-comment='" + comment._id + " href=''>EDIT</a>&nbsp;"+ "<form class='delete-comment-form' action='/api/category/" + threadId + "/comment/" + comment._id +"?_method=DELETE' method='post'><button type='submit' data-id='" + comment._id + "' class='delete deleteComment'>DELETE</button></form></div>");
+
+    
+    var p = $('<div id="'+ comment._id +'" class="comment-block row"></div>');
+    
+    p.html('<div class="comments"><div class="col-md-2"><img class="comment-avatar" src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder-300x300.png"></div><div class="col-md-10"><div class="comment-meta"><p class="comment-author">{ Comment Author: }</p><form class="delete-comment-form edit-comment-button" action="/api/category/' + threadId + '/comment/' + comment._id + '?method=DELETE" method="post"><button type="submit" data-id="' + comment._id + '" name="thread[topic]" class="delete deleteComment"><i class="fa fa-trash"></i></button></form><a class="button edit-comment-button data-id="' + threadId + '" data-comment="' + comment._id + '" href=""><i class="fa fa-pencil"></i></a></div><p class="thread-comment">' + comment.body + '</p>')
 
       $('section#comments').append(p);
       $('#comment-body').val("")

@@ -1,14 +1,201 @@
+<!-- --><!-- Caroline Test Layout --><!-- -->
+
+<div class="container original-thread-meta">
+  <div class="row">
+    <div class="col-md-10 centered thread-header">
+      <h3 class="thread-title"><%= thread.title %></h3>
+      <h4 class="thread-author">By { User }</h4>
+    </div>
+    <div class="col-md-10 centered thread-header-date">
+      <p class="thread-created-date"><%= moment(thread.createdAt).fromNow() %></p>
+      <p class="thread-created-date"><form action="/api/category/<%= thread._id %>?_method=DELETE" method="post"><button type="submit" data-id="56b3916e9c692669dd7171bc" class="delete"><i class="fa fa-trash"></i></button></form>&nbsp;<a href="" class="edit-thread" data-id="<%= thread._id %>"><i class="fa fa-pencil"></i>&nbsp;</a><i class="fa fa-share-square-o"></i></p>
+    </div>
+
+    <!-- Social Share Links -->
+
+    <div class="row col-md-10 centered social-share-links">
+      <!-- This Facebook link works, but once it's online the link will need to be updated: -->
+      <div class="fb-share-button" data-href="http://texascamping.com" data-layout="icon_link"></div>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20this%20amusing%20thread%20on%20The%20Forum%20http://localhost:3000/<%= thread.topic %>/<%= thread._id %>" target="_blank" data-size="default"><i class="fa fa-twitter"></i> Share on Twitter</a>
+    </div>
+    <div class="col-md-10 centered thread-body">
+      <p><%= thread.body %></p>
+    </div>
+
+  </div>
+</div>
+
+
+    <!-- EDIT THREAD -->
+
+
+<div class="container editable">
+  <div class="row">
+    <form action="/api/category/<%= thread._id %>?_method=PUT" class="edit-thread-form editable">    
+      <div class="col-md-10 centered thread-header">
+        <h3 class="thread-title"><%= thread.title %></h3>
+        <input class="editable thread-title one-hundred" value="" name="threadTitle">
+        <h4 class="thread-author">By { User }</h4>
+      </div>
+      <div class="col-md-10 centered thread-header-date">
+        <p class="thread-created-date"><%= moment(thread.createdAt).fromNow() %></p>
+        <p class="thread-created-date">&nbsp;<a href="" class="edit-thread" data-id="<%= thread._id %>"><i class="fa fa-pencil"></i>&nbsp;</a><i class="fa fa-share-square-o"></i></p>
+      </div>
+
+      <!-- Social Share Links -->
+
+      <div class="row col-md-10 centered social-share-links">
+        <!-- This Facebook link works, but once it's online the link will need to be updated: -->
+        <div class="fb-share-button" data-href="http://texascamping.com" data-layout="icon_link"></div>
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20this%20amusing%20thread%20on%20The%20Forum%20http://localhost:3000/<%= thread.topic %>/<%= thread._id %>" target="_blank" data-size="default"><i class="fa fa-twitter"></i> Share on Twitter</a>
+      </div>
+      <div class="col-md-10 centered thread-body">
+        <p><%= thread.body %></p>
+        <textarea class="editable thread-body one-hundred" value="" name="threadBody"><%= thread.body %></textarea>
+     
+      <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
+      <input type="hidden" class="thread-modifiedAt" name="threadModifiedAt" value="<%= Date %>">
+
+      <input type="submit" value="Submit" class="editable save">
+      <input type="submit" value="Cancel" class="editable cancel">
+      </div>
+    </form>
+  </div>
+</div>
+
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+
+    <!-- END EDIT THREAD-->
 
 <div class="container">
-  <div class="row col-md-12">
-    <!-- This Facebook link works, but once it's online the link will need to be updated: -->
-    <div class="fb-share-button" data-href="http://texascamping.com" data-layout="icon_link"></div>
-    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20this%20amusing%20thread%20on%20The%20Forum%20http://localhost:3000/<%= thread.topic %>/<%= thread._id %>" target="_blank" data-size="default"><i class="fa fa-twitter"></i> Share on Twitter</a>
+  <div class="row">
+    <div class="col-md-10 centered comments-container" style="padding: 0">
+      <section id="comments">
+        <% for(i=0; i < thread.comments.length; i++){ %>
+
+        <!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- -->
+
+          <div id="<%= thread.comments[i].id %>" class="comment-block row">
+            <div class="comments">
+              <div class="col-md-2">
+                <img class="comment-avatar" src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder-300x300.png">
+              </div>
+              <div class="col-md-10">
+                <!-- Begin comment-meta -->
+                <div class="comment-meta">
+                  <p class="comment-author">
+                    { Comment Author: } <!-- <%= thread.comments[i]%>-->
+                  </p>             
+                  <form class="delete-comment-form edit-comment-button" action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=DELETE" method="post">
+                    <button type="submit" data-id="<%= thread.comments[i].id %>" name="thread[topic]" class="delete deleteComment"><i class="fa fa-trash"></i></button>
+                  </form>              
+                 
+                  <a class="button edit-comment-button" data-id="<%= thread._id %>" data-comment="<%= thread.comments[i]._id %>" href="">  <i class="fa fa-pencil"></i>
+                  </a>
+                </div> 
+                <!-- End of comment-meta -->
+                <!-- Begin comment body -->
+                <p id="<%= thread.comments[i]._id %>comment" class="thread-comment"><%= thread.comments[i].body %></p>
+              </div> <!-- End of .col-md-10 -->
+          </div>
+
+
+          <div class="edit-comment">
+            <!-- Edit Comment Form-->
+            <form action="/api/category/<%= thread._id %>/comment/<%= thread.comments[i].id %>?_method=PUT" id="<%= thread.comments[i].id %>edit" class="edit-comment-form editable">
+              <input id="edit-body" class="thread-comment" value="<%= thread.comments[i].body %>" name="comment[body]">
+              <input type="submit" id="edit-confirm" value="submit">
+              <input type="submit" value="cancel" class="editable cancel">
+            </form>
+
+          </div> <!-- End of .edit-comment -->  
+        </div> <!-- End of comments -->
+
+        <!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- -->
+
+        <% } %>
+      </section>
+    </div>
   </div>
+</div>
+
+
+
+
+
+
+<div class="container" id="add-new-comment-container">
+  <div class="row">
+    <div class="col-md-10 centered"> 
+      <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
+        <label>Comment</label>
+        <br>
+        <!-- This comment box should really be a <textarea></textarea> -->
+        <input type='text' id="comment-body" name="comments[body]" value='' placeholder="Enter a comment..." class="one-hundred">
+        <br>
+        <input type='hidden' id="ctid" value="<%= thread._id %>">
+        <br>
+        <input type="submit" value="Submit" id="submit-new-comment" class="one-hundred">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<hr>
+<hr>
+
+
+
+            <!-- ********** EDIT COMMENTS SECTION: ************ -->
+
+
+        
+
+
+
+<hr>
+<p style="text-align: center">End of Caroline's Test</p>
+<hr>
+
+
+
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+<!-- --><!-- End Caroline Test Layout --><!-- -->
+
+
+
+<hr>
+
+<div class="container">
+  <div class="row col-md-10 centered">
+    <!-- This Facebook link works, but once it's online the link will need to be updated: -->
+      <div class="fb-share-button" data-href="http://texascamping.com" data-layout="icon_link"></div>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20this%20amusing%20thread%20on%20The%20Forum%20http://localhost:3000/<%= thread.topic %>/<%= thread._id %>" target="_blank" data-size="default"><i class="fa fa-twitter"></i> Share on Twitter</a>
+  </div>
+</div>
 
   <!-- THREAD DETAILS (Comments below)-->
+<div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-10 centered">
       <a href="" class="edit-thread" data-id="<%= thread._id %>">Edit Thread</a>
       <hr>
       <form action="/api/category/<%= thread._id %>?_method=DELETE" method="post">
@@ -16,7 +203,7 @@
       </form>
       
       <!-- The div.original-thread is hidden when the 'edit' button is clicked and replaced with the 'edit-thread-form' below -->
-      <div class="original-thread">
+      <div class="original-thread" style="background: orange">
         <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
         <hr>
         <h3>Title:</h3><h3 class="thread-title"><%= thread.title %></h3>
@@ -27,49 +214,19 @@
 
       <!-- EDITABLE THREAD -->
       <!-- Any element with the class of editable is hidden until the 'edit' button is clicked -->
-      <form action="/api/category/<%= thread._id %>?_method=PUT" class="edit-thread-form editable">
-      <!-- Thread Topic -->
-        <p><b>Posted in:</b></p><p class="thread-topic"><%= thread.topic %></p>
-        <select name="threadTopic" id="thread-topic" class="editable thread-topic">
-          <option value="lifestyle">Lifestyle</option>
-          <option value="tech">Tech</option>
-          <option value="culture">Culture</option>
-          <option value="world">World</option>
-          <option value="business">Business</option>
-          <option value="showbiz">Showbiz</option>
-        </select>
-
-        <hr>
-        <h3>Title:</h3><h3 class="thread-title"><%= thread.title %></h3>
-        <!-- Thread title -->
-        <input class="editable thread-title" value="" name="threadTitle">
-
-        <hr>
-        <!-- Thread body -->
-        <b>Body:</b> 
-        <p class="thread-body"><%= thread.body %></p>
-        <textarea class="editable thread-body" value="" name="threadBody"></textarea>
-        <hr>
-        <!-- IF SOPHIE'S BREAKS, IT IS BECAUSE IT SHOULD BE THIS:
-        <input type="hidden" class="thread-id" name="threadId" value="<%= thread._id %>">
-        -->
-        <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
-        <input type="hidden" class="thread-modifiedAt" name="threadModifiedAt" value="<%= Date %>">
-
-        <input type="submit" value="Submit" class="editable save">
-        <input type="submit" value="Cancel" class="editable cancel">
-      </form>
+      
 
     </div>
   </div>      <!-- End of .row -->
 </div>        <!-- End of div.container -->
 
       <!-- ********** COMMENTS SECTION: ************ -->
-       
+<div class="row">      
 <div class="comments-container container">  
   <section id="comments">
+
     <% for(i=0; i< thread.comments.length; i++){  %>
-    <div id="<%= thread.comments[i].id %>" class="comment-block row col-md-12">
+    <div id="<%= thread.comments[i].id %>" class="comment-block col-md-10 centered">
       <div class="comments">
         <p><b>Comment:</b></p>
         <p>Author: <%= thread.comments[i] %></p>
@@ -99,12 +256,13 @@
 
     <% } %>
   </section>
+  </div>
 </div> <!-- End of div.container -->
             
 <!-- ********** VIEW COMMENTS SECTION: ************ -->
 
 <section class="container" id="add-new-comment-container">
-  <div class="row col-md-12"> 
+  <div class="row col-md-10 centered"> 
     <form id="new-comment" action="/api/category/<%= thread._id %>/newcomment" method="post">
       <label>Comment</label>
       <br>
@@ -117,3 +275,4 @@
     </form>
   </div>
 </section>
+

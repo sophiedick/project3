@@ -49,13 +49,13 @@ function showThread(req, res){
   var id = req.params.id;
   Thread.findById({_id: id}, function(err, thread){
     if(err) res.json({message: 'Could not find thread because:' + err});
-    
-
+    var updatedAt = req.body.updatedAt;
+    var createdAt = req.body.createdAt;
   }).populate("comments")
   .exec(function(err, thread){
     if(err) console.log(err);
     console.log(thread);
-    res.render('single',{ thread: thread[0]});
+    res.render('single',{ thread: thread[0], moment: moment });
   })
 };
 
