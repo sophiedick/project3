@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     $.ajax({
       type: 'POST',
-      url:  'http://localhost:3000/api/category',
+      url:  'https://the-4rum.herokuapp.com/api/category',
       data:  formData
     }).done(function(thread){
       console.log(thread);
@@ -63,7 +63,7 @@ $(document).ready(function(){
       //$("div.edit-comment").slideDown();
       $.ajax({
         type: 'put',
-        url:  'http://localhost:3000/api/category/' + threadId + '/comment/' + commentId,
+        url:  'https://the-4rum.herokuapp.com/api/category/' + threadId + '/comment/' + commentId,
         data: formData
       }).done(function(data){
         console.log(data);
@@ -119,7 +119,7 @@ $('.edit-thread').click(function(event){
       var formData = $('.edit-thread-form').serialize();
 
       // Don't return this because I want to do things afterwards
-      return ajaxRequest("put", 'http://localhost:3000/api/category/' + id, formData, showUpdatedThread)
+      return ajaxRequest("put", 'https://the-4rum.herokuapp.com/api/category/' + id, formData, showUpdatedThread)
 
       function showUpdatedThread(data){
         console.log(data)
@@ -176,7 +176,7 @@ $('.edit-thread').click(function(event){
 
     $.ajax({
       type: 'POST',
-      url:  'http://localhost:3000/api/category/' + threadId + '/newcomment',
+      url:  'https://the-4rum.herokuapp.com/api/category/' + threadId + '/newcomment',
       data:  formData
     }).done(function(comment){
       console.log(comment.body);
