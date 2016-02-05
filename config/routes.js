@@ -6,7 +6,7 @@ var usersController   = require('../controllers/usersController');
 var threadsController = require('../controllers/threadsController');
 var commentsController = require('../controllers/commentsController')
 var authenticationsController = require('../controllers/authenticationsController');
-
+//s
 
 //// make root route
 // router.route('/')
