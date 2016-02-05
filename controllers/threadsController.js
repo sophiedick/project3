@@ -15,12 +15,39 @@ function home(req, res) {
 function topicIndex(req, res) {
   var topic = req.params.category;
   var stuff = Thread.find({topic: topic}, function(err, data){
-   var updatedAt = req.body.updatedAt;
+  var updatedAt = req.body.updatedAt;
    console.log(moment(updatedAt).fromNow()); // Will always be 'a few seconds ago'
+
+
    res.render('category.ejs', {threads: data, category: topic, moment: moment, currentUser: global.currentUser });
   });
    stuff.sort({'updatedAt': -1})
 };
+
+// Thread.findOne({_id: id})
+//     .lean()
+//     .populate({ path: 'comments' })
+//     .exec(function(err, docs) {
+
+//       var options = {
+//         path: 'comments.user',
+//         model: 'User'
+//       };
+
+//       if (err) return res.json(500);
+//       Thread.populate(docs, options, function (err, threads) {
+//         console.log(threads);
+//         res.render('single', {thread: threads, currentUser: global.currentUser});
+//         //res.send(threads);
+//       });
+//     });
+
+
+
+
+
+
+
 
 /* POST NEW THREAD */
 function createThread(req, res) {

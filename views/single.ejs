@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-10 centered thread-header">
       <h3 class="thread-title"><%= thread.title %></h3>
-      <h4 class="thread-author">By <%= thread._user %></h4>
+      <h4 class="thread-author"></h4>
     </div>
     <div class="col-md-10 centered thread-header-date">
       <p class="thread-created-date"></p>
@@ -53,6 +53,7 @@
         <textarea class="editable thread-body one-hundred" value="" name="threadBody"><%= thread.body %></textarea>
      
       <input type="hidden" class="thread-id" name="threadId" value="<%= thread.id %>">
+      <input type="hidden" id="thread-topic" class="thread-topic" name="threadTopic" value="<%= thread.topic %>">
       <input type="hidden" class="thread-modifiedAt" name="threadModifiedAt" value="<%= Date %>">
 
       <input type="submit" value="Submit" class="editable save">

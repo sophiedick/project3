@@ -8,38 +8,32 @@ $(document).ready(function(){
   $('body').on('click', '.deleteComment', removeComment);
   $('body').on('click', '.edit-comment-button', editComment);
   $('.row.col-md-10.centered.social-share-links').hide();
-  
+  $('.cancel-new-thread-button').hide();
 
 
 
   /* **************************************** */
   /* ********** GET NEW THREAD FORM ********* */
   /* **************************************** */
+
+
   $('a#fetch-new-thread-form-button').click(function(event){
+    event.preventDefault();
+
+    $('a.get-new-thread-button').hide();
+    $('.cancel-new-thread-button').show();
+    $( "#form-for-new-thread-section").fadeIn( "slow");
+
+    $(".cancel").click(function(event){
       event.preventDefault();
+      $('.cancel-new-thread-button').fadeOut().hide();    
+      $('a.get-new-thread-button').fadeIn().show(); 
 
-      $('.get-new-thread-button').slideUp();
-      $('.cancel-new-thread-button').fadeIn();
-      $( "#form-for-new-thread-section").fadeIn( "slow");
+      // Hide the editable elements again
+      $('.editable').slideUp();
 
-        $(".cancel").click(function(event){
-          event.preventDefault();
-          $('.cancel-new-thread-button').fadeOut().slideUp();
-
-        //  $('.cancel-new-thread-button').fadeOut().slideUp();    
-          setTimeout(cancelNewThread, 500);
-
-          // Hide the editable elements again
-          $('.editable').hide();
-
-          function cancelNewThread() {
-            $('.get-new-thread-button').fadeIn().slideDown(); 
-          }
-
-        });   // End of $('.cancel').click
-
-
-    });
+    });   // End of $('.cancel').click
+  });
 
 
   /* **************************************** */
@@ -72,18 +66,26 @@ $(document).ready(function(){
       beforeSend: setRequestHeader
     }).done(function(thread){
 
-    //  var li = $('<li></li>');
-    //  li.html("Topic: " + thread.topic + "<br>Title: <a href='/" + thread.topic + "/" + thread._id +"'>" + thread.title + "</h3><///a><br>Body: " + thread.body + "<br><br>");
-    //  $('ul#threads').prepend(li);
-       var li = $('<div></div>');
+    var li = $('<div></div>');
        li.html("<a href='/" + thread.topic + "/" + thread._id +"'><h3>" + thread.title + "</h3></a><i class='fa fa-comments'></i><i>" + moment(thread.updatedAt).fromNow() + "</i> by <b>User</b><hr>");
        $('ul#threads').prepend(li);
+
+       $('.cancel-new-thread-button').fadeOut().hide();    
+       $('a.get-new-thread-button').fadeIn().show(); 
+       $('#form-for-new-thread-section #thread-title').val('');
+       $('#form-for-new-thread-section #thread-body').val('');
+
+       $('#form-for-new-thread-section').slideUp('slow');
+       $('.row.get-new-thread-button').slideDown();
+       $('#get-new-thread-button').slideDown();
+
       }).fail(function(message){
         var message = message.responseText
         console.log(message);
         $("#error-message").html(message)
-    }); 
-  });   
+
+    });  
+    });
   /* **************************************** */
   /* *********** EDIT A COMMENT ************* */
   /* **************************************** */
